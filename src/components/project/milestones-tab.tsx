@@ -179,13 +179,13 @@ export function MilestonesTab() {
                       {d.completed ? (
                         <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: '#22C55E' }} />
                       ) : (
-                        <Circle className="h-4 w-4 shrink-0" style={{ color: '#74777f' }} />
+                        <Circle className="h-4 w-4 shrink-0" style={{ color: 'var(--outline)' }} />
                       )}
                       <span
                         className="text-sm"
                         style={{
                           fontFamily: 'Inter, sans-serif',
-                          color: d.completed ? '#74777f' : '#1a1c1e',
+                          color: d.completed ? 'var(--outline)' : 'var(--on-surface)',
                           textDecoration: d.completed ? 'line-through' : 'none',
                         }}
                       >

@@ -42,7 +42,7 @@ export function BudgetTab() {
           label="Spent"
           value={formatCurrency(totalActual)}
           icon={<TrendingDown className="h-4 w-4" />}
-          iconColor="#7c3aed"
+          iconColor="var(--ai-accent)"
           iconBg="rgba(124,58,237,0.1)"
         />
         <SummaryCard

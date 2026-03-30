@@ -16,7 +16,7 @@ interface SectionProps {
 function ReviewSection({ title, step, goToStep, children }: SectionProps) {
   return (
     <div
-      className="rounded-xl bg-white p-5"
+      className="rounded-xl bg-[var(--surface-container-lowest)] p-5"
       style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
     >
       <div className="flex items-center justify-between mb-4">
@@ -135,7 +135,7 @@ export function StepReview({ formData, goToStep }: StepProps) {
                     <span className="font-medium">{formatCurrency(item.amount, formData.currency)}</span>
                   </div>
                 ))}
-                <div className="flex items-center justify-between text-xs font-semibold pt-1" style={{ borderTop: '1px solid #e8e8ea' }}>
+                <div className="flex items-center justify-between text-xs font-semibold pt-1" style={{ borderTop: '1px solid var(--surface-container-high)' }}>
                   <span>Total Allocated</span>
                   <span>{formatCurrency(lineItemsTotal, formData.currency)}</span>
                 </div>
@@ -183,7 +183,7 @@ export function StepReview({ formData, goToStep }: StepProps) {
                     )}
                   </div>
                   {m.deliverables.length > 0 && (
-                    <div className="mt-1 pl-3 border-l border-[#e8e8ea] space-y-0.5">
+                    <div className="mt-1 pl-3 border-l border-[var(--surface-container-high)] space-y-0.5">
                       {m.deliverables.map((d, di) => (
                         <div key={di} className="text-[var(--outline)]">{d.name}</div>
                       ))}

@@ -170,13 +170,13 @@ export function AIAssistantPanel() {
               <Bot className="h-5 w-5 text-[#7c3aed]" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-[#1a1c1e]">PMO AI Assistant</h3>
-              <p className="text-xs text-[#74777f]">Powered by Claude</p>
+              <h3 className="text-sm font-semibold text-[var(--on-surface)]">PMO AI Assistant</h3>
+              <p className="text-xs text-[var(--outline)]">Powered by Claude</p>
             </div>
           </div>
           <button
             onClick={() => setOpen(false)}
-            className="rounded-lg p-1.5 text-[#74777f] transition-colors hover:bg-[#f3f3f6] hover:text-[#1a1c1e]"
+            className="rounded-lg p-1.5 text-[var(--outline)] transition-colors hover:bg-[#f3f3f6] hover:text-[var(--on-surface)]"
           >
             <X className="h-5 w-5" />
           </button>
@@ -197,14 +197,14 @@ export function AIAssistantPanel() {
                   'max-w-[85%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed',
                   msg.role === 'user'
                     ? 'bg-gradient-to-r from-[#001736] to-[#002b5b] text-white rounded-br-sm'
-                    : 'bg-[#f3f3f6] text-[#1a1c1e] border-l-2 border-[#7c3aed] rounded-bl-sm'
+                    : 'bg-[#f3f3f6] text-[var(--on-surface)] border-l-2 border-[#7c3aed] rounded-bl-sm'
                 )}
               >
                 <div className="whitespace-pre-wrap">{msg.content}</div>
                 <div
                   className={cn(
                     'mt-1 text-[10px]',
-                    msg.role === 'user' ? 'text-white/60' : 'text-[#74777f]'
+                    msg.role === 'user' ? 'text-white/60' : 'text-[var(--outline)]'
                   )}
                 >
                   {msg.timestamp.toLocaleTimeString('en-MY', {
@@ -240,7 +240,7 @@ export function AIAssistantPanel() {
                 key={action.label}
                 onClick={() => sendMessage(action.prompt)}
                 disabled={isTyping}
-                className="shrink-0 rounded-full bg-[#f3f3f6] px-3 py-1 text-xs text-[#44474e] transition-colors hover:bg-[#7c3aed]/10 hover:text-[#7c3aed] disabled:opacity-50"
+                className="shrink-0 rounded-full bg-[#f3f3f6] px-3 py-1 text-xs text-[var(--on-surface-variant)] transition-colors hover:bg-[#7c3aed]/10 hover:text-[#7c3aed] disabled:opacity-50"
               >
                 {action.label}
               </button>
@@ -264,7 +264,7 @@ export function AIAssistantPanel() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask anything about your portfolio..."
               disabled={isTyping}
-              className="flex-1 rounded-lg bg-[#f3f3f6] border-0 px-3 py-2 text-sm text-[#1a1c1e] placeholder:text-[#74777f] focus:outline-none focus:ring-1 focus:ring-[#7c3aed]/30 disabled:opacity-50"
+              className="flex-1 rounded-lg bg-[#f3f3f6] border-0 px-3 py-2 text-sm text-[var(--on-surface)] placeholder:text-[var(--outline)] focus:outline-none focus:ring-1 focus:ring-[#7c3aed]/30 disabled:opacity-50"
             />
             <button
               type="submit"
