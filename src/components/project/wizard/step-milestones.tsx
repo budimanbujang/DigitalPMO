@@ -78,7 +78,7 @@ export function StepMilestones({ formData, setFormData }: StepProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <label className="text-sm font-medium text-[#1a1c1e]">Milestones</label>
+        <label className="text-sm font-medium text-[var(--on-surface)]">Milestones</label>
         <Button type="button" variant="outline" size="sm" onClick={addMilestone}>
           <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
@@ -88,7 +88,7 @@ export function StepMilestones({ formData, setFormData }: StepProps) {
       </div>
 
       {formData.milestones.length === 0 && (
-        <div className="text-center py-8 text-[#74777f] border-2 border-dashed border-[#e8e8ea] rounded-lg">
+        <div className="text-center py-8 text-[var(--outline)] border-2 border-dashed border-[var(--surface-container-high)] rounded-lg">
           <svg className="h-8 w-8 mx-auto mb-2 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -99,7 +99,7 @@ export function StepMilestones({ formData, setFormData }: StepProps) {
       {formData.milestones.map((milestone, mIndex) => (
         <div
           key={mIndex}
-          className="rounded-xl bg-white p-4 space-y-4"
+          className="rounded-xl bg-[var(--surface-container-lowest)] p-4 space-y-4"
           style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
         >
           {/* Milestone header */}
@@ -114,14 +114,14 @@ export function StepMilestones({ formData, setFormData }: StepProps) {
                     placeholder="Milestone name"
                     value={milestone.name}
                     onChange={e => updateMilestone(mIndex, 'name', e.target.value)}
-                    className="bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+                    className="bg-[var(--surface-container-low)] border-0 focus:ring-1 focus:ring-[var(--primary)]/30"
                   />
                 </div>
                 <Input
                   type="date"
                   value={milestone.dueDate}
                   onChange={e => updateMilestone(mIndex, 'dueDate', e.target.value)}
-                  className="bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+                  className="bg-[var(--surface-container-low)] border-0 focus:ring-1 focus:ring-[var(--primary)]/30"
                 />
               </div>
               <Textarea
@@ -129,13 +129,13 @@ export function StepMilestones({ formData, setFormData }: StepProps) {
                 value={milestone.description}
                 onChange={e => updateMilestone(mIndex, 'description', e.target.value)}
                 rows={2}
-                className="text-sm bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+                className="text-sm bg-[var(--surface-container-low)] border-0 focus:ring-1 focus:ring-[var(--primary)]/30"
               />
 
               {/* Deliverables */}
               <div className="space-y-2 pl-2 border-l-2 border-violet-200">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-[#74777f] uppercase tracking-wider">Deliverables</span>
+                  <span className="text-xs font-medium text-[var(--outline)] uppercase tracking-wider">Deliverables</span>
                   <Button
                     type="button"
                     variant="ghost"
@@ -151,30 +151,30 @@ export function StepMilestones({ formData, setFormData }: StepProps) {
                 </div>
 
                 {milestone.deliverables.length === 0 && (
-                  <p className="text-xs text-[#74777f]/60 py-1">No deliverables for this milestone.</p>
+                  <p className="text-xs text-[var(--outline)]/60 py-1">No deliverables for this milestone.</p>
                 )}
 
                 {milestone.deliverables.map((deliverable, dIndex) => (
                   <div key={dIndex} className="flex items-center gap-2">
-                    <svg className="h-3.5 w-3.5 text-[#74777f]/40 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg className="h-3.5 w-3.5 text-[var(--outline)]/40 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
                     <Input
                       placeholder="Deliverable name"
                       value={deliverable.name}
                       onChange={e => updateDeliverable(mIndex, dIndex, 'name', e.target.value)}
-                      className="h-8 text-sm bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+                      className="h-8 text-sm bg-[var(--surface-container-low)] border-0 focus:ring-1 focus:ring-[var(--primary)]/30"
                     />
                     <Input
                       type="date"
                       value={deliverable.dueDate}
                       onChange={e => updateDeliverable(mIndex, dIndex, 'dueDate', e.target.value)}
-                      className="h-8 text-sm w-40 shrink-0 bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+                      className="h-8 text-sm w-40 shrink-0 bg-[var(--surface-container-low)] border-0 focus:ring-1 focus:ring-[var(--primary)]/30"
                     />
                     <button
                       type="button"
                       onClick={() => removeDeliverable(mIndex, dIndex)}
-                      className="text-[#74777f] hover:text-red-500 transition-colors shrink-0"
+                      className="text-[var(--outline)] hover:text-red-500 transition-colors shrink-0"
                     >
                       <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -187,7 +187,7 @@ export function StepMilestones({ formData, setFormData }: StepProps) {
             <button
               type="button"
               onClick={() => removeMilestone(mIndex)}
-              className="text-[#74777f] hover:text-red-500 transition-colors mt-1"
+              className="text-[var(--outline)] hover:text-red-500 transition-colors mt-1"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -200,9 +200,9 @@ export function StepMilestones({ formData, setFormData }: StepProps) {
       {/* Visual Timeline Preview */}
       {datedMilestones.length > 0 && (
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#1a1c1e]">Milestone Timeline</label>
+          <label className="text-sm font-medium text-[var(--on-surface)]">Milestone Timeline</label>
           <div
-            className="rounded-xl bg-white p-4"
+            className="rounded-xl bg-[var(--surface-container-lowest)] p-4"
             style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
           >
             <MilestoneTimeline milestones={datedMilestones} />
@@ -231,7 +231,7 @@ function MilestoneTimeline({
   return (
     <div className="relative">
       {/* Timeline line */}
-      <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-[#e8e8ea]" />
+      <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-[var(--surface-container-high)]" />
 
       <div className="space-y-4">
         {sorted.map((m, i) => {
@@ -247,21 +247,21 @@ function MilestoneTimeline({
 
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-sm text-[#1a1c1e]">{m.name}</span>
-                  <span className="text-xs text-[#74777f]">
+                  <span className="font-medium text-sm text-[var(--on-surface)]">{m.name}</span>
+                  <span className="text-xs text-[var(--outline)]">
                     {new Date(m.dueDate).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' })}
                   </span>
                 </div>
                 {m.deliverables.length > 0 && (
                   <div className="mt-1 space-y-0.5">
                     {m.deliverables.filter(d => d.name).map((d, di) => (
-                      <div key={di} className="flex items-center gap-1.5 text-xs text-[#74777f]">
+                      <div key={di} className="flex items-center gap-1.5 text-xs text-[var(--outline)]">
                         <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                         </svg>
                         {d.name}
                         {d.dueDate && (
-                          <span className="text-[#74777f]/50">
+                          <span className="text-[var(--outline)]/50">
                             ({new Date(d.dueDate).toLocaleDateString('en-MY', { day: 'numeric', month: 'short' })})
                           </span>
                         )}

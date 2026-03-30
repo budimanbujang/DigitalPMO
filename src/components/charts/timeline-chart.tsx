@@ -19,9 +19,9 @@ interface TimelineChartProps {
 const statusColors: Record<TimelineItem['status'], { barBg: string; fillBg: string; textColor: string; legendBg: string }> = {
   'on-track': {
     barBg: 'rgba(0, 23, 54, 0.12)',
-    fillBg: '#001736',
-    textColor: '#001736',
-    legendBg: '#001736',
+    fillBg: 'var(--primary)',
+    textColor: 'var(--primary)',
+    legendBg: 'var(--primary)',
   },
   'at-risk': {
     barBg: 'rgba(217, 119, 6, 0.12)',
@@ -42,10 +42,10 @@ const statusColors: Record<TimelineItem['status'], { barBg: string; fillBg: stri
     legendBg: '#16a34a',
   },
   'not-started': {
-    barBg: '#e8e8ea',
-    fillBg: '#74777f',
-    textColor: '#74777f',
-    legendBg: '#74777f',
+    barBg: 'var(--surface-container-high)',
+    fillBg: 'var(--outline)',
+    textColor: 'var(--outline)',
+    legendBg: 'var(--outline)',
   },
 };
 
@@ -97,7 +97,7 @@ export function TimelineChart({ items }: TimelineChartProps) {
 
   if (items.length === 0) {
     return (
-      <div className="flex items-center justify-center h-32 text-sm font-body" style={{ color: '#74777f' }}>
+      <div className="flex items-center justify-center h-32 text-sm font-body" style={{ color: 'var(--outline)' }}>
         No timeline items to display
       </div>
     );
@@ -109,14 +109,14 @@ export function TimelineChart({ items }: TimelineChartProps) {
         {/* Month header */}
         <div className="flex">
           <div className="w-40 shrink-0" />
-          <div className="flex-1 relative h-6" style={{ borderBottom: '1px solid #e8e8ea' }}>
+          <div className="flex-1 relative h-6" style={{ borderBottom: '1px solid var(--surface-container-high)' }}>
             {monthMarkers.map((marker, i) => (
               <div
                 key={i}
                 className="absolute top-0 text-[10px] font-medium font-body"
-                style={{ left: `${marker.left}%`, color: '#74777f' }}
+                style={{ left: `${marker.left}%`, color: 'var(--outline)' }}
               >
-                <div className="pl-1 h-6 flex items-center" style={{ borderLeft: '1px solid #e8e8ea' }}>
+                <div className="pl-1 h-6 flex items-center" style={{ borderLeft: '1px solid var(--surface-container-high)' }}>
                   {marker.label}
                 </div>
               </div>
@@ -135,10 +135,10 @@ export function TimelineChart({ items }: TimelineChartProps) {
             const clamped = Math.max(0, Math.min(100, item.percentComplete));
 
             return (
-              <div key={item.id} className="flex items-center py-2 group" style={{ borderBottom: '1px solid #f3f3f6' }}>
+              <div key={item.id} className="flex items-center py-2 group" style={{ borderBottom: '1px solid var(--surface-container-low)' }}>
                 {/* Label */}
                 <div className="w-40 shrink-0 pr-3">
-                  <div className="text-xs font-medium truncate font-heading" style={{ color: '#1a1c1e' }}>
+                  <div className="text-xs font-medium truncate font-heading" style={{ color: 'var(--on-surface)' }}>
                     {item.name}
                   </div>
                   <div className="text-[10px] font-body" style={{ color: colors.textColor }}>
@@ -153,7 +153,7 @@ export function TimelineChart({ items }: TimelineChartProps) {
                     <div
                       key={i}
                       className="absolute top-0 bottom-0"
-                      style={{ left: `${marker.left}%`, borderLeft: '1px solid #f3f3f6' }}
+                      style={{ left: `${marker.left}%`, borderLeft: '1px solid var(--surface-container-low)' }}
                     />
                   ))}
 
@@ -169,7 +169,7 @@ export function TimelineChart({ items }: TimelineChartProps) {
                       style={{ width: `${clamped}%`, backgroundColor: colors.fillBg }}
                     />
                     {/* Percentage label */}
-                    <span className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold font-mono" style={{ color: '#1a1c1e', mixBlendMode: 'difference' }}>
+                    <span className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold font-mono" style={{ color: 'var(--on-surface)', mixBlendMode: 'difference' }}>
                       {clamped}%
                     </span>
                   </div>
@@ -180,11 +180,11 @@ export function TimelineChart({ items }: TimelineChartProps) {
         </div>
 
         {/* Legend */}
-        <div className="flex flex-wrap gap-3 mt-3 pt-3" style={{ borderTop: '1px solid #e8e8ea' }}>
+        <div className="flex flex-wrap gap-3 mt-3 pt-3" style={{ borderTop: '1px solid var(--surface-container-high)' }}>
           {(Object.keys(statusColors) as TimelineItem['status'][]).map((status) => (
             <div key={status} className="flex items-center gap-1.5">
               <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: statusColors[status].legendBg }} />
-              <span className="text-[10px] font-body" style={{ color: '#44474e' }}>
+              <span className="text-[10px] font-body" style={{ color: 'var(--on-surface-variant)' }}>
                 {statusLabels[status]}
               </span>
             </div>

@@ -20,13 +20,13 @@ function ReviewSection({ title, step, goToStep, children }: SectionProps) {
       style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
     >
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-[#1a1c1e]">{title}</h3>
+        <h3 className="font-semibold text-[var(--on-surface)]">{title}</h3>
         <Button
           type="button"
           variant="ghost"
           size="sm"
           onClick={() => goToStep?.(step)}
-          className="h-7 text-xs text-[#7c3aed] hover:text-[#7c3aed]/80"
+          className="h-7 text-xs text-[var(--ai-accent)] hover:text-[var(--ai-accent)]/80"
         >
           <svg className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -42,8 +42,8 @@ function ReviewSection({ title, step, goToStep, children }: SectionProps) {
 function DataRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex items-start py-1.5">
-      <span className="text-sm text-[#74777f] w-40 shrink-0">{label}</span>
-      <span className="text-sm text-[#1a1c1e] font-medium">{value || <span className="text-[#74777f]/50 font-normal">Not provided</span>}</span>
+      <span className="text-sm text-[var(--outline)] w-40 shrink-0">{label}</span>
+      <span className="text-sm text-[var(--on-surface)] font-medium">{value || <span className="text-[var(--outline)]/50 font-normal">Not provided</span>}</span>
     </div>
   )
 }
@@ -61,8 +61,8 @@ export function StepReview({ formData, goToStep }: StepProps) {
 
   return (
     <div className="space-y-4">
-      <div className="p-4 rounded-lg bg-[#f3f3f6] mb-2">
-        <p className="text-sm text-[#44474e]">
+      <div className="p-4 rounded-lg bg-[var(--surface-container-low)] mb-2">
+        <p className="text-sm text-[var(--on-surface-variant)]">
           Review all project details below before registering. Click <strong>Edit</strong> on any section to make changes.
         </p>
       </div>
@@ -78,7 +78,7 @@ export function StepReview({ formData, goToStep }: StepProps) {
             formData.tags.length > 0 ? (
               <div className="flex flex-wrap gap-1">
                 {formData.tags.map(tag => (
-                  <Badge key={tag} variant="secondary" className="text-xs rounded-full bg-[#e8e8ea] text-[#1a1c1e]">{tag}</Badge>
+                  <Badge key={tag} variant="secondary" className="text-xs rounded-full bg-[var(--surface-container-high)] text-[var(--on-surface)]">{tag}</Badge>
                 ))}
               </div>
             ) : null
@@ -103,10 +103,10 @@ export function StepReview({ formData, goToStep }: StepProps) {
             formData.phases.length > 0 ? (
               <div className="space-y-1">
                 {formData.phases.map((p, i) => (
-                  <div key={i} className="text-xs bg-[#f3f3f6] px-2 py-1 rounded">
+                  <div key={i} className="text-xs bg-[var(--surface-container-low)] px-2 py-1 rounded">
                     <span className="font-semibold">{p.name}</span>
                     {p.start && p.end && (
-                      <span className="text-[#74777f] ml-2">
+                      <span className="text-[var(--outline)] ml-2">
                         {new Date(p.start).toLocaleDateString('en-MY', { day: 'numeric', month: 'short' })} - {new Date(p.end).toLocaleDateString('en-MY', { day: 'numeric', month: 'short' })}
                       </span>
                     )}
@@ -127,10 +127,10 @@ export function StepReview({ formData, goToStep }: StepProps) {
             formData.budgetLineItems.length > 0 ? (
               <div className="space-y-1">
                 {formData.budgetLineItems.map((item, i) => (
-                  <div key={i} className="flex items-center justify-between text-xs bg-[#f3f3f6] px-2 py-1 rounded">
+                  <div key={i} className="flex items-center justify-between text-xs bg-[var(--surface-container-low)] px-2 py-1 rounded">
                     <span>
                       <span className="font-semibold">{item.category}</span>
-                      {item.description && <span className="text-[#74777f] ml-1">- {item.description}</span>}
+                      {item.description && <span className="text-[var(--outline)] ml-1">- {item.description}</span>}
                     </span>
                     <span className="font-medium">{formatCurrency(item.amount, formData.currency)}</span>
                   </div>
@@ -153,9 +153,9 @@ export function StepReview({ formData, goToStep }: StepProps) {
             formData.teamMembers.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {formData.teamMembers.map((m, i) => (
-                  <span key={i} className="inline-flex items-center gap-1 text-xs bg-[#f3f3f6] px-2 py-1 rounded">
+                  <span key={i} className="inline-flex items-center gap-1 text-xs bg-[var(--surface-container-low)] px-2 py-1 rounded">
                     <span className="font-medium">{m.name}</span>
-                    <span className="text-[#74777f]">({m.role})</span>
+                    <span className="text-[var(--outline)]">({m.role})</span>
                   </span>
                 ))}
               </div>
@@ -173,11 +173,11 @@ export function StepReview({ formData, goToStep }: StepProps) {
           {formData.milestones.length > 0 && (
             <div className="mt-2 space-y-2">
               {formData.milestones.map((m, i) => (
-                <div key={i} className="text-xs bg-[#f3f3f6] px-3 py-2 rounded">
+                <div key={i} className="text-xs bg-[var(--surface-container-low)] px-3 py-2 rounded">
                   <div className="flex items-center justify-between">
                     <span className="font-semibold">{m.name || `Milestone ${i + 1}`}</span>
                     {m.dueDate && (
-                      <span className="text-[#74777f]">
+                      <span className="text-[var(--outline)]">
                         {new Date(m.dueDate).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' })}
                       </span>
                     )}
@@ -185,7 +185,7 @@ export function StepReview({ formData, goToStep }: StepProps) {
                   {m.deliverables.length > 0 && (
                     <div className="mt-1 pl-3 border-l border-[#e8e8ea] space-y-0.5">
                       {m.deliverables.map((d, di) => (
-                        <div key={di} className="text-[#74777f]">{d.name}</div>
+                        <div key={di} className="text-[var(--outline)]">{d.name}</div>
                       ))}
                     </div>
                   )}

@@ -83,11 +83,11 @@ export function StepBudget({ formData, setFormData }: StepProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Total Budget */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#1a1c1e]">
+          <label className="text-sm font-medium text-[var(--on-surface)]">
             Total Allocated Budget <span className="text-red-500">*</span>
           </label>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-[#74777f] font-medium">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-[var(--outline)] font-medium">
               {formData.currency}
             </span>
             <Input
@@ -96,16 +96,16 @@ export function StepBudget({ formData, setFormData }: StepProps) {
               placeholder="0.00"
               value={formData.totalBudget || ''}
               onChange={e => setFormData(prev => ({ ...prev, totalBudget: parseFloat(e.target.value) || 0 }))}
-              className="h-11 pl-14 bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+              className="h-11 pl-14 bg-[var(--surface-container-low)] border-0 focus:ring-1 focus:ring-[var(--primary)]/30"
             />
           </div>
         </div>
 
         {/* Currency */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#1a1c1e]">Currency</label>
+          <label className="text-sm font-medium text-[var(--on-surface)]">Currency</label>
           <Select value={formData.currency} onValueChange={v => setFormData(prev => ({ ...prev, currency: v }))}>
-            <SelectTrigger className="h-11 bg-[#f3f3f6] border-0">
+            <SelectTrigger className="h-11 bg-[var(--surface-container-low)] border-0">
               <SelectValue placeholder="Select currency" />
             </SelectTrigger>
             <SelectContent>
@@ -120,7 +120,7 @@ export function StepBudget({ formData, setFormData }: StepProps) {
       {/* Budget Line Items */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-[#1a1c1e]">Budget Line Items</label>
+          <label className="text-sm font-medium text-[var(--on-surface)]">Budget Line Items</label>
           <Button type="button" variant="outline" size="sm" onClick={addLineItem}>
             <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
@@ -130,13 +130,13 @@ export function StepBudget({ formData, setFormData }: StepProps) {
         </div>
 
         {formData.budgetLineItems.length === 0 && (
-          <div className="text-center py-8 text-[#74777f] border-2 border-dashed border-[#e8e8ea] rounded-lg">
+          <div className="text-center py-8 text-[var(--outline)] border-2 border-dashed border-[var(--surface-container-high)] rounded-lg">
             <svg className="h-8 w-8 mx-auto mb-2 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <p className="text-sm">No budget items yet. Break down your budget into categories.</p>
             <div className="flex flex-wrap gap-1.5 justify-center mt-3">
-              <span className="text-xs text-[#74777f]">Quick add:</span>
+              <span className="text-xs text-[var(--outline)]">Quick add:</span>
               {CATEGORY_SUGGESTIONS.slice(0, 4).map(cat => (
                 <button
                   key={cat}
@@ -147,7 +147,7 @@ export function StepBudget({ formData, setFormData }: StepProps) {
                       budgetLineItems: [...prev.budgetLineItems, { category: cat, description: '', amount: 0 }],
                     }))
                   }}
-                  className="text-xs px-2 py-0.5 rounded-full border border-dashed border-[#74777f]/30 text-[#44474e] hover:border-[#7c3aed] hover:text-[#7c3aed] transition-colors"
+                  className="text-xs px-2 py-0.5 rounded-full border border-dashed border-[#74777f]/30 text-[var(--on-surface-variant)] hover:border-[var(--ai-accent)] hover:text-[var(--ai-accent)] transition-colors"
                 >
                   + {cat}
                 </button>
@@ -159,7 +159,7 @@ export function StepBudget({ formData, setFormData }: StepProps) {
         {formData.budgetLineItems.map((item, index) => (
           <div
             key={index}
-            className="rounded-xl bg-white p-4"
+            className="rounded-xl bg-[var(--surface-container-lowest)] p-4"
             style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
           >
             <div className="flex items-start gap-3">
@@ -171,7 +171,7 @@ export function StepBudget({ formData, setFormData }: StepProps) {
                   value={item.category}
                   onValueChange={v => updateLineItem(index, 'category', v)}
                 >
-                  <SelectTrigger className="bg-[#f3f3f6] border-0">
+                  <SelectTrigger className="bg-[var(--surface-container-low)] border-0">
                     <SelectValue placeholder="Category" />
                   </SelectTrigger>
                   <SelectContent>
@@ -184,10 +184,10 @@ export function StepBudget({ formData, setFormData }: StepProps) {
                   placeholder="Description"
                   value={item.description}
                   onChange={e => updateLineItem(index, 'description', e.target.value)}
-                  className="bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+                  className="bg-[var(--surface-container-low)] border-0 focus:ring-1 focus:ring-[var(--primary)]/30"
                 />
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-[#74777f]">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-[var(--outline)]">
                     {formData.currency}
                   </span>
                   <Input
@@ -196,14 +196,14 @@ export function StepBudget({ formData, setFormData }: StepProps) {
                     placeholder="0.00"
                     value={item.amount || ''}
                     onChange={e => updateLineItem(index, 'amount', parseFloat(e.target.value) || 0)}
-                    className="pl-12 bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+                    className="pl-12 bg-[var(--surface-container-low)] border-0 focus:ring-1 focus:ring-[var(--primary)]/30"
                   />
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => removeLineItem(index)}
-                className="text-[#74777f] hover:text-red-500 transition-colors mt-1.5"
+                className="text-[var(--outline)] hover:text-red-500 transition-colors mt-1.5"
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -216,21 +216,21 @@ export function StepBudget({ formData, setFormData }: StepProps) {
 
       {/* Running Total */}
       {formData.totalBudget > 0 && (
-        <div className="rounded-xl bg-[#f3f3f6] p-4">
+        <div className="rounded-xl bg-[var(--surface-container-low)] p-4">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-medium text-[#1a1c1e]">Budget Allocation Summary</span>
+            <span className="text-sm font-medium text-[var(--on-surface)]">Budget Allocation Summary</span>
             <span className={`text-sm font-semibold ${remaining < 0 ? 'text-red-500' : 'text-green-600'}`}>
               {remaining < 0 ? 'Over budget by ' : 'Remaining: '}
               {formatCurrency(Math.abs(remaining), formData.currency)}
             </span>
           </div>
-          <div className="w-full h-3 bg-[#e8e8ea] rounded-full overflow-hidden">
+          <div className="w-full h-3 bg-[var(--surface-container-high)] rounded-full overflow-hidden">
             <div
               className={`h-full rounded-full transition-all ${remaining < 0 ? 'bg-red-500' : 'bg-gradient-to-r from-violet-500 to-indigo-500'}`}
               style={{ width: `${Math.min((lineItemsTotal / formData.totalBudget) * 100, 100)}%` }}
             />
           </div>
-          <div className="flex justify-between text-xs text-[#74777f] mt-1">
+          <div className="flex justify-between text-xs text-[var(--outline)] mt-1">
             <span>Allocated: {formatCurrency(lineItemsTotal, formData.currency)}</span>
             <span>Total: {formatCurrency(formData.totalBudget, formData.currency)}</span>
           </div>
@@ -240,9 +240,9 @@ export function StepBudget({ formData, setFormData }: StepProps) {
       {/* Pie Chart Preview */}
       {pieSlices.length > 1 && (
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#1a1c1e]">Budget Allocation</label>
+          <label className="text-sm font-medium text-[var(--on-surface)]">Budget Allocation</label>
           <div
-            className="rounded-xl bg-white p-4"
+            className="rounded-xl bg-[var(--surface-container-lowest)] p-4"
             style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
           >
             <div className="flex items-center gap-8">
@@ -255,11 +255,11 @@ export function StepBudget({ formData, setFormData }: StepProps) {
                     className="transition-all hover:opacity-80"
                   />
                 ))}
-                <circle cx="100" cy="100" r="45" fill="white" />
-                <text x="100" y="96" textAnchor="middle" fill="#1a1c1e" className="text-xs font-semibold" fontSize="12">
+                <circle cx="100" cy="100" r="45" fill="var(--surface-container-lowest)" />
+                <text x="100" y="96" textAnchor="middle" fill="var(--on-surface)" className="text-xs font-semibold" fontSize="12">
                   {formData.currency}
                 </text>
-                <text x="100" y="112" textAnchor="middle" fill="#74777f" fontSize="10">
+                <text x="100" y="112" textAnchor="middle" fill="var(--outline)" fontSize="10">
                   {(formData.totalBudget / 1000).toFixed(0)}K
                 </text>
               </svg>
@@ -267,9 +267,9 @@ export function StepBudget({ formData, setFormData }: StepProps) {
                 {pieSlices.map((slice, i) => (
                   <div key={i} className="flex items-center gap-2 text-sm">
                     <div className="h-3 w-3 rounded-sm shrink-0" style={{ backgroundColor: slice.color }} />
-                    <span className="flex-1 text-[#1a1c1e] truncate">{slice.category}</span>
-                    <span className="text-[#74777f]">{slice.pct.toFixed(1)}%</span>
-                    <span className="font-medium text-[#1a1c1e]">{formatCurrency(slice.amount, formData.currency)}</span>
+                    <span className="flex-1 text-[var(--on-surface)] truncate">{slice.category}</span>
+                    <span className="text-[var(--outline)]">{slice.pct.toFixed(1)}%</span>
+                    <span className="font-medium text-[var(--on-surface)]">{formatCurrency(slice.amount, formData.currency)}</span>
                   </div>
                 ))}
               </div>

@@ -53,7 +53,7 @@ export function PortfolioHeatmap({
 }: PortfolioHeatmapProps) {
   if (projects.length === 0) {
     return (
-      <div className="flex items-center justify-center h-32 text-sm font-body" style={{ color: '#74777f' }}>
+      <div className="flex items-center justify-center h-32 text-sm font-body" style={{ color: 'var(--outline)' }}>
         No projects to display
       </div>
     );
@@ -64,19 +64,19 @@ export function PortfolioHeatmap({
       <table className="w-full min-w-[480px] border-collapse">
         <thead>
           <tr>
-            <th className="text-left text-xs font-semibold font-heading py-2 pr-3 w-40" style={{ color: '#44474e' }}>
+            <th className="text-left text-xs font-semibold font-heading py-2 pr-3 w-40" style={{ color: 'var(--on-surface-variant)' }}>
               Project
             </th>
             {dimensions.map((dim) => (
               <th
                 key={dim}
                 className="text-center text-xs font-semibold font-heading py-2 px-1"
-                style={{ color: '#44474e' }}
+                style={{ color: 'var(--on-surface-variant)' }}
               >
                 {dim}
               </th>
             ))}
-            <th className="text-center text-xs font-semibold font-heading py-2 px-1" style={{ color: '#44474e', borderLeft: '1px solid #e8e8ea' }}>
+            <th className="text-center text-xs font-semibold font-heading py-2 px-1" style={{ color: 'var(--on-surface-variant)', borderLeft: '1px solid var(--surface-container-high)' }}>
               Overall
             </th>
           </tr>
@@ -87,9 +87,9 @@ export function PortfolioHeatmap({
             const overallColor = getHealthColor(overall);
 
             return (
-              <tr key={project.id} className="group transition-colors" style={{ borderBottom: '1px solid #f3f3f6' }}>
+              <tr key={project.id} className="group transition-colors" style={{ borderBottom: '1px solid var(--surface-container-low)' }}>
                 <td className="py-2 pr-3">
-                  <span className="text-sm font-medium font-heading truncate block max-w-[160px]" style={{ color: '#1a1c1e' }}>
+                  <span className="text-sm font-medium font-heading truncate block max-w-[160px]" style={{ color: 'var(--on-surface)' }}>
                     {project.name}
                   </span>
                 </td>
@@ -110,7 +110,7 @@ export function PortfolioHeatmap({
                     </td>
                   );
                 })}
-                <td className="py-2 px-1" style={{ borderLeft: '1px solid #e8e8ea' }}>
+                <td className="py-2 px-1" style={{ borderLeft: '1px solid var(--surface-container-high)' }}>
                   <div
                     className="mx-auto w-full max-w-[64px] h-9 rounded-md flex items-center justify-center cursor-default"
                     style={{ backgroundColor: overallColor.bg }}
@@ -128,19 +128,19 @@ export function PortfolioHeatmap({
       </table>
 
       {/* Legend */}
-      <div className="flex items-center gap-4 mt-3 pt-3" style={{ borderTop: '1px solid #e8e8ea' }}>
-        <span className="text-[10px] font-body" style={{ color: '#74777f' }}>Health:</span>
+      <div className="flex items-center gap-4 mt-3 pt-3" style={{ borderTop: '1px solid var(--surface-container-high)' }}>
+        <span className="text-[10px] font-body" style={{ color: 'var(--outline)' }}>Health:</span>
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: 'rgba(22, 163, 74, 0.25)' }} />
-          <span className="text-[10px] font-body" style={{ color: '#44474e' }}>Good (70-100)</span>
+          <span className="text-[10px] font-body" style={{ color: 'var(--on-surface-variant)' }}>Good (70-100)</span>
         </div>
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: 'rgba(217, 119, 6, 0.25)' }} />
-          <span className="text-[10px] font-body" style={{ color: '#44474e' }}>At Risk (40-69)</span>
+          <span className="text-[10px] font-body" style={{ color: 'var(--on-surface-variant)' }}>At Risk (40-69)</span>
         </div>
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: 'rgba(220, 38, 38, 0.25)' }} />
-          <span className="text-[10px] font-body" style={{ color: '#44474e' }}>Critical (0-39)</span>
+          <span className="text-[10px] font-body" style={{ color: 'var(--on-surface-variant)' }}>Critical (0-39)</span>
         </div>
       </div>
     </div>

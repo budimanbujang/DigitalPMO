@@ -250,7 +250,7 @@ export function TasksTab() {
                         }}
                       >
                         <div className="flex items-start justify-between gap-1">
-                          <span className="text-sm font-medium leading-tight" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{task.title}</span>
+                          <span className="text-sm font-medium leading-tight" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface)' }}>{task.title}</span>
                           <span
                             className="text-[10px] font-medium rounded-full px-1.5 py-0.5 shrink-0"
                             style={{ backgroundColor: `${pCfg.color}15`, color: pCfg.color }}
@@ -262,17 +262,17 @@ export function TasksTab() {
                           <div className="flex items-center gap-1.5">
                             <div
                               className="h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-bold"
-                              style={{ backgroundColor: '#f3f3f6', color: '#001736' }}
+                              style={{ backgroundColor: 'var(--surface-container-low)', color: 'var(--primary)' }}
                             >
                               {task.assigneeInitials}
                             </div>
-                            <span className="text-xs" style={{ color: '#44474e' }}>{task.assignee}</span>
+                            <span className="text-xs" style={{ color: 'var(--on-surface-variant)' }}>{task.assignee}</span>
                           </div>
                           <div className="flex items-center gap-1">
                             {task.stagnantDays > 5 && (
                               <span title={`Stagnant ${task.stagnantDays} days`}><Flame className="h-3.5 w-3.5" style={{ color: '#F97316' }} /></span>
                             )}
-                            <div className="flex items-center gap-0.5 text-xs" style={{ color: '#74777f' }}>
+                            <div className="flex items-center gap-0.5 text-xs" style={{ color: 'var(--outline)' }}>
                               <Calendar className="h-3 w-3" />
                               {task.dueDate.slice(5)}
                             </div>
@@ -291,13 +291,13 @@ export function TasksTab() {
         <div className="rounded-xl overflow-hidden" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
           <table className="w-full text-sm">
             <thead>
-              <tr style={{ backgroundColor: '#f3f3f6' }}>
-                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Task</th>
-                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Status</th>
-                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Priority</th>
-                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Assignee</th>
-                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Due Date</th>
-                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Stagnancy</th>
+              <tr style={{ backgroundColor: 'var(--surface-container-low)' }}>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Task</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Status</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Priority</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Assignee</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Due Date</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Stagnancy</th>
               </tr>
             </thead>
             <tbody>
@@ -306,12 +306,12 @@ export function TasksTab() {
                 return (
                   <tr
                     key={task.id}
-                    style={{ backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f9f9fc' }}
+                    style={{ backgroundColor: idx % 2 === 0 ? 'var(--surface-container-lowest)' : 'var(--surface)' }}
                     className="transition-colors"
-                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f3f3f6'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = idx % 2 === 0 ? '#ffffff' : '#f9f9fc'; }}
+                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--surface-container-low)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = idx % 2 === 0 ? 'var(--surface-container-lowest)' : 'var(--surface)'; }}
                   >
-                    <td className="px-4 py-3 font-medium" style={{ color: '#1a1c1e', fontFamily: 'Inter, sans-serif' }}>{task.title}</td>
+                    <td className="px-4 py-3 font-medium" style={{ color: 'var(--on-surface)', fontFamily: 'Inter, sans-serif' }}>{task.title}</td>
                     <td className="px-4 py-3">
                       <Badge variant="secondary" className="text-xs rounded-full">{task.status.replace(/_/g, ' ')}</Badge>
                     </td>
@@ -328,14 +328,14 @@ export function TasksTab() {
                       <div className="flex items-center gap-1.5">
                         <div
                           className="h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-bold"
-                          style={{ backgroundColor: '#f3f3f6', color: '#001736' }}
+                          style={{ backgroundColor: 'var(--surface-container-low)', color: 'var(--primary)' }}
                         >
                           {task.assigneeInitials}
                         </div>
-                        <span className="text-xs" style={{ color: '#44474e' }}>{task.assignee}</span>
+                        <span className="text-xs" style={{ color: 'var(--on-surface-variant)' }}>{task.assignee}</span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-xs" style={{ color: '#74777f' }}>{task.dueDate}</td>
+                    <td className="px-4 py-3 text-xs" style={{ color: 'var(--outline)' }}>{task.dueDate}</td>
                     <td className="px-4 py-3 text-xs">
                       {task.stagnantDays > 5 ? (
                         <span className="flex items-center gap-1 font-medium" style={{ color: '#F97316' }}>
@@ -343,9 +343,9 @@ export function TasksTab() {
                           {task.stagnantDays}d
                         </span>
                       ) : task.stagnantDays > 0 ? (
-                        <span style={{ color: '#74777f' }}>{task.stagnantDays}d</span>
+                        <span style={{ color: 'var(--outline)' }}>{task.stagnantDays}d</span>
                       ) : (
-                        <span style={{ color: '#74777f' }}>-</span>
+                        <span style={{ color: 'var(--outline)' }}>-</span>
                       )}
                     </td>
                   </tr>

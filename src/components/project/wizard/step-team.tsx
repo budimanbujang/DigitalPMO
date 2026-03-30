@@ -56,14 +56,14 @@ export function StepTeam({ formData, setFormData }: StepProps) {
     <div className="space-y-6">
       {/* Project Manager */}
       <div className="space-y-2">
-        <label className="text-sm font-medium text-[#1a1c1e]">
+        <label className="text-sm font-medium text-[var(--on-surface)]">
           Project Manager <span className="text-red-500">*</span>
         </label>
         <Select
           value={formData.projectManager}
           onValueChange={v => setFormData(prev => ({ ...prev, projectManager: v }))}
         >
-          <SelectTrigger className="h-11 bg-[#f3f3f6] border-0">
+          <SelectTrigger className="h-11 bg-[var(--surface-container-low)] border-0">
             <SelectValue placeholder="Select project manager" />
           </SelectTrigger>
           <SelectContent>
@@ -85,8 +85,8 @@ export function StepTeam({ formData, setFormData }: StepProps) {
               {userObj(formData.projectManager)?.avatar || formData.projectManager.slice(0, 2).toUpperCase()}
             </div>
             <div>
-              <div className="font-medium text-[#1a1c1e] text-sm">{formData.projectManager}</div>
-              <div className="text-xs text-[#74777f]">{userObj(formData.projectManager)?.email || 'Project Manager'}</div>
+              <div className="font-medium text-[var(--on-surface)] text-sm">{formData.projectManager}</div>
+              <div className="text-xs text-[var(--outline)]">{userObj(formData.projectManager)?.email || 'Project Manager'}</div>
             </div>
             <span className="ml-auto text-xs font-semibold px-2 py-0.5 rounded-full bg-violet-100 text-violet-700">
               PM
@@ -97,18 +97,18 @@ export function StepTeam({ formData, setFormData }: StepProps) {
 
       {/* Add Team Members */}
       <div className="space-y-3">
-        <label className="text-sm font-medium text-[#1a1c1e]">Team Members</label>
+        <label className="text-sm font-medium text-[var(--on-surface)]">Team Members</label>
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="flex-1">
             <Select value={selectedUser} onValueChange={setSelectedUser}>
-              <SelectTrigger className="bg-[#f3f3f6] border-0">
+              <SelectTrigger className="bg-[var(--surface-container-low)] border-0">
                 <SelectValue placeholder="Select team member" />
               </SelectTrigger>
               <SelectContent>
                 {MOCK_USERS.filter(u => u.name !== formData.projectManager).map(user => (
                   <SelectItem key={user.id} value={user.name}>
                     <span className="flex items-center gap-2">
-                      <span className="h-5 w-5 rounded-full bg-[#e8e8ea] text-[#74777f] text-xs font-bold flex items-center justify-center">
+                      <span className="h-5 w-5 rounded-full bg-[var(--surface-container-high)] text-[var(--outline)] text-xs font-bold flex items-center justify-center">
                         {user.avatar}
                       </span>
                       {user.name}
@@ -120,7 +120,7 @@ export function StepTeam({ formData, setFormData }: StepProps) {
           </div>
           <div className="w-full sm:w-40">
             <Select value={selectedRole} onValueChange={setSelectedRole}>
-              <SelectTrigger className="bg-[#f3f3f6] border-0">
+              <SelectTrigger className="bg-[var(--surface-container-low)] border-0">
                 <SelectValue placeholder="Role" />
               </SelectTrigger>
               <SelectContent>
@@ -146,7 +146,7 @@ export function StepTeam({ formData, setFormData }: StepProps) {
 
       {/* Team Member Cards */}
       {formData.teamMembers.length === 0 ? (
-        <div className="text-center py-8 text-[#74777f] border-2 border-dashed border-[#e8e8ea] rounded-lg">
+        <div className="text-center py-8 text-[var(--outline)] border-2 border-dashed border-[var(--surface-container-high)] rounded-lg">
           <svg className="h-8 w-8 mx-auto mb-2 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
@@ -159,7 +159,7 @@ export function StepTeam({ formData, setFormData }: StepProps) {
             return (
               <div
                 key={index}
-                className="rounded-xl bg-white p-3"
+                className="rounded-xl bg-[var(--surface-container-lowest)] p-3"
                 style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
               >
                 <div className="flex items-center gap-3">
@@ -167,16 +167,16 @@ export function StepTeam({ formData, setFormData }: StepProps) {
                     {user?.avatar || member.name.slice(0, 2).toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium text-sm text-[#1a1c1e] truncate">{member.name}</div>
-                    <div className="text-xs text-[#74777f] truncate">{user?.email || ''}</div>
+                    <div className="font-medium text-sm text-[var(--on-surface)] truncate">{member.name}</div>
+                    <div className="text-xs text-[var(--outline)] truncate">{user?.email || ''}</div>
                   </div>
-                  <span className={`text-xs font-medium px-2 py-0.5 rounded-full shrink-0 ${ROLE_COLORS[member.role] || 'bg-[#e8e8ea] text-[#74777f]'}`}>
+                  <span className={`text-xs font-medium px-2 py-0.5 rounded-full shrink-0 ${ROLE_COLORS[member.role] || 'bg-[var(--surface-container-high)] text-[var(--outline)]'}`}>
                     {member.role}
                   </span>
                   <button
                     type="button"
                     onClick={() => removeTeamMember(index)}
-                    className="text-[#74777f] hover:text-red-500 transition-colors shrink-0"
+                    className="text-[var(--outline)] hover:text-red-500 transition-colors shrink-0"
                   >
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -191,11 +191,11 @@ export function StepTeam({ formData, setFormData }: StepProps) {
 
       {/* Team Summary */}
       {formData.teamMembers.length > 0 && (
-        <div className="flex items-center gap-2 text-sm text-[#44474e] bg-[#f3f3f6] rounded-lg p-3">
+        <div className="flex items-center gap-2 text-sm text-[var(--on-surface-variant)] bg-[var(--surface-container-low)] rounded-lg p-3">
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          Team size: <span className="font-semibold text-[#1a1c1e]">{formData.teamMembers.length + (formData.projectManager ? 1 : 0)}</span>
+          Team size: <span className="font-semibold text-[var(--on-surface)]">{formData.teamMembers.length + (formData.projectManager ? 1 : 0)}</span>
           {formData.projectManager && <span>(including PM)</span>}
           <span className="mx-1">|</span>
           Roles: {[...new Set(formData.teamMembers.map(m => m.role))].join(', ')}

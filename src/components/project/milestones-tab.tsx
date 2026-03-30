@@ -118,9 +118,9 @@ export function MilestonesTab() {
             <div className="flex flex-col items-center">
               <div
                 className="h-4 w-4 rounded-full shrink-0"
-                style={{ backgroundColor: cfg.dotColor, boxShadow: `0 0 0 4px #ffffff` }}
+                style={{ backgroundColor: cfg.dotColor, boxShadow: `0 0 0 4px var(--surface-container-lowest)` }}
               />
-              {!isLast && <div className="w-0.5 flex-1" style={{ backgroundColor: '#e8e8ea' }} />}
+              {!isLast && <div className="w-0.5 flex-1" style={{ backgroundColor: 'var(--surface-container-high)' }} />}
             </div>
 
             {/* Content */}
@@ -129,7 +129,7 @@ export function MilestonesTab() {
                 onClick={() => toggleExpand(ms.id)}
                 className="w-full text-left rounded-xl p-4 transition-shadow"
                 style={{
-                  backgroundColor: '#ffffff',
+                  backgroundColor: 'var(--surface-container-lowest)',
                   boxShadow: '0 12px 40px rgba(26,28,30,0.06)',
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 12px 40px rgba(26,28,30,0.10)'; }}
@@ -138,14 +138,14 @@ export function MilestonesTab() {
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2">
                     {expanded ? (
-                      <ChevronDown className="h-4 w-4 shrink-0" style={{ color: '#74777f' }} />
+                      <ChevronDown className="h-4 w-4 shrink-0" style={{ color: 'var(--outline)' }} />
                     ) : (
-                      <ChevronRight className="h-4 w-4 shrink-0" style={{ color: '#74777f' }} />
+                      <ChevronRight className="h-4 w-4 shrink-0" style={{ color: 'var(--outline)' }} />
                     )}
                     <div>
-                      <div className="text-sm font-semibold" style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}>{ms.name}</div>
+                      <div className="text-sm font-semibold" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>{ms.name}</div>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs" style={{ color: '#74777f' }}>Due: {ms.dueDate}</span>
+                        <span className="text-xs" style={{ color: 'var(--outline)' }}>Due: {ms.dueDate}</span>
                         <span
                           className="text-[10px] px-1.5 py-0 rounded-full font-medium"
                           style={{ backgroundColor: cfg.badgeBg, color: cfg.badgeText }}
@@ -156,14 +156,14 @@ export function MilestonesTab() {
                     </div>
                   </div>
                   <div className="text-right shrink-0">
-                    <div className="text-sm font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{completedCount}/{totalCount}</div>
-                    <div className="text-[10px]" style={{ color: '#74777f' }}>deliverables</div>
+                    <div className="text-sm font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface)' }}>{completedCount}/{totalCount}</div>
+                    <div className="text-[10px]" style={{ color: 'var(--outline)' }}>deliverables</div>
                   </div>
                 </div>
 
                 <div className="mt-3">
                   <Progress value={progressPct} className="h-2" />
-                  <div className="text-[10px] mt-1" style={{ color: '#74777f' }}>{progressPct}% complete</div>
+                  <div className="text-[10px] mt-1" style={{ color: 'var(--outline)' }}>{progressPct}% complete</div>
                 </div>
               </button>
 
@@ -174,7 +174,7 @@ export function MilestonesTab() {
                     <div
                       key={d.id}
                       className="flex items-center gap-2 px-3 py-1.5 rounded-md"
-                      style={{ backgroundColor: '#f9f9fc' }}
+                      style={{ backgroundColor: 'var(--surface)' }}
                     >
                       {d.completed ? (
                         <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: '#22C55E' }} />
