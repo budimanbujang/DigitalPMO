@@ -48,7 +48,9 @@ export function Sidebar() {
 
       <aside
         className={cn(
-          'fixed top-0 left-0 z-50 flex h-screen flex-col bg-white shadow-[4px_0_24px_rgba(26,28,30,0.04)] transition-all duration-300',
+          'fixed top-0 left-0 z-50 flex h-screen flex-col transition-all duration-300',
+          'bg-[var(--surface-container-lowest)] shadow-[4px_0_24px_rgba(26,28,30,0.04)]',
+          'dark:shadow-[4px_0_24px_rgba(0,0,0,0.2)]',
           sidebarOpen ? 'w-64' : 'w-16',
           'max-lg:translate-x-0',
           !sidebarOpen && 'max-lg:-translate-x-full lg:w-16'
@@ -56,11 +58,11 @@ export function Sidebar() {
       >
         {/* Logo */}
         <div className="flex h-16 items-center gap-3 px-4">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#d6e3ff]">
-            <CircuitBoard className="h-5 w-5 text-[#001736]" />
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--primary-fixed)]">
+            <CircuitBoard className="h-5 w-5 text-[var(--primary)]" />
           </div>
           {sidebarOpen && (
-            <span className="text-lg font-heading font-semibold text-[#001736]" style={{ fontFamily: 'Manrope, sans-serif' }}>
+            <span className="text-lg font-heading font-semibold text-[var(--primary)]" style={{ letterSpacing: '-0.02em' }}>
               Digital PMO
             </span>
           )}
@@ -79,8 +81,8 @@ export function Sidebar() {
                 className={cn(
                   'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                   isActive
-                    ? 'bg-[#d6e3ff] text-[#001736]'
-                    : 'text-[#44474e] hover:bg-[#f3f3f6] hover:text-[#1a1c1e]'
+                    ? 'bg-[var(--primary-fixed)] text-[var(--primary)]'
+                    : 'text-[var(--on-surface-variant)] hover:bg-[var(--surface-container-low)] hover:text-[var(--on-surface)]'
                 )}
               >
                 <Icon className="h-5 w-5 shrink-0" />
@@ -92,7 +94,7 @@ export function Sidebar() {
           {/* Project Quick Switcher */}
           {sidebarOpen && (
             <div className="mt-6 px-3">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#74777f]">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--outline)]">
                 Recent Projects
               </p>
               <div className="space-y-1">
@@ -100,9 +102,9 @@ export function Sidebar() {
                   <Link
                     key={project.id}
                     href={`/projects/${project.id}`}
-                    className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-[#44474e] transition-colors hover:bg-[#f3f3f6] hover:text-[#1a1c1e]"
+                    className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm text-[var(--on-surface-variant)] transition-colors hover:bg-[var(--surface-container-low)] hover:text-[var(--on-surface)]"
                   >
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--status-green)]" />
                     <span className="truncate">{project.name}</span>
                   </Link>
                 ))}
@@ -115,11 +117,11 @@ export function Sidebar() {
         <div className="px-4 py-3">
           <div className="flex items-center gap-2">
             <span className="relative flex h-2.5 w-2.5 shrink-0">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--status-green)] opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[var(--status-green)]" />
             </span>
             {sidebarOpen && (
-              <span className="text-xs font-medium text-[#44474e]">
+              <span className="text-xs font-medium text-[var(--on-surface-variant)]">
                 Agent Active
               </span>
             )}
@@ -129,7 +131,7 @@ export function Sidebar() {
         {/* Collapse Toggle */}
         <button
           onClick={toggleSidebar}
-          className="hidden lg:flex h-10 items-center justify-center text-[#44474e] transition-colors hover:bg-[#f3f3f6] hover:text-[#1a1c1e]"
+          className="hidden lg:flex h-10 items-center justify-center text-[var(--on-surface-variant)] transition-colors hover:bg-[var(--surface-container-low)] hover:text-[var(--on-surface)]"
         >
           {sidebarOpen ? (
             <ChevronLeft className="h-4 w-4" />

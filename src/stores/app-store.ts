@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type Theme = 'light';
+export type Theme = 'light' | 'dark';
 
 export interface CurrentUser {
   id: string;

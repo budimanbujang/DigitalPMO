@@ -10,7 +10,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const { sidebarOpen } = useAppStore();
 
   return (
-    <div className="min-h-screen bg-[#f9f9fc]">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--surface)' }}>
       <Sidebar />
       <div
         className={cn(

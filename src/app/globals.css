@@ -55,16 +55,61 @@
     --ring: 0 23 54;
     --radius: 0.75rem;
   }
+
+  /* ── Dark Mode: Executive Monolith (Obsidian) ── */
+  .dark {
+    --surface: #0f1117;
+    --surface-dim: #1a1c24;
+    --surface-container-low: #161820;
+    --surface-container-lowest: #0b0d13;
+    --surface-container-high: #1e2028;
+    --surface-container-highest: #252730;
+
+    --primary: #aac7ff;
+    --primary-container: #003a75;
+    --primary-fixed: #d6e3ff;
+    --primary-fixed-dim: #aac7ff;
+
+    --on-surface: #e2e2e6;
+    --on-surface-variant: #c4c6d0;
+
+    --outline: #8e9099;
+    --outline-variant: #44474e;
+
+    --status-green: #4ade80;
+    --status-amber: #fbbf24;
+    --status-red: #f87171;
+
+    --ai-accent: #a78bfa;
+
+    --background: 15 17 23;
+    --foreground: 226 226 230;
+    --card: 22 24 32;
+    --card-foreground: 226 226 230;
+    --popover: 22 24 32;
+    --popover-foreground: 226 226 230;
+    --muted: 30 32 40;
+    --muted-foreground: 142 144 153;
+    --accent: 37 39 48;
+    --accent-foreground: 226 226 230;
+    --destructive: 248 113 113;
+    --destructive-foreground: 15 17 23;
+    --border: 68 71 78;
+    --input: 68 71 78;
+    --ring: 170 199 255;
+  }
 }
 
 /* ── Base Styles ── */
 @layer base {
   * {
-    border-color: rgba(196, 198, 208, 0.15);
+    border-color: var(--outline-variant);
   }
 
   body {
-    @apply bg-surface text-on-surface font-body antialiased;
+    background-color: var(--surface);
+    color: var(--on-surface);
+    @apply font-body antialiased;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -72,7 +117,7 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
     letter-spacing: -0.02em;
-    color: #1a1c1e;
+    color: var(--on-surface);
   }
 }
 
@@ -121,6 +166,10 @@
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   box-shadow: 0 8px 32px rgba(26, 28, 30, 0.08);
+}
+.dark .glass {
+  background: rgba(22, 24, 32, 0.80);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24);
 }
 
 /* ── RAG Status Pills ── */
