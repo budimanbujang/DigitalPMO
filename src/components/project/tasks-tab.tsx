@@ -6,7 +6,6 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
-import { cn } from '@/lib/utils';
 
 type TaskStatus = 'TODO' | 'IN_PROGRESS' | 'BLOCKED' | 'IN_REVIEW' | 'COMPLETED';
 type Priority = 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
@@ -22,19 +21,19 @@ interface MockTask {
   stagnantDays: number;
 }
 
-const COLUMNS: { status: TaskStatus; label: string; color: string }[] = [
-  { status: 'TODO', label: 'Todo', color: 'border-t-slate-400' },
-  { status: 'IN_PROGRESS', label: 'In Progress', color: 'border-t-blue-500' },
-  { status: 'BLOCKED', label: 'Blocked', color: 'border-t-red-500' },
-  { status: 'IN_REVIEW', label: 'In Review', color: 'border-t-amber-500' },
-  { status: 'COMPLETED', label: 'Completed', color: 'border-t-green-500' },
+const COLUMNS: { status: TaskStatus; label: string; statusColor: string }[] = [
+  { status: 'TODO', label: 'Todo', statusColor: '#94a3b8' },
+  { status: 'IN_PROGRESS', label: 'In Progress', statusColor: '#3B82F6' },
+  { status: 'BLOCKED', label: 'Blocked', statusColor: '#EF4444' },
+  { status: 'IN_REVIEW', label: 'In Review', statusColor: '#F59E0B' },
+  { status: 'COMPLETED', label: 'Completed', statusColor: '#22C55E' },
 ];
 
-const priorityDot: Record<Priority, string> = {
-  CRITICAL: 'bg-red-500',
-  HIGH: 'bg-orange-500',
-  MEDIUM: 'bg-yellow-500',
-  LOW: 'bg-blue-500',
+const priorityConfig: Record<Priority, { color: string; label: string }> = {
+  CRITICAL: { color: '#EF4444', label: 'Critical' },
+  HIGH: { color: '#F97316', label: 'High' },
+  MEDIUM: { color: '#EAB308', label: 'Medium' },
+  LOW: { color: '#3B82F6', label: 'Low' },
 };
 
 const MOCK_TASKS: MockTask[] = [
@@ -139,7 +138,7 @@ export function TasksTab() {
             </Select>
           </div>
           <div className="relative w-48">
-            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5" style={{ color: '#74777f' }} />
             <Input
               placeholder="Search tasks..."
               value={searchQuery}
@@ -149,21 +148,34 @@ export function TasksTab() {
           </div>
         </div>
         <div className="flex items-center gap-2 ml-auto">
-          <div className="flex items-center gap-1 border border-border rounded-md p-0.5">
+          <div
+            className="flex items-center gap-1 rounded-md p-0.5"
+            style={{ backgroundColor: '#f3f3f6' }}
+          >
             <button
               onClick={() => setViewMode('kanban')}
-              className={cn('p-1.5 rounded', viewMode === 'kanban' ? 'bg-secondary text-foreground' : 'text-muted-foreground')}
+              className="p-1.5 rounded transition-colors"
+              style={{
+                backgroundColor: viewMode === 'kanban' ? '#ffffff' : 'transparent',
+                color: viewMode === 'kanban' ? '#1a1c1e' : '#74777f',
+                boxShadow: viewMode === 'kanban' ? '0 1px 3px rgba(26,28,30,0.08)' : 'none',
+              }}
             >
               <Kanban className="h-4 w-4" />
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={cn('p-1.5 rounded', viewMode === 'list' ? 'bg-secondary text-foreground' : 'text-muted-foreground')}
+              className="p-1.5 rounded transition-colors"
+              style={{
+                backgroundColor: viewMode === 'list' ? '#ffffff' : 'transparent',
+                color: viewMode === 'list' ? '#1a1c1e' : '#74777f',
+                boxShadow: viewMode === 'list' ? '0 1px 3px rgba(26,28,30,0.08)' : 'none',
+              }}
             >
               <List className="h-4 w-4" />
             </button>
           </div>
-          <Button size="sm" onClick={() => setShowAddForm(true)}>
+          <Button size="sm" style={{ backgroundColor: '#001736', color: '#ffffff' }} onClick={() => setShowAddForm(true)}>
             <Plus className="h-4 w-4 mr-1" />
             Add Task
           </Button>
@@ -180,17 +192,29 @@ export function TasksTab() {
                 key={col.status}
                 onDragOver={handleDragOver}
                 onDrop={(e) => handleDrop(e, col.status)}
-                className={cn('rounded-xl border border-border bg-muted/30 min-h-[200px] flex flex-col border-t-4', col.color)}
+                className="rounded-xl min-h-[200px] flex flex-col"
+                style={{ backgroundColor: '#f3f3f6' }}
               >
                 <div className="px-3 py-2.5 flex items-center justify-between">
-                  <span className="text-sm font-semibold text-foreground">{col.label}</span>
-                  <Badge variant="secondary" className="text-[10px]">{colTasks.length}</Badge>
+                  <div className="flex items-center gap-2">
+                    <div className="h-2 w-2 rounded-full" style={{ backgroundColor: col.statusColor }} />
+                    <span className="text-sm font-semibold" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{col.label}</span>
+                  </div>
+                  <span
+                    className="text-[10px] font-medium rounded-full px-1.5 py-0.5"
+                    style={{ backgroundColor: '#e8e8ea', color: '#44474e' }}
+                  >
+                    {colTasks.length}
+                  </span>
                 </div>
 
                 {/* Inline add form at top of Todo column */}
                 {showAddForm && col.status === 'TODO' && (
                   <div className="px-2 pb-2">
-                    <div className="flex flex-col gap-2 p-2 rounded-lg border border-primary/30 bg-primary/5">
+                    <div
+                      className="flex flex-col gap-2 p-2 rounded-lg"
+                      style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+                    >
                       <Input
                         placeholder="Task title..."
                         value={newTaskTitle}
@@ -200,7 +224,7 @@ export function TasksTab() {
                         className="h-8 text-sm"
                       />
                       <div className="flex items-center gap-1">
-                        <Button size="sm" className="h-7 text-xs" onClick={addTask}>Add</Button>
+                        <Button size="sm" className="h-7 text-xs" style={{ backgroundColor: '#001736', color: '#ffffff' }} onClick={addTask}>Add</Button>
                         <Button size="sm" variant="ghost" className="h-7 text-xs" onClick={() => { setShowAddForm(false); setNewTaskTitle(''); }}>
                           <X className="h-3.5 w-3.5" />
                         </Button>
@@ -210,40 +234,53 @@ export function TasksTab() {
                 )}
 
                 <div className="flex-1 p-2 space-y-2 overflow-y-auto max-h-[60vh]">
-                  {colTasks.map((task) => (
-                    <div
-                      key={task.id}
-                      draggable
-                      onDragStart={(e) => handleDragStart(e, task.id)}
-                      className={cn(
-                        'rounded-lg border bg-card p-3 space-y-2 cursor-grab active:cursor-grabbing hover:border-primary/30 transition-colors',
-                        draggedId === task.id ? 'opacity-50' : '',
-                        'border-border'
-                      )}
-                    >
-                      <div className="flex items-start justify-between gap-1">
-                        <span className="text-sm font-medium text-foreground leading-tight">{task.title}</span>
-                        <div className={cn('h-2.5 w-2.5 rounded-full shrink-0 mt-1', priorityDot[task.priority])} title={task.priority} />
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-1.5">
-                          <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center text-[10px] font-bold text-primary">
-                            {task.assigneeInitials}
-                          </div>
-                          <span className="text-xs text-muted-foreground">{task.assignee}</span>
+                  {colTasks.map((task) => {
+                    const pCfg = priorityConfig[task.priority];
+                    return (
+                      <div
+                        key={task.id}
+                        draggable
+                        onDragStart={(e) => handleDragStart(e, task.id)}
+                        className="rounded-lg p-3 space-y-2 cursor-grab active:cursor-grabbing transition-shadow"
+                        style={{
+                          backgroundColor: '#ffffff',
+                          boxShadow: '0 1px 3px rgba(26,28,30,0.06)',
+                          borderLeft: `3px solid ${pCfg.color}`,
+                          opacity: draggedId === task.id ? 0.5 : 1,
+                        }}
+                      >
+                        <div className="flex items-start justify-between gap-1">
+                          <span className="text-sm font-medium leading-tight" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{task.title}</span>
+                          <span
+                            className="text-[10px] font-medium rounded-full px-1.5 py-0.5 shrink-0"
+                            style={{ backgroundColor: `${pCfg.color}15`, color: pCfg.color }}
+                          >
+                            {pCfg.label}
+                          </span>
                         </div>
-                        <div className="flex items-center gap-1">
-                          {task.stagnantDays > 5 && (
-                            <span title={`Stagnant ${task.stagnantDays} days`}><Flame className="h-3.5 w-3.5 text-orange-500" /></span>
-                          )}
-                          <div className="flex items-center gap-0.5 text-xs text-muted-foreground">
-                            <Calendar className="h-3 w-3" />
-                            {task.dueDate.slice(5)}
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1.5">
+                            <div
+                              className="h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-bold"
+                              style={{ backgroundColor: '#f3f3f6', color: '#001736' }}
+                            >
+                              {task.assigneeInitials}
+                            </div>
+                            <span className="text-xs" style={{ color: '#44474e' }}>{task.assignee}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            {task.stagnantDays > 5 && (
+                              <span title={`Stagnant ${task.stagnantDays} days`}><Flame className="h-3.5 w-3.5" style={{ color: '#F97316' }} /></span>
+                            )}
+                            <div className="flex items-center gap-0.5 text-xs" style={{ color: '#74777f' }}>
+                              <Calendar className="h-3 w-3" />
+                              {task.dueDate.slice(5)}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             );
@@ -251,54 +288,69 @@ export function TasksTab() {
         </div>
       ) : (
         /* List view */
-        <div className="rounded-xl border border-border overflow-hidden">
+        <div className="rounded-xl overflow-hidden" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-border bg-muted/40">
-                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Task</th>
-                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Status</th>
-                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Priority</th>
-                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Assignee</th>
-                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Due Date</th>
-                <th className="text-left px-4 py-3 font-medium text-muted-foreground">Stagnancy</th>
+              <tr style={{ backgroundColor: '#f3f3f6' }}>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Task</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Status</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Priority</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Assignee</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Due Date</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Stagnancy</th>
               </tr>
             </thead>
             <tbody>
-              {filteredTasks.map((task) => (
-                <tr key={task.id} className="border-b border-border hover:bg-muted/30">
-                  <td className="px-4 py-3 font-medium text-foreground">{task.title}</td>
-                  <td className="px-4 py-3">
-                    <Badge variant="secondary" className="text-xs">{task.status.replace(/_/g, ' ')}</Badge>
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-1.5">
-                      <div className={cn('h-2.5 w-2.5 rounded-full', priorityDot[task.priority])} />
-                      <span className="text-xs">{task.priority}</span>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-1.5">
-                      <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center text-[10px] font-bold text-primary">
-                        {task.assigneeInitials}
-                      </div>
-                      <span className="text-xs">{task.assignee}</span>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3 text-xs text-muted-foreground">{task.dueDate}</td>
-                  <td className="px-4 py-3 text-xs">
-                    {task.stagnantDays > 5 ? (
-                      <span className="flex items-center gap-1 text-orange-500 font-medium">
-                        <Flame className="h-3.5 w-3.5" />
-                        {task.stagnantDays}d
+              {filteredTasks.map((task, idx) => {
+                const pCfg = priorityConfig[task.priority];
+                return (
+                  <tr
+                    key={task.id}
+                    style={{ backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f9f9fc' }}
+                    className="transition-colors"
+                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f3f3f6'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = idx % 2 === 0 ? '#ffffff' : '#f9f9fc'; }}
+                  >
+                    <td className="px-4 py-3 font-medium" style={{ color: '#1a1c1e', fontFamily: 'Inter, sans-serif' }}>{task.title}</td>
+                    <td className="px-4 py-3">
+                      <Badge variant="secondary" className="text-xs rounded-full">{task.status.replace(/_/g, ' ')}</Badge>
+                    </td>
+                    <td className="px-4 py-3">
+                      <span
+                        className="inline-flex items-center gap-1.5 text-xs font-medium rounded-full px-2 py-0.5"
+                        style={{ backgroundColor: `${pCfg.color}15`, color: pCfg.color }}
+                      >
+                        <span className="h-2 w-2 rounded-full" style={{ backgroundColor: pCfg.color }} />
+                        {pCfg.label}
                       </span>
-                    ) : task.stagnantDays > 0 ? (
-                      <span className="text-muted-foreground">{task.stagnantDays}d</span>
-                    ) : (
-                      <span className="text-muted-foreground">-</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-1.5">
+                        <div
+                          className="h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-bold"
+                          style={{ backgroundColor: '#f3f3f6', color: '#001736' }}
+                        >
+                          {task.assigneeInitials}
+                        </div>
+                        <span className="text-xs" style={{ color: '#44474e' }}>{task.assignee}</span>
+                      </div>
+                    </td>
+                    <td className="px-4 py-3 text-xs" style={{ color: '#74777f' }}>{task.dueDate}</td>
+                    <td className="px-4 py-3 text-xs">
+                      {task.stagnantDays > 5 ? (
+                        <span className="flex items-center gap-1 font-medium" style={{ color: '#F97316' }}>
+                          <Flame className="h-3.5 w-3.5" />
+                          {task.stagnantDays}d
+                        </span>
+                      ) : task.stagnantDays > 0 ? (
+                        <span style={{ color: '#74777f' }}>{task.stagnantDays}d</span>
+                      ) : (
+                        <span style={{ color: '#74777f' }}>-</span>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

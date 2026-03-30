@@ -4,7 +4,6 @@ import * as React from 'react'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import type { StepProps } from './wizard-shell'
 
@@ -79,7 +78,7 @@ export function StepMilestones({ formData, setFormData }: StepProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <label className="text-sm font-medium text-foreground">Milestones</label>
+        <label className="text-sm font-medium text-[#1a1c1e]">Milestones</label>
         <Button type="button" variant="outline" size="sm" onClick={addMilestone}>
           <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
@@ -89,7 +88,7 @@ export function StepMilestones({ formData, setFormData }: StepProps) {
       </div>
 
       {formData.milestones.length === 0 && (
-        <div className="text-center py-8 text-muted-foreground border-2 border-dashed border-muted-foreground/20 rounded-lg">
+        <div className="text-center py-8 text-[#74777f] border-2 border-dashed border-[#e8e8ea] rounded-lg">
           <svg className="h-8 w-8 mx-auto mb-2 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -98,111 +97,116 @@ export function StepMilestones({ formData, setFormData }: StepProps) {
       )}
 
       {formData.milestones.map((milestone, mIndex) => (
-        <Card key={mIndex} className="border-muted-foreground/20">
-          <CardContent className="p-4 space-y-4">
-            {/* Milestone header */}
-            <div className="flex items-start gap-3">
-              <div className="flex items-center justify-center h-8 w-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-500 text-white text-sm font-bold mt-0.5 shrink-0">
-                M{mIndex + 1}
-              </div>
-              <div className="flex-1 space-y-3">
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div className="sm:col-span-2">
-                    <Input
-                      placeholder="Milestone name"
-                      value={milestone.name}
-                      onChange={e => updateMilestone(mIndex, 'name', e.target.value)}
-                    />
-                  </div>
+        <div
+          key={mIndex}
+          className="rounded-xl bg-white p-4 space-y-4"
+          style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+        >
+          {/* Milestone header */}
+          <div className="flex items-start gap-3">
+            <div className="flex items-center justify-center h-8 w-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-500 text-white text-sm font-bold mt-0.5 shrink-0">
+              M{mIndex + 1}
+            </div>
+            <div className="flex-1 space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="sm:col-span-2">
                   <Input
-                    type="date"
-                    value={milestone.dueDate}
-                    onChange={e => updateMilestone(mIndex, 'dueDate', e.target.value)}
+                    placeholder="Milestone name"
+                    value={milestone.name}
+                    onChange={e => updateMilestone(mIndex, 'name', e.target.value)}
+                    className="bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
                   />
                 </div>
-                <Textarea
-                  placeholder="Brief description of this milestone..."
-                  value={milestone.description}
-                  onChange={e => updateMilestone(mIndex, 'description', e.target.value)}
-                  rows={2}
-                  className="text-sm"
+                <Input
+                  type="date"
+                  value={milestone.dueDate}
+                  onChange={e => updateMilestone(mIndex, 'dueDate', e.target.value)}
+                  className="bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
                 />
-
-                {/* Deliverables */}
-                <div className="space-y-2 pl-2 border-l-2 border-violet-200 dark:border-violet-800/40">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Deliverables</span>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => addDeliverable(mIndex)}
-                      className="h-7 text-xs"
-                    >
-                      <svg className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                      </svg>
-                      Add Deliverable
-                    </Button>
-                  </div>
-
-                  {milestone.deliverables.length === 0 && (
-                    <p className="text-xs text-muted-foreground/60 py-1">No deliverables for this milestone.</p>
-                  )}
-
-                  {milestone.deliverables.map((deliverable, dIndex) => (
-                    <div key={dIndex} className="flex items-center gap-2">
-                      <svg className="h-3.5 w-3.5 text-muted-foreground/40 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                      </svg>
-                      <Input
-                        placeholder="Deliverable name"
-                        value={deliverable.name}
-                        onChange={e => updateDeliverable(mIndex, dIndex, 'name', e.target.value)}
-                        className="h-8 text-sm"
-                      />
-                      <Input
-                        type="date"
-                        value={deliverable.dueDate}
-                        onChange={e => updateDeliverable(mIndex, dIndex, 'dueDate', e.target.value)}
-                        className="h-8 text-sm w-40 shrink-0"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeDeliverable(mIndex, dIndex)}
-                        className="text-muted-foreground hover:text-red-500 transition-colors shrink-0"
-                      >
-                        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
-                    </div>
-                  ))}
-                </div>
               </div>
-              <button
-                type="button"
-                onClick={() => removeMilestone(mIndex)}
-                className="text-muted-foreground hover:text-red-500 transition-colors mt-1"
-              >
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
-              </button>
+              <Textarea
+                placeholder="Brief description of this milestone..."
+                value={milestone.description}
+                onChange={e => updateMilestone(mIndex, 'description', e.target.value)}
+                rows={2}
+                className="text-sm bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+              />
+
+              {/* Deliverables */}
+              <div className="space-y-2 pl-2 border-l-2 border-violet-200">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-medium text-[#74777f] uppercase tracking-wider">Deliverables</span>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => addDeliverable(mIndex)}
+                    className="h-7 text-xs"
+                  >
+                    <svg className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Add Deliverable
+                  </Button>
+                </div>
+
+                {milestone.deliverables.length === 0 && (
+                  <p className="text-xs text-[#74777f]/60 py-1">No deliverables for this milestone.</p>
+                )}
+
+                {milestone.deliverables.map((deliverable, dIndex) => (
+                  <div key={dIndex} className="flex items-center gap-2">
+                    <svg className="h-3.5 w-3.5 text-[#74777f]/40 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                    <Input
+                      placeholder="Deliverable name"
+                      value={deliverable.name}
+                      onChange={e => updateDeliverable(mIndex, dIndex, 'name', e.target.value)}
+                      className="h-8 text-sm bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+                    />
+                    <Input
+                      type="date"
+                      value={deliverable.dueDate}
+                      onChange={e => updateDeliverable(mIndex, dIndex, 'dueDate', e.target.value)}
+                      className="h-8 text-sm w-40 shrink-0 bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeDeliverable(mIndex, dIndex)}
+                      className="text-[#74777f] hover:text-red-500 transition-colors shrink-0"
+                    >
+                      <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
-          </CardContent>
-        </Card>
+            <button
+              type="button"
+              onClick={() => removeMilestone(mIndex)}
+              className="text-[#74777f] hover:text-red-500 transition-colors mt-1"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
       ))}
 
       {/* Visual Timeline Preview */}
       {datedMilestones.length > 0 && (
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">Milestone Timeline</label>
-          <Card>
-            <CardContent className="p-4">
-              <MilestoneTimeline milestones={datedMilestones} />
-            </CardContent>
-          </Card>
+          <label className="text-sm font-medium text-[#1a1c1e]">Milestone Timeline</label>
+          <div
+            className="rounded-xl bg-white p-4"
+            style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+          >
+            <MilestoneTimeline milestones={datedMilestones} />
+          </div>
         </div>
       )}
     </div>
@@ -227,16 +231,15 @@ function MilestoneTimeline({
   return (
     <div className="relative">
       {/* Timeline line */}
-      <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-muted-foreground/20" />
+      <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-[#e8e8ea]" />
 
       <div className="space-y-4">
         {sorted.map((m, i) => {
-          const pct = range > 0 ? ((new Date(m.dueDate).getTime() - earliest) / range) * 100 : 0
           return (
             <div key={i} className="relative pl-10">
               {/* Dot */}
               <div className={cn(
-                'absolute left-2 top-1.5 h-5 w-5 rounded-full border-2 border-background flex items-center justify-center',
+                'absolute left-2 top-1.5 h-5 w-5 rounded-full border-2 border-white flex items-center justify-center',
                 colors[i % colors.length]
               )}>
                 <span className="text-white text-[8px] font-bold">{i + 1}</span>
@@ -244,21 +247,21 @@ function MilestoneTimeline({
 
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-sm text-foreground">{m.name}</span>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="font-medium text-sm text-[#1a1c1e]">{m.name}</span>
+                  <span className="text-xs text-[#74777f]">
                     {new Date(m.dueDate).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' })}
                   </span>
                 </div>
                 {m.deliverables.length > 0 && (
                   <div className="mt-1 space-y-0.5">
                     {m.deliverables.filter(d => d.name).map((d, di) => (
-                      <div key={di} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <div key={di} className="flex items-center gap-1.5 text-xs text-[#74777f]">
                         <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                         </svg>
                         {d.name}
                         {d.dueDate && (
-                          <span className="text-muted-foreground/50">
+                          <span className="text-[#74777f]/50">
                             ({new Date(d.dueDate).toLocaleDateString('en-MY', { day: 'numeric', month: 'short' })})
                           </span>
                         )}
