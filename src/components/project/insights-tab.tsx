@@ -243,7 +243,7 @@ export function InsightsTab() {
                     className="h-7 text-xs border-0"
                     style={{ backgroundColor: ins.acknowledged ? '#dcfce7' : 'var(--surface-container-low)', color: ins.acknowledged ? '#15803d' : 'var(--on-surface)' }}
                   >
-                    <CheckCircle2 className="h-3.5 w-3.5 mr-1" style={{ color: ins.acknowledged ? '#22C55E' : '#74777f' }} />
+                    <CheckCircle2 className="h-3.5 w-3.5 mr-1" style={{ color: ins.acknowledged ? '#22C55E' : 'var(--outline)' }} />
                     {ins.acknowledged ? 'Acknowledged' : 'Acknowledge'}
                   </Button>
                 </div>

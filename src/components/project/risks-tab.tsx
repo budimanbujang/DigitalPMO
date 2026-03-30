@@ -249,7 +249,7 @@ export function RisksTab() {
           </h3>
           <div className="space-y-1">
             <div className="flex items-center gap-1">
-              <div className="w-16 text-[10px] text-right pr-1" style={{ color: '#74777f' }}>Likelihood</div>
+              <div className="w-16 text-[10px] text-right pr-1" style={{ color: 'var(--outline)' }}>Likelihood</div>
               <div className="flex-1 grid grid-cols-4 gap-1">
                 {[1, 2, 3, 4].map((i) => (
                   <div key={i} className="text-[10px] text-center" style={{ color: 'var(--outline)' }}>{impactLabel[i]}</div>

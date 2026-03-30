@@ -30,7 +30,7 @@ export default function ProjectDetailClient() {
   const ActiveComponent = TAB_COMPONENTS[activeTab] || OverviewTab;
 
   return (
-    <div className="space-y-6" style={{ backgroundColor: '#f9f9fc', minHeight: '100vh' }}>
+    <div className="space-y-6" style={{ backgroundColor: 'var(--surface)', minHeight: '100vh' }}>
       <ProjectHeader />
       <ProjectTabs activeTab={activeTab} onTabChange={setActiveTab} />
       <ActiveComponent />

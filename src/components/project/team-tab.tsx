@@ -26,7 +26,7 @@ const MOCK_MEMBERS: TeamMember[] = [
   },
   {
     id: 'tm2', name: 'Siti Aminah', initials: 'SA', role: 'Lead Developer', email: 'siti.a@company.my',
-    avatarColor: '#7c3aed', assignedTasks: 12, completedTasks: 9, overdueTasks: 0, chaseResponseRate: 98, workloadPercent: 95,
+    avatarColor: 'var(--ai-accent)', assignedTasks: 12, completedTasks: 9, overdueTasks: 0, chaseResponseRate: 98, workloadPercent: 95,
   },
   {
     id: 'tm3', name: 'Faizal Ibrahim', initials: 'FI', role: 'Business Analyst', email: 'faizal.i@company.my',
@@ -68,7 +68,7 @@ export function TeamTab() {
   const addMember = () => {
     if (!newName.trim()) return;
     const initials = newName.trim().split(' ').map((w) => w[0]).join('').toUpperCase().slice(0, 2);
-    const colors = ['#3B82F6', '#7c3aed', '#22C55E', '#F59E0B', '#EC4899', '#06B6D4'];
+    const colors = ['#3B82F6', 'var(--ai-accent)', '#22C55E', '#F59E0B', '#EC4899', '#06B6D4'];
     setMembers((prev) => [
       ...prev,
       {

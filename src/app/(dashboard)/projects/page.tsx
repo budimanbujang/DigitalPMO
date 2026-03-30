@@ -122,7 +122,7 @@ export default function ProjectsPage() {
 
       {/* Content */}
       {filtered.length === 0 ? (
-        <div className="text-center py-12 text-sm" style={{ color: '#74777f' }}>
+        <div className="text-center py-12 text-sm" style={{ color: 'var(--outline)' }}>
           No projects match your filters.
         </div>
       ) : viewMode === 'grid' ? (
@@ -135,36 +135,36 @@ export default function ProjectsPage() {
         <div className="rounded-xl overflow-hidden" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
           <table className="w-full text-sm">
             <thead>
-              <tr style={{ backgroundColor: '#f3f3f6' }}>
-                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Project</th>
-                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Status</th>
-                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>RAG</th>
-                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Progress</th>
-                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Budget</th>
-                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Owner</th>
-                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Overdue</th>
+              <tr style={{ backgroundColor: 'var(--surface-container-low)' }}>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Project</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Status</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>RAG</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Progress</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Budget</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Owner</th>
+                <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Overdue</th>
               </tr>
             </thead>
             <tbody>
               {filtered.map((p, idx) => (
                 <tr
                   key={p.id}
-                  style={{ backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f9f9fc' }}
+                  style={{ backgroundColor: idx % 2 === 0 ? 'var(--surface-container-lowest)' : 'var(--surface)' }}
                   className="transition-colors"
-                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f3f3f6'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = idx % 2 === 0 ? '#ffffff' : '#f9f9fc'; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--surface-container-low)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = idx % 2 === 0 ? 'var(--surface-container-lowest)' : 'var(--surface)'; }}
                 >
                   <td className="px-4 py-3">
                     <Link
                       href={`/projects/${p.id}`}
                       className="font-medium transition-colors"
-                      style={{ color: '#1a1c1e', fontFamily: 'Inter, sans-serif' }}
-                      onMouseEnter={(e) => { e.currentTarget.style.color = '#001736'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.color = '#1a1c1e'; }}
+                      style={{ color: 'var(--on-surface)', fontFamily: 'Inter, sans-serif' }}
+                      onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--primary)'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--on-surface)'; }}
                     >
                       {p.name}
                     </Link>
-                    <div className="text-xs" style={{ color: '#74777f' }}>{p.code}</div>
+                    <div className="text-xs" style={{ color: 'var(--outline)' }}>{p.code}</div>
                   </td>
                   <td className="px-4 py-3">
                     <Badge variant="secondary" className="rounded-full">{p.status.replace('_', ' ')}</Badge>
@@ -177,18 +177,18 @@ export default function ProjectsPage() {
                   <td className="px-4 py-3 min-w-[120px]">
                     <div className="flex items-center gap-2">
                       <Progress value={p.percentComplete} className="flex-1" />
-                      <span className="text-xs font-medium" style={{ color: '#1a1c1e' }}>{p.percentComplete}%</span>
+                      <span className="text-xs font-medium" style={{ color: 'var(--on-surface)' }}>{p.percentComplete}%</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-xs" style={{ color: '#44474e' }}>
+                  <td className="px-4 py-3 text-xs" style={{ color: 'var(--on-surface-variant)' }}>
                     <div>{formatCurrency(p.budgetSpent)} / {formatCurrency(p.budgetAllocated)}</div>
                   </td>
-                  <td className="px-4 py-3 text-xs" style={{ color: '#74777f' }}>{p.owner}</td>
+                  <td className="px-4 py-3 text-xs" style={{ color: 'var(--outline)' }}>{p.owner}</td>
                   <td className="px-4 py-3">
                     {p.overdueTasks > 0 ? (
                       <span className="font-semibold" style={{ color: '#EF4444' }}>{p.overdueTasks}</span>
                     ) : (
-                      <span style={{ color: '#74777f' }}>0</span>
+                      <span style={{ color: 'var(--outline)' }}>0</span>
                     )}
                   </td>
                 </tr>
