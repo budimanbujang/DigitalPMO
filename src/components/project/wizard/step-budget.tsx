@@ -147,7 +147,7 @@ export function StepBudget({ formData, setFormData }: StepProps) {
                       budgetLineItems: [...prev.budgetLineItems, { category: cat, description: '', amount: 0 }],
                     }))
                   }}
-                  className="text-xs px-2 py-0.5 rounded-full border border-dashed border-[#74777f]/30 text-[var(--on-surface-variant)] hover:border-[var(--ai-accent)] hover:text-[var(--ai-accent)] transition-colors"
+                  className="text-xs px-2 py-0.5 rounded-full border border-dashed border-[var(--outline)]/30 text-[var(--on-surface-variant)] hover:border-[var(--ai-accent)] hover:text-[var(--ai-accent)] transition-colors"
                 >
                   + {cat}
                 </button>

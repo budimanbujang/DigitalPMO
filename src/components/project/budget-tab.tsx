@@ -65,20 +65,20 @@ export function BudgetTab() {
         {/* Category breakdown table */}
         <div
           className="rounded-2xl p-6"
-          style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+          style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
         >
-          <h3 className="text-sm font-semibold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}>
+          <h3 className="text-sm font-semibold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
             Category Breakdown
           </h3>
           <div className="rounded-xl overflow-hidden">
             <table className="w-full text-sm">
               <thead>
-                <tr style={{ backgroundColor: '#f3f3f6' }}>
-                  <th className="text-left px-3 py-2 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Category</th>
-                  <th className="text-right px-3 py-2 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Planned</th>
-                  <th className="text-right px-3 py-2 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Actual</th>
-                  <th className="text-right px-3 py-2 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Variance</th>
-                  <th className="text-right px-3 py-2 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>% Used</th>
+                <tr style={{ backgroundColor: 'var(--surface-container-low)' }}>
+                  <th className="text-left px-3 py-2 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Category</th>
+                  <th className="text-right px-3 py-2 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Planned</th>
+                  <th className="text-right px-3 py-2 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Actual</th>
+                  <th className="text-right px-3 py-2 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Variance</th>
+                  <th className="text-right px-3 py-2 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>% Used</th>
                 </tr>
               </thead>
               <tbody>
@@ -88,14 +88,14 @@ export function BudgetTab() {
                   return (
                     <tr
                       key={cat.name}
-                      style={{ backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f9f9fc' }}
+                      style={{ backgroundColor: idx % 2 === 0 ? 'var(--surface-container-lowest)' : 'var(--surface)' }}
                       className="transition-colors"
-                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f3f3f6'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = idx % 2 === 0 ? '#ffffff' : '#f9f9fc'; }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--surface-container-low)'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = idx % 2 === 0 ? 'var(--surface-container-lowest)' : 'var(--surface)'; }}
                     >
-                      <td className="px-3 py-2.5 font-medium" style={{ color: '#1a1c1e', fontFamily: 'Inter, sans-serif' }}>{cat.name}</td>
-                      <td className="px-3 py-2.5 text-right" style={{ color: '#74777f' }}>{formatCurrency(cat.planned)}</td>
-                      <td className="px-3 py-2.5 text-right" style={{ color: '#1a1c1e' }}>{formatCurrency(cat.actual)}</td>
+                      <td className="px-3 py-2.5 font-medium" style={{ color: 'var(--on-surface)', fontFamily: 'Inter, sans-serif' }}>{cat.name}</td>
+                      <td className="px-3 py-2.5 text-right" style={{ color: 'var(--outline)' }}>{formatCurrency(cat.planned)}</td>
+                      <td className="px-3 py-2.5 text-right" style={{ color: 'var(--on-surface)' }}>{formatCurrency(cat.actual)}</td>
                       <td className="px-3 py-2.5 text-right font-medium" style={{ color: variance >= 0 ? '#22C55E' : '#EF4444' }}>
                         {variance >= 0 ? '+' : ''}{formatCurrency(variance)}
                       </td>
@@ -115,14 +115,14 @@ export function BudgetTab() {
                 })}
               </tbody>
               <tfoot>
-                <tr style={{ backgroundColor: '#f3f3f6' }}>
-                  <td className="px-3 py-2.5 font-semibold" style={{ color: '#1a1c1e' }}>Total</td>
-                  <td className="px-3 py-2.5 text-right font-semibold" style={{ color: '#74777f' }}>{formatCurrency(totalPlanned)}</td>
-                  <td className="px-3 py-2.5 text-right font-semibold" style={{ color: '#1a1c1e' }}>{formatCurrency(totalActual)}</td>
+                <tr style={{ backgroundColor: 'var(--surface-container-low)' }}>
+                  <td className="px-3 py-2.5 font-semibold" style={{ color: 'var(--on-surface)' }}>Total</td>
+                  <td className="px-3 py-2.5 text-right font-semibold" style={{ color: 'var(--outline)' }}>{formatCurrency(totalPlanned)}</td>
+                  <td className="px-3 py-2.5 text-right font-semibold" style={{ color: 'var(--on-surface)' }}>{formatCurrency(totalActual)}</td>
                   <td className="px-3 py-2.5 text-right font-semibold" style={{ color: totalRemaining >= 0 ? '#22C55E' : '#EF4444' }}>
                     {totalRemaining >= 0 ? '+' : ''}{formatCurrency(totalRemaining)}
                   </td>
-                  <td className="px-3 py-2.5 text-right font-semibold" style={{ color: '#1a1c1e' }}>
+                  <td className="px-3 py-2.5 text-right font-semibold" style={{ color: 'var(--on-surface)' }}>
                     {Math.round((totalActual / totalPlanned) * 100)}%
                   </td>
                 </tr>
@@ -134,9 +134,9 @@ export function BudgetTab() {
         {/* Bar chart: planned vs actual */}
         <div
           className="rounded-2xl p-6"
-          style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+          style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
         >
-          <h3 className="text-sm font-semibold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}>
+          <h3 className="text-sm font-semibold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
             Planned vs Actual
           </h3>
           <div className="space-y-4">
@@ -146,19 +146,19 @@ export function BudgetTab() {
               return (
                 <div key={cat.name} className="space-y-1">
                   <div className="flex items-center justify-between text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
-                    <span className="font-medium" style={{ color: '#1a1c1e' }}>{cat.name}</span>
-                    <span style={{ color: '#74777f' }}>
+                    <span className="font-medium" style={{ color: 'var(--on-surface)' }}>{cat.name}</span>
+                    <span style={{ color: 'var(--outline)' }}>
                       {formatCurrency(cat.actual)} / {formatCurrency(cat.planned)}
                     </span>
                   </div>
                   <div className="space-y-1">
-                    <div className="h-3 w-full rounded-full overflow-hidden" style={{ backgroundColor: '#e8e8ea' }}>
+                    <div className="h-3 w-full rounded-full overflow-hidden" style={{ backgroundColor: 'var(--surface-container-high)' }}>
                       <div
                         className="h-full rounded-full"
                         style={{ width: `${plannedPct}%`, backgroundColor: 'rgba(59,130,246,0.6)' }}
                       />
                     </div>
-                    <div className="h-3 w-full rounded-full overflow-hidden" style={{ backgroundColor: '#e8e8ea' }}>
+                    <div className="h-3 w-full rounded-full overflow-hidden" style={{ backgroundColor: 'var(--surface-container-high)' }}>
                       <div
                         className="h-full rounded-full"
                         style={{
@@ -171,7 +171,7 @@ export function BudgetTab() {
                 </div>
               );
             })}
-            <div className="flex items-center gap-4 pt-2 text-xs" style={{ color: '#74777f' }}>
+            <div className="flex items-center gap-4 pt-2 text-xs" style={{ color: 'var(--outline)' }}>
               <div className="flex items-center gap-1.5">
                 <div className="h-2.5 w-2.5 rounded" style={{ backgroundColor: 'rgba(59,130,246,0.6)' }} />
                 Planned
@@ -192,29 +192,29 @@ export function BudgetTab() {
       {/* Forecast comparison */}
       <div
         className="rounded-2xl p-6"
-        style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+        style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
       >
-        <h3 className="text-sm font-semibold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}>
+        <h3 className="text-sm font-semibold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
           Forecast vs Plan
         </h3>
         <div className="flex items-center gap-4">
           <div className="flex-1">
             <div className="flex items-center justify-between text-xs mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>
-              <span style={{ color: '#74777f' }}>Plan</span>
-              <span className="font-medium" style={{ color: '#1a1c1e' }}>{formatCurrency(totalPlanned)}</span>
+              <span style={{ color: 'var(--outline)' }}>Plan</span>
+              <span className="font-medium" style={{ color: 'var(--on-surface)' }}>{formatCurrency(totalPlanned)}</span>
             </div>
-            <div className="h-6 w-full rounded-full overflow-hidden" style={{ backgroundColor: '#e8e8ea' }}>
+            <div className="h-6 w-full rounded-full overflow-hidden" style={{ backgroundColor: 'var(--surface-container-high)' }}>
               <div className="h-full rounded-full" style={{ width: '100%', backgroundColor: 'rgba(59,130,246,0.6)' }} />
             </div>
           </div>
           <div className="flex-1">
             <div className="flex items-center justify-between text-xs mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>
-              <span style={{ color: '#74777f' }}>Forecast</span>
+              <span style={{ color: 'var(--outline)' }}>Forecast</span>
               <span className="font-medium" style={{ color: forecastTotal > totalPlanned ? '#EF4444' : '#22C55E' }}>
                 {formatCurrency(forecastTotal)}
               </span>
             </div>
-            <div className="h-6 w-full rounded-full overflow-hidden" style={{ backgroundColor: '#e8e8ea' }}>
+            <div className="h-6 w-full rounded-full overflow-hidden" style={{ backgroundColor: 'var(--surface-container-high)' }}>
               <div
                 className="h-full rounded-full"
                 style={{
@@ -241,7 +241,7 @@ function SummaryCard({ label, value, icon, iconColor, iconBg }: {
   return (
     <div
       className="rounded-2xl p-4 space-y-2"
-      style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+      style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
     >
       <div
         className="inline-flex items-center justify-center h-8 w-8 rounded-lg"
@@ -249,8 +249,8 @@ function SummaryCard({ label, value, icon, iconColor, iconBg }: {
       >
         {icon}
       </div>
-      <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>{label}</div>
-      <div className="text-lg font-bold" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{value}</div>
+      <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>{label}</div>
+      <div className="text-lg font-bold" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface)' }}>{value}</div>
     </div>
   );
 }

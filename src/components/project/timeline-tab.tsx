@@ -72,7 +72,7 @@ export function TimelineTab() {
   return (
     <div className="space-y-4">
       {/* Legend */}
-      <div className="flex items-center gap-4 text-xs flex-wrap" style={{ color: '#74777f' }}>
+      <div className="flex items-center gap-4 text-xs flex-wrap" style={{ color: 'var(--outline)' }}>
         <div className="flex items-center gap-1.5"><div className="h-2.5 w-6 rounded" style={{ backgroundColor: '#22C55E' }} /> Completed</div>
         <div className="flex items-center gap-1.5"><div className="h-2.5 w-6 rounded" style={{ backgroundColor: '#3B82F6' }} /> In Progress</div>
         <div className="flex items-center gap-1.5"><div className="h-2.5 w-6 rounded" style={{ backgroundColor: '#EF4444' }} /> Blocked</div>
@@ -86,10 +86,10 @@ export function TimelineTab() {
       >
         <div className="min-w-[800px]">
           {/* Month headers */}
-          <div className="flex" style={{ backgroundColor: '#f3f3f6' }}>
+          <div className="flex" style={{ backgroundColor: 'var(--surface-container-low)' }}>
             <div
               className="w-52 shrink-0 px-4 py-2 text-xs font-medium"
-              style={{ color: '#44474e', fontFamily: 'Inter, sans-serif', borderRight: '1px solid #e8e8ea' }}
+              style={{ color: 'var(--on-surface-variant)', fontFamily: 'Inter, sans-serif', borderRight: '1px solid var(--surface-container-high)' }}
             >
               Item
             </div>

@@ -66,7 +66,7 @@ function riskScore(l: number, i: number) { return l * i; }
 function scoreColor(score: number): { bg: string; text: string } {
   if (score >= 12) return { bg: '#EF4444', text: '#ffffff' };
   if (score >= 8) return { bg: '#F97316', text: '#ffffff' };
-  if (score >= 4) return { bg: '#EAB308', text: '#1a1c1e' };
+  if (score >= 4) return { bg: '#EAB308', text: 'var(--on-surface)' };
   return { bg: '#22C55E', text: '#ffffff' };
 }
 
@@ -129,12 +129,12 @@ export function RisksTab() {
   const SortHeader = ({ label, field }: { label: string; field: SortKey }) => (
     <th
       className="px-3 py-2.5 font-medium cursor-pointer select-none transition-colors"
-      style={{ color: sortKey === field ? '#1a1c1e' : '#44474e', fontFamily: 'Inter, sans-serif' }}
+      style={{ color: sortKey === field ? 'var(--on-surface)' : 'var(--on-surface-variant)', fontFamily: 'Inter, sans-serif' }}
       onClick={() => handleSort(field)}
     >
       <div className="flex items-center gap-1">
         {label}
-        <ArrowUpDown className="h-3 w-3" style={{ color: sortKey === field ? '#1a1c1e' : '#c4c6cc' }} />
+        <ArrowUpDown className="h-3 w-3" style={{ color: sortKey === field ? 'var(--on-surface)' : 'var(--outline-variant)' }} />
       </div>
     </th>
   );
@@ -142,10 +142,10 @@ export function RisksTab() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold" style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}>
+        <h3 className="text-sm font-semibold" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
           Risk Register ({risks.length})
         </h3>
-        <Button size="sm" style={{ backgroundColor: '#001736', color: '#ffffff' }} onClick={() => setShowAdd(true)}>
+        <Button size="sm" style={{ backgroundColor: 'var(--primary)', color: '#ffffff' }} onClick={() => setShowAdd(true)}>
           <Plus className="h-4 w-4 mr-1" />
           Add Risk
         </Button>
@@ -154,7 +154,7 @@ export function RisksTab() {
       {showAdd && (
         <div
           className="flex items-center gap-2 p-3 rounded-lg"
-          style={{ backgroundColor: '#f3f3f6' }}
+          style={{ backgroundColor: 'var(--surface-container-low)' }}
         >
           <Input
             placeholder="Risk title..."
@@ -164,7 +164,7 @@ export function RisksTab() {
             autoFocus
             className="flex-1"
           />
-          <Button size="sm" style={{ backgroundColor: '#001736', color: '#ffffff' }} onClick={addRisk}>Add</Button>
+          <Button size="sm" style={{ backgroundColor: 'var(--primary)', color: '#ffffff' }} onClick={addRisk}>Add</Button>
           <Button size="sm" variant="ghost" onClick={() => { setShowAdd(false); setNewTitle(''); }}>
             <X className="h-4 w-4" />
           </Button>
@@ -177,14 +177,14 @@ export function RisksTab() {
           <div className="rounded-xl overflow-hidden" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
             <table className="w-full text-sm">
               <thead>
-                <tr style={{ backgroundColor: '#f3f3f6' }}>
+                <tr style={{ backgroundColor: 'var(--surface-container-low)' }}>
                   <SortHeader label="Risk" field="title" />
                   <SortHeader label="Likelihood" field="likelihood" />
                   <SortHeader label="Impact" field="impact" />
                   <SortHeader label="Score" field="score" />
                   <SortHeader label="Status" field="status" />
                   <SortHeader label="Owner" field="owner" />
-                  <th className="text-left px-3 py-2.5 font-medium" style={{ color: '#44474e', fontFamily: 'Inter, sans-serif' }}>AI</th>
+                  <th className="text-left px-3 py-2.5 font-medium" style={{ color: 'var(--on-surface-variant)', fontFamily: 'Inter, sans-serif' }}>AI</th>
                 </tr>
               </thead>
               <tbody>
@@ -195,16 +195,16 @@ export function RisksTab() {
                     <tr
                       key={risk.id}
                       style={{
-                        backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f9f9fc',
-                        borderLeft: risk.aiGenerated ? '3px solid #7c3aed' : '3px solid transparent',
+                        backgroundColor: idx % 2 === 0 ? 'var(--surface-container-lowest)' : 'var(--surface)',
+                        borderLeft: risk.aiGenerated ? '3px solid var(--ai-accent)' : '3px solid transparent',
                       }}
                       className="transition-colors"
-                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f3f3f6'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = idx % 2 === 0 ? '#ffffff' : '#f9f9fc'; }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--surface-container-low)'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = idx % 2 === 0 ? 'var(--surface-container-lowest)' : 'var(--surface)'; }}
                     >
                       <td className="px-3 py-2.5">
-                        <div className="font-medium" style={{ color: '#1a1c1e', fontFamily: 'Inter, sans-serif' }}>{risk.title}</div>
-                        <div className="text-xs line-clamp-1" style={{ color: '#74777f' }}>{risk.description}</div>
+                        <div className="font-medium" style={{ color: 'var(--on-surface)', fontFamily: 'Inter, sans-serif' }}>{risk.title}</div>
+                        <div className="text-xs line-clamp-1" style={{ color: 'var(--outline)' }}>{risk.description}</div>
                       </td>
                       <td className="px-3 py-2.5 text-center">
                         <Badge variant={risk.likelihood >= 3 ? 'rag-amber' : 'secondary'} className="text-[10px] rounded-full">
@@ -227,9 +227,9 @@ export function RisksTab() {
                       <td className="px-3 py-2.5">
                         <Badge variant={statusVariant(risk.status)} className="rounded-full">{risk.status}</Badge>
                       </td>
-                      <td className="px-3 py-2.5 text-xs" style={{ color: '#74777f' }}>{risk.owner}</td>
+                      <td className="px-3 py-2.5 text-xs" style={{ color: 'var(--outline)' }}>{risk.owner}</td>
                       <td className="px-3 py-2.5 text-center">
-                        {risk.aiGenerated && <Sparkles className="h-4 w-4 inline" style={{ color: '#7c3aed' }} />}
+                        {risk.aiGenerated && <Sparkles className="h-4 w-4 inline" style={{ color: 'var(--ai-accent)' }} />}
                       </td>
                     </tr>
                   );
@@ -242,9 +242,9 @@ export function RisksTab() {
         {/* 4x4 Risk matrix */}
         <div
           className="rounded-2xl p-6"
-          style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+          style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
         >
-          <h3 className="text-sm font-semibold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}>
+          <h3 className="text-sm font-semibold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
             Risk Matrix
           </h3>
           <div className="space-y-1">
@@ -252,13 +252,13 @@ export function RisksTab() {
               <div className="w-16 text-[10px] text-right pr-1" style={{ color: '#74777f' }}>Likelihood</div>
               <div className="flex-1 grid grid-cols-4 gap-1">
                 {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="text-[10px] text-center" style={{ color: '#74777f' }}>{impactLabel[i]}</div>
+                  <div key={i} className="text-[10px] text-center" style={{ color: 'var(--outline)' }}>{impactLabel[i]}</div>
                 ))}
               </div>
             </div>
             {[4, 3, 2, 1].map((l) => (
               <div key={l} className="flex items-center gap-1">
-                <div className="w-16 text-[10px] text-right pr-1" style={{ color: '#74777f' }}>{likelihoodLabel[l]}</div>
+                <div className="w-16 text-[10px] text-right pr-1" style={{ color: 'var(--outline)' }}>{likelihoodLabel[l]}</div>
                 <div className="flex-1 grid grid-cols-4 gap-1">
                   {[1, 2, 3, 4].map((i) => {
                     const cellRisks = matrix[`${l}-${i}`] || [];
@@ -293,7 +293,7 @@ export function RisksTab() {
             ))}
             <div className="flex items-center gap-1 mt-1">
               <div className="w-16" />
-              <div className="flex-1 text-center text-[10px]" style={{ color: '#74777f' }}>Impact</div>
+              <div className="flex-1 text-center text-[10px]" style={{ color: 'var(--outline)' }}>Impact</div>
             </div>
           </div>
         </div>
