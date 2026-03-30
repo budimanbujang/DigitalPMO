@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronRight, CheckCircle2, Circle } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { cn } from '@/lib/utils';
 
 type MilestoneStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED' | 'DELAYED' | 'AT_RISK';
 
@@ -22,12 +21,12 @@ interface MilestoneItem {
   deliverables: Deliverable[];
 }
 
-const statusConfig: Record<MilestoneStatus, { label: string; color: string; badgeClass: string }> = {
-  NOT_STARTED: { label: 'Not Started', color: 'bg-slate-400', badgeClass: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300' },
-  IN_PROGRESS: { label: 'In Progress', color: 'bg-blue-500', badgeClass: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' },
-  COMPLETED: { label: 'Completed', color: 'bg-green-500', badgeClass: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' },
-  DELAYED: { label: 'Delayed', color: 'bg-red-500', badgeClass: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' },
-  AT_RISK: { label: 'At Risk', color: 'bg-amber-500', badgeClass: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' },
+const statusConfig: Record<MilestoneStatus, { label: string; dotColor: string; badgeBg: string; badgeText: string }> = {
+  NOT_STARTED: { label: 'Not Started', dotColor: '#94a3b8', badgeBg: '#f1f5f9', badgeText: '#475569' },
+  IN_PROGRESS: { label: 'In Progress', dotColor: '#3B82F6', badgeBg: '#dbeafe', badgeText: '#1d4ed8' },
+  COMPLETED: { label: 'Completed', dotColor: '#22C55E', badgeBg: '#dcfce7', badgeText: '#15803d' },
+  DELAYED: { label: 'Delayed', dotColor: '#EF4444', badgeBg: '#fee2e2', badgeText: '#b91c1c' },
+  AT_RISK: { label: 'At Risk', dotColor: '#F59E0B', badgeBg: '#fef3c7', badgeText: '#b45309' },
 };
 
 const mockMilestones: MilestoneItem[] = [
@@ -117,42 +116,54 @@ export function MilestonesTab() {
           <div key={ms.id} className="flex gap-4">
             {/* Timeline connector */}
             <div className="flex flex-col items-center">
-              <div className={cn('h-4 w-4 rounded-full shrink-0 ring-4 ring-background', cfg.color)} />
-              {!isLast && <div className="w-0.5 flex-1 bg-border" />}
+              <div
+                className="h-4 w-4 rounded-full shrink-0"
+                style={{ backgroundColor: cfg.dotColor, boxShadow: `0 0 0 4px #ffffff` }}
+              />
+              {!isLast && <div className="w-0.5 flex-1" style={{ backgroundColor: '#e8e8ea' }} />}
             </div>
 
             {/* Content */}
-            <div className={cn('flex-1 pb-8', isLast && 'pb-0')}>
+            <div className={`flex-1 ${isLast ? 'pb-0' : 'pb-8'}`}>
               <button
                 onClick={() => toggleExpand(ms.id)}
-                className="w-full text-left rounded-lg border border-border bg-card p-4 hover:border-primary/30 transition-colors"
+                className="w-full text-left rounded-xl p-4 transition-shadow"
+                style={{
+                  backgroundColor: '#ffffff',
+                  boxShadow: '0 12px 40px rgba(26,28,30,0.06)',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 12px 40px rgba(26,28,30,0.10)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 12px 40px rgba(26,28,30,0.06)'; }}
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2">
                     {expanded ? (
-                      <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0" />
+                      <ChevronDown className="h-4 w-4 shrink-0" style={{ color: '#74777f' }} />
                     ) : (
-                      <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0" />
+                      <ChevronRight className="h-4 w-4 shrink-0" style={{ color: '#74777f' }} />
                     )}
                     <div>
-                      <div className="text-sm font-semibold text-foreground">{ms.name}</div>
+                      <div className="text-sm font-semibold" style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}>{ms.name}</div>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-muted-foreground">Due: {ms.dueDate}</span>
-                        <Badge className={cn('text-[10px] px-1.5 py-0 border-0', cfg.badgeClass)}>
+                        <span className="text-xs" style={{ color: '#74777f' }}>Due: {ms.dueDate}</span>
+                        <span
+                          className="text-[10px] px-1.5 py-0 rounded-full font-medium"
+                          style={{ backgroundColor: cfg.badgeBg, color: cfg.badgeText }}
+                        >
                           {cfg.label}
-                        </Badge>
+                        </span>
                       </div>
                     </div>
                   </div>
                   <div className="text-right shrink-0">
-                    <div className="text-sm font-medium text-foreground">{completedCount}/{totalCount}</div>
-                    <div className="text-[10px] text-muted-foreground">deliverables</div>
+                    <div className="text-sm font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{completedCount}/{totalCount}</div>
+                    <div className="text-[10px]" style={{ color: '#74777f' }}>deliverables</div>
                   </div>
                 </div>
 
                 <div className="mt-3">
                   <Progress value={progressPct} className="h-2" />
-                  <div className="text-[10px] text-muted-foreground mt-1">{progressPct}% complete</div>
+                  <div className="text-[10px] mt-1" style={{ color: '#74777f' }}>{progressPct}% complete</div>
                 </div>
               </button>
 
@@ -160,16 +171,24 @@ export function MilestonesTab() {
               {expanded && (
                 <div className="mt-2 ml-6 space-y-1.5">
                   {ms.deliverables.map((d) => (
-                    <div key={d.id} className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-muted/30">
+                    <div
+                      key={d.id}
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-md"
+                      style={{ backgroundColor: '#f9f9fc' }}
+                    >
                       {d.completed ? (
-                        <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />
+                        <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: '#22C55E' }} />
                       ) : (
-                        <Circle className="h-4 w-4 text-muted-foreground shrink-0" />
+                        <Circle className="h-4 w-4 shrink-0" style={{ color: '#74777f' }} />
                       )}
-                      <span className={cn(
-                        'text-sm',
-                        d.completed ? 'text-muted-foreground line-through' : 'text-foreground'
-                      )}>
+                      <span
+                        className="text-sm"
+                        style={{
+                          fontFamily: 'Inter, sans-serif',
+                          color: d.completed ? '#74777f' : '#1a1c1e',
+                          textDecoration: d.completed ? 'line-through' : 'none',
+                        }}
+                      >
                         {d.name}
                       </span>
                     </div>
