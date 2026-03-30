@@ -10,7 +10,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const { sidebarOpen } = useAppStore();
 
   return (
-    <div className="min-h-screen bg-[#0A0F1C]">
+    <div className="min-h-screen bg-[#f9f9fc]">
       <Sidebar />
       <div
         className={cn(

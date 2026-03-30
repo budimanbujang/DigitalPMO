@@ -1,8 +1,8 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import React, { createContext, useContext } from 'react';
 
-type Theme = 'dark' | 'light';
+type Theme = 'light';
 
 interface ThemeContextValue {
   theme: Theme;
@@ -13,38 +13,15 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('dark');
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    const stored = localStorage.getItem('digitalpmo-theme') as Theme | null;
-    if (stored === 'light' || stored === 'dark') {
-      setThemeState(stored);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-    const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-    localStorage.setItem('digitalpmo-theme', theme);
-  }, [theme, mounted]);
-
-  const setTheme = useCallback((t: Theme) => {
-    setThemeState(t);
-  }, []);
-
-  const toggleTheme = useCallback(() => {
-    setThemeState((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  }, []);
+  // Executive Monolith design system is light-mode only.
+  const value: ThemeContextValue = {
+    theme: 'light',
+    setTheme: () => {},
+    toggleTheme: () => {},
+  };
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   );

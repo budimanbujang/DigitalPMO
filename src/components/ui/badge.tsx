@@ -4,25 +4,25 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-[#d6e3ff] focus:ring-offset-2",
   {
     variants: {
       variant: {
         default:
-          "border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80",
+          "bg-gradient-to-r from-[#001736] to-[#002b5b] text-white",
         secondary:
-          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "bg-[#f3f3f6] text-[#44474e]",
         destructive:
-          "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
+          "bg-[#fee2e2] text-[#7f1d1d]",
         outline:
-          "text-foreground",
+          "border border-[#1a1c1e]/15 text-[#1a1c1e]",
         "rag-red":
-          "border-transparent bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
+          "bg-[#fee2e2] text-[#7f1d1d]",
         "rag-amber":
-          "border-transparent bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400",
+          "bg-[#fef3c7] text-[#78350f]",
         "rag-green":
-          "border-transparent bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
-        ai: "border-transparent bg-gradient-to-r from-violet-500/10 to-indigo-500/10 text-violet-700 dark:from-violet-500/20 dark:to-indigo-500/20 dark:text-violet-400",
+          "bg-[#dcfce7] text-[#14532d]",
+        ai: "bg-gradient-to-r from-violet-500/10 to-indigo-500/10 text-violet-700",
       },
     },
     defaultVariants: {

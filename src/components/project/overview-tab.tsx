@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { CheckCircle2, Wallet, Clock, Users, ShieldAlert, Sparkles, TrendingUp } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useProjectContext } from '@/components/project/project-context';
@@ -36,16 +35,16 @@ const trendData = [
   { week: 'W8', completed: 20 },
 ];
 
-function activityIcon(type: string) {
+function activityIconColor(type: string): string {
   const colors: Record<string, string> = {
-    task: 'bg-blue-500/20 text-blue-500',
-    risk: 'bg-red-500/20 text-red-500',
-    budget: 'bg-amber-500/20 text-amber-500',
-    milestone: 'bg-green-500/20 text-green-500',
-    ai: 'bg-violet-500/20 text-violet-500',
-    document: 'bg-cyan-500/20 text-cyan-500',
-    status: 'bg-gray-500/20 text-gray-500',
-    chase: 'bg-orange-500/20 text-orange-500',
+    task: '#3B82F6',
+    risk: '#EF4444',
+    budget: '#F59E0B',
+    milestone: '#22C55E',
+    ai: '#7c3aed',
+    document: '#06B6D4',
+    status: '#6B7280',
+    chase: '#F97316',
   };
   return colors[type] || colors.status;
 }
@@ -60,138 +59,169 @@ export function OverviewTab() {
   const maxTrend = Math.max(...trendData.map((d) => d.completed));
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Key metrics cards */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         <MetricCard
-          icon={<CheckCircle2 className="h-4 w-4 text-green-500" />}
+          icon={<CheckCircle2 className="h-4 w-4" style={{ color: '#22C55E' }} />}
           label="Tasks Completed"
           value={`${project.completedTasks}/${project.totalTasks}`}
           sub={`${Math.round((project.completedTasks / project.totalTasks) * 100)}%`}
         />
         <MetricCard
-          icon={<Wallet className="h-4 w-4 text-blue-500" />}
+          icon={<Wallet className="h-4 w-4" style={{ color: '#3B82F6' }} />}
           label="Budget Used"
           value={`${budgetUsed}%`}
           sub={formatCurrency(project.budgetSpent)}
         />
         <MetricCard
-          icon={<Clock className="h-4 w-4 text-amber-500" />}
+          icon={<Clock className="h-4 w-4" style={{ color: '#F59E0B' }} />}
           label="Days Remaining"
           value={`${daysRemaining > 0 ? daysRemaining : 0}`}
           sub={daysRemaining < 0 ? 'Overdue' : 'Until deadline'}
         />
         <MetricCard
-          icon={<Users className="h-4 w-4 text-cyan-500" />}
+          icon={<Users className="h-4 w-4" style={{ color: '#06B6D4' }} />}
           label="Team Size"
           value={`${teamSize}`}
           sub="Active members"
         />
         <MetricCard
-          icon={<ShieldAlert className="h-4 w-4 text-red-500" />}
+          icon={<ShieldAlert className="h-4 w-4" style={{ color: '#EF4444' }} />}
           label="Risks Open"
           value={`${openRisks}`}
           sub={openRisks > 3 ? 'Needs attention' : 'Manageable'}
         />
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-8 lg:grid-cols-3">
         {/* Activity feed - takes 2 cols */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-8">
           {/* Recent activity */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-sm font-semibold">Recent Activity</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {activities.map((a) => (
-                <div key={a.id} className="flex items-start gap-3">
-                  <div className={`mt-0.5 rounded-full p-1.5 ${activityIcon(a.type)}`}>
-                    <div className="h-2 w-2 rounded-full bg-current" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-foreground">{a.action}</span>
-                      <span className="text-xs text-muted-foreground">{formatRelativeDate(a.timestamp)}</span>
+          <div
+            className="rounded-2xl p-6"
+            style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+          >
+            <h3
+              className="text-sm font-semibold mb-5"
+              style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}
+            >
+              Recent Activity
+            </h3>
+            <div className="space-y-5">
+              {activities.map((a) => {
+                const dotColor = activityIconColor(a.type);
+                return (
+                  <div key={a.id} className="flex items-start gap-3">
+                    <div
+                      className="mt-1.5 rounded-full p-1.5 shrink-0"
+                      style={{ backgroundColor: `${dotColor}15` }}
+                    >
+                      <div className="h-2 w-2 rounded-full" style={{ backgroundColor: dotColor }} />
                     </div>
-                    <p className="text-xs text-muted-foreground truncate">{a.detail}</p>
-                    <span className="text-xs text-muted-foreground">by {a.user}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{a.action}</span>
+                        <span className="text-xs" style={{ color: '#74777f' }}>{formatRelativeDate(a.timestamp)}</span>
+                      </div>
+                      <p className="text-xs truncate" style={{ color: '#44474e' }}>{a.detail}</p>
+                      <span className="text-xs" style={{ color: '#74777f' }}>by {a.user}</span>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
+                );
+              })}
+            </div>
+          </div>
 
           {/* Task completion trend mini chart */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-sm font-semibold flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-green-500" />
-                Task Completion Trend
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-end gap-2 h-32">
-                {trendData.map((d) => (
-                  <div key={d.week} className="flex-1 flex flex-col items-center gap-1">
-                    <div
-                      className="w-full rounded-t bg-primary/80 transition-all"
-                      style={{ height: `${(d.completed / maxTrend) * 100}%` }}
-                    />
-                    <span className="text-[10px] text-muted-foreground">{d.week}</span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <div
+            className="rounded-2xl p-6"
+            style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+          >
+            <h3
+              className="text-sm font-semibold flex items-center gap-2 mb-5"
+              style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}
+            >
+              <TrendingUp className="h-4 w-4" style={{ color: '#22C55E' }} />
+              Task Completion Trend
+            </h3>
+            <div className="flex items-end gap-2 h-32">
+              {trendData.map((d) => (
+                <div key={d.week} className="flex-1 flex flex-col items-center gap-1">
+                  <div
+                    className="w-full rounded-t transition-all"
+                    style={{ height: `${(d.completed / maxTrend) * 100}%`, backgroundColor: '#001736' }}
+                  />
+                  <span className="text-[10px]" style={{ color: '#74777f' }}>{d.week}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Right sidebar */}
-        <div className="space-y-6">
+        <div className="space-y-8">
           {/* Next milestone countdown */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-sm font-semibold">Next Milestone</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="text-base font-semibold text-foreground">{project.nextMilestone.name}</div>
+          <div
+            className="rounded-2xl p-6"
+            style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+          >
+            <h3
+              className="text-sm font-semibold mb-4"
+              style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}
+            >
+              Next Milestone
+            </h3>
+            <div className="space-y-3">
+              <div className="text-base font-semibold" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{project.nextMilestone.name}</div>
               <div className="flex items-center gap-2">
-                <div className={`text-2xl font-bold ${project.nextMilestone.daysRemaining < 0 ? 'text-red-500' : project.nextMilestone.daysRemaining < 7 ? 'text-amber-500' : 'text-green-500'}`}>
+                <div className="text-2xl font-bold" style={{ fontFamily: 'Inter, sans-serif', color: project.nextMilestone.daysRemaining < 0 ? '#EF4444' : project.nextMilestone.daysRemaining < 7 ? '#F59E0B' : '#22C55E' }}>
                   {Math.abs(project.nextMilestone.daysRemaining)}
                 </div>
-                <span className="text-sm text-muted-foreground">
+                <span className="text-sm" style={{ color: '#44474e' }}>
                   {project.nextMilestone.daysRemaining < 0 ? 'days overdue' : 'days remaining'}
                 </span>
               </div>
-              <div className="text-xs text-muted-foreground">
+              <div className="text-xs" style={{ color: '#74777f' }}>
                 Due: {new Date(project.nextMilestone.dueDate).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' })}
               </div>
               <Progress
                 value={project.nextMilestone.daysRemaining < 0 ? 100 : Math.max(0, 100 - project.nextMilestone.daysRemaining * 3)}
                 color={project.nextMilestone.daysRemaining < 0 ? '#EF4444' : project.nextMilestone.daysRemaining < 7 ? '#F59E0B' : '#22C55E'}
               />
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
           {/* AI health summary */}
-          <Card className="border-violet-500/30 bg-gradient-to-br from-violet-500/5 to-indigo-500/5">
-            <CardHeader>
-              <CardTitle className="text-sm font-semibold flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-violet-500" />
-                AI Health Summary
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
+          <div
+            className="rounded-2xl p-6"
+            style={{
+              backgroundColor: '#ffffff',
+              boxShadow: '0 12px 40px rgba(26,28,30,0.06)',
+              borderLeft: '3px solid #7c3aed',
+            }}
+          >
+            <h3
+              className="text-sm font-semibold flex items-center gap-2 mb-4"
+              style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}
+            >
+              <Sparkles className="h-4 w-4" style={{ color: '#7c3aed' }} />
+              AI Health Summary
+            </h3>
+            <div className="space-y-3">
               {insights.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No active AI insights for this project.</p>
+                <p className="text-sm" style={{ color: '#44474e' }}>No active AI insights for this project.</p>
               ) : (
                 <>
                   <div className="flex items-center gap-2">
-                    <div className={`h-3 w-3 rounded-full ${
-                      insights.some((i) => i.severity === 'CRITICAL') ? 'bg-red-500' :
-                      insights.some((i) => i.severity === 'HIGH') ? 'bg-amber-500' : 'bg-green-500'
-                    }`} />
-                    <span className="text-sm font-medium text-foreground">
+                    <div
+                      className="h-3 w-3 rounded-full"
+                      style={{
+                        backgroundColor: insights.some((i) => i.severity === 'CRITICAL') ? '#EF4444' :
+                          insights.some((i) => i.severity === 'HIGH') ? '#F59E0B' : '#22C55E'
+                      }}
+                    />
+                    <span className="text-sm font-medium" style={{ color: '#1a1c1e' }}>
                       {insights.some((i) => i.severity === 'CRITICAL') ? 'Critical issues detected' :
                        insights.some((i) => i.severity === 'HIGH') ? 'High-priority items' : 'Moderate observations'}
                     </span>
@@ -202,42 +232,49 @@ export function OverviewTab() {
                         <div className="flex items-center gap-1.5">
                           <Badge
                             variant={insight.severity === 'CRITICAL' ? 'rag-red' : insight.severity === 'HIGH' ? 'rag-amber' : 'secondary'}
-                            className="text-[10px] px-1.5 py-0"
+                            className="text-[10px] px-1.5 py-0 rounded-full"
                           >
                             {insight.severity}
                           </Badge>
-                          <span className="font-medium text-foreground truncate">{insight.title}</span>
+                          <span className="font-medium truncate" style={{ color: '#1a1c1e' }}>{insight.title}</span>
                         </div>
-                        <p className="text-muted-foreground line-clamp-2">{insight.summary}</p>
+                        <p style={{ color: '#44474e' }} className="line-clamp-2">{insight.summary}</p>
                       </div>
                     ))}
                   </div>
                   {insights.length > 3 && (
-                    <p className="text-xs text-violet-500 font-medium">+{insights.length - 3} more insights</p>
+                    <p className="text-xs font-medium" style={{ color: '#7c3aed' }}>+{insights.length - 3} more insights</p>
                   )}
                 </>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
           {/* Heatmap */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-sm font-semibold">Health Heatmap</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-5 gap-2">
-                {Object.entries(project.heatmap).map(([key, val]) => (
-                  <div key={key} className="flex flex-col items-center gap-1">
-                    <div className={`h-8 w-8 rounded-md ${
-                      val === 'RED' ? 'bg-red-500/80' : val === 'AMBER' ? 'bg-amber-500/80' : 'bg-green-500/80'
-                    }`} />
-                    <span className="text-[10px] text-muted-foreground capitalize">{key}</span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <div
+            className="rounded-2xl p-6"
+            style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+          >
+            <h3
+              className="text-sm font-semibold mb-4"
+              style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}
+            >
+              Health Heatmap
+            </h3>
+            <div className="grid grid-cols-5 gap-2">
+              {Object.entries(project.heatmap).map(([key, val]) => (
+                <div key={key} className="flex flex-col items-center gap-1">
+                  <div
+                    className="h-8 w-8 rounded-md"
+                    style={{
+                      backgroundColor: val === 'RED' ? 'rgba(239,68,68,0.8)' : val === 'AMBER' ? 'rgba(245,158,11,0.8)' : 'rgba(34,197,94,0.8)'
+                    }}
+                  />
+                  <span className="text-[10px] capitalize" style={{ color: '#74777f' }}>{key}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -246,13 +283,16 @@ export function OverviewTab() {
 
 function MetricCard({ icon, label, value, sub }: { icon: React.ReactNode; label: string; value: string; sub: string }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-4 space-y-1">
-      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+    <div
+      className="rounded-2xl p-4 space-y-1"
+      style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+    >
+      <div className="flex items-center gap-2 text-xs" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>
         {icon}
         {label}
       </div>
-      <div className="text-xl font-bold text-foreground">{value}</div>
-      <div className="text-xs text-muted-foreground">{sub}</div>
+      <div className="text-xl font-bold" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{value}</div>
+      <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: '#74777f' }}>{sub}</div>
     </div>
   );
 }

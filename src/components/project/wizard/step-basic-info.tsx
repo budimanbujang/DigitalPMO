@@ -40,39 +40,40 @@ export function StepBasicInfo({ formData, setFormData }: StepProps) {
     <div className="space-y-6">
       {/* Project Name */}
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">
+        <label className="text-sm font-medium text-[#1a1c1e]">
           Project Name <span className="text-red-500">*</span>
         </label>
         <Input
           placeholder="e.g. Digital Customer Portal v2.0"
           value={formData.name}
           onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))}
-          className="h-11"
+          className="h-11 bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
         />
       </div>
 
       {/* Description */}
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">Description</label>
+        <label className="text-sm font-medium text-[#1a1c1e]">Description</label>
         <Textarea
           placeholder="Brief overview of the project scope, objectives, and expected outcomes..."
           value={formData.description}
           onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))}
           rows={4}
+          className="bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
         />
       </div>
 
       {/* Category / Tags */}
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">Category / Tags</label>
+        <label className="text-sm font-medium text-[#1a1c1e]">Category / Tags</label>
         <div className="flex flex-wrap gap-2 mb-2">
           {formData.tags.map(tag => (
-            <Badge key={tag} variant="secondary" className="pl-2.5 pr-1 py-1 gap-1">
+            <Badge key={tag} variant="secondary" className="pl-2.5 pr-1 py-1 gap-1 rounded-full bg-[#e8e8ea] text-[#1a1c1e]">
               {tag}
               <button
                 type="button"
                 onClick={() => removeTag(tag)}
-                className="ml-1 h-4 w-4 rounded-full hover:bg-foreground/10 flex items-center justify-center"
+                className="ml-1 h-4 w-4 rounded-full hover:bg-[#1a1c1e]/10 flex items-center justify-center"
               >
                 <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -86,15 +87,16 @@ export function StepBasicInfo({ formData, setFormData }: StepProps) {
           value={tagInput}
           onChange={e => setTagInput(e.target.value)}
           onKeyDown={handleTagKeyDown}
+          className="bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
         />
         <div className="flex flex-wrap gap-1.5 mt-2">
-          <span className="text-xs text-muted-foreground mr-1 self-center">Suggestions:</span>
+          <span className="text-xs text-[#74777f] mr-1 self-center">Suggestions:</span>
           {SUGGESTED_TAGS.filter(t => !formData.tags.includes(t)).slice(0, 6).map(tag => (
             <button
               key={tag}
               type="button"
               onClick={() => addTag(tag)}
-              className="text-xs px-2 py-0.5 rounded-full border border-dashed border-muted-foreground/30 text-muted-foreground hover:border-violet-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+              className="text-xs px-2 py-0.5 rounded-full border border-dashed border-[#74777f]/30 text-[#44474e] hover:border-[#7c3aed] hover:text-[#7c3aed] transition-colors"
             >
               + {tag}
             </button>
@@ -105,11 +107,11 @@ export function StepBasicInfo({ formData, setFormData }: StepProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Priority */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">
+          <label className="text-sm font-medium text-[#1a1c1e]">
             Priority <span className="text-red-500">*</span>
           </label>
           <Select value={formData.priority} onValueChange={v => setFormData(prev => ({ ...prev, priority: v }))}>
-            <SelectTrigger className="h-11">
+            <SelectTrigger className="h-11 bg-[#f3f3f6] border-0">
               <SelectValue placeholder="Select priority level" />
             </SelectTrigger>
             <SelectContent>
@@ -143,12 +145,12 @@ export function StepBasicInfo({ formData, setFormData }: StepProps) {
 
         {/* Sponsoring Division */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground">Sponsoring Division</label>
+          <label className="text-sm font-medium text-[#1a1c1e]">Sponsoring Division</label>
           <Input
             placeholder="e.g. Information Technology"
             value={formData.sponsoringDivision}
             onChange={e => setFormData(prev => ({ ...prev, sponsoringDivision: e.target.value }))}
-            className="h-11"
+            className="h-11 bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
           />
         </div>
       </div>

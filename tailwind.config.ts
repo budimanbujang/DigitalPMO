@@ -1,60 +1,95 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  darkMode: 'class',
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       colors: {
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        /* ── Executive Monolith Surface Hierarchy ── */
+        surface: {
+          DEFAULT: '#f9f9fc',
+          dim: '#d9d9dc',
+          'container-low': '#f3f3f6',
+          'container-lowest': '#ffffff',
+          'container-high': '#e8e8ea',
+          'container-highest': '#e2e2e5',
+        },
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
+          DEFAULT: '#001736',
+          container: '#002b5b',
+          fixed: '#d6e3ff',
+          'fixed-dim': '#aac7ff',
+          foreground: '#ffffff',
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
+          DEFAULT: '#16a34a',
+          container: '#dcfce7',
+          'on-container': '#14532d',
+          foreground: '#ffffff',
+        },
+        tertiary: {
+          DEFAULT: '#d97706',
+          container: '#fef3c7',
+          'on-container': '#78350f',
+        },
+        error: {
+          DEFAULT: '#dc2626',
+          container: '#fee2e2',
+          'on-container': '#7f1d1d',
         },
         destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
+          DEFAULT: '#dc2626',
+          foreground: '#ffffff',
         },
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
-        },
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
+        'on-surface': '#1a1c1e',
+        'on-surface-variant': '#44474e',
+        outline: '#74777f',
+        'outline-variant': '#c4c6d0',
+        'ai-accent': '#7c3aed',
+
+        /* ── Backward-compatible RAG colors ── */
+        'rag-red': '#dc2626',
+        'rag-amber': '#d97706',
+        'rag-green': '#16a34a',
+
+        /* ── Shadcn/ui compatible mappings ── */
+        border: '#c4c6d0',
+        input: '#c4c6d0',
+        ring: '#001736',
+        background: '#f9f9fc',
+        foreground: '#1a1c1e',
+        card: {
+          DEFAULT: '#ffffff',
+          foreground: '#1a1c1e',
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
+          DEFAULT: '#ffffff',
+          foreground: '#1a1c1e',
         },
-        card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
+        muted: {
+          DEFAULT: '#f3f3f6',
+          foreground: '#44474e',
         },
-        'rag-red': '#EF4444',
-        'rag-amber': '#F59E0B',
-        'rag-green': '#22C55E',
-        'ai-accent': '#8B5CF6',
+        accent: {
+          DEFAULT: '#e8e8ea',
+          foreground: '#1a1c1e',
+        },
       },
       fontFamily: {
-        heading: ['DM Sans', 'sans-serif'],
+        heading: ['Manrope', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        lg: '0.75rem',
+        md: '0.375rem',
+        sm: '0.25rem',
+      },
+      boxShadow: {
+        ambient: '0 12px 40px rgba(26, 28, 30, 0.06)',
+        glass: '0 8px 32px rgba(26, 28, 30, 0.08)',
       },
     },
   },

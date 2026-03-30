@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import type { StepProps } from './wizard-shell'
 
@@ -20,12 +19,12 @@ const MOCK_USERS = [
 const ROLES = ['Lead', 'Developer', 'Analyst', 'Designer', 'Tester', 'Stakeholder']
 
 const ROLE_COLORS: Record<string, string> = {
-  Lead: 'bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400',
-  Developer: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
-  Analyst: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
-  Designer: 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400',
-  Tester: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
-  Stakeholder: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400',
+  Lead: 'bg-violet-100 text-violet-700',
+  Developer: 'bg-blue-100 text-blue-700',
+  Analyst: 'bg-emerald-100 text-emerald-700',
+  Designer: 'bg-pink-100 text-pink-700',
+  Tester: 'bg-amber-100 text-amber-700',
+  Stakeholder: 'bg-gray-100 text-gray-700',
 }
 
 export function StepTeam({ formData, setFormData }: StepProps) {
@@ -57,21 +56,21 @@ export function StepTeam({ formData, setFormData }: StepProps) {
     <div className="space-y-6">
       {/* Project Manager */}
       <div className="space-y-2">
-        <label className="text-sm font-medium text-foreground">
+        <label className="text-sm font-medium text-[#1a1c1e]">
           Project Manager <span className="text-red-500">*</span>
         </label>
         <Select
           value={formData.projectManager}
           onValueChange={v => setFormData(prev => ({ ...prev, projectManager: v }))}
         >
-          <SelectTrigger className="h-11">
+          <SelectTrigger className="h-11 bg-[#f3f3f6] border-0">
             <SelectValue placeholder="Select project manager" />
           </SelectTrigger>
           <SelectContent>
             {MOCK_USERS.map(user => (
               <SelectItem key={user.id} value={user.name}>
                 <span className="flex items-center gap-2">
-                  <span className="h-6 w-6 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-400 text-xs font-bold flex items-center justify-center">
+                  <span className="h-6 w-6 rounded-full bg-violet-100 text-violet-700 text-xs font-bold flex items-center justify-center">
                     {user.avatar}
                   </span>
                   {user.name}
@@ -81,15 +80,15 @@ export function StepTeam({ formData, setFormData }: StepProps) {
           </SelectContent>
         </Select>
         {formData.projectManager && (
-          <div className="flex items-center gap-3 p-3 bg-violet-50 dark:bg-violet-900/10 rounded-lg border border-violet-200 dark:border-violet-800/30">
+          <div className="flex items-center gap-3 p-3 bg-violet-50 rounded-lg">
             <div className="h-10 w-10 rounded-full bg-violet-500 text-white flex items-center justify-center font-bold text-sm">
               {userObj(formData.projectManager)?.avatar || formData.projectManager.slice(0, 2).toUpperCase()}
             </div>
             <div>
-              <div className="font-medium text-foreground text-sm">{formData.projectManager}</div>
-              <div className="text-xs text-muted-foreground">{userObj(formData.projectManager)?.email || 'Project Manager'}</div>
+              <div className="font-medium text-[#1a1c1e] text-sm">{formData.projectManager}</div>
+              <div className="text-xs text-[#74777f]">{userObj(formData.projectManager)?.email || 'Project Manager'}</div>
             </div>
-            <span className="ml-auto text-xs font-semibold px-2 py-0.5 rounded-full bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400">
+            <span className="ml-auto text-xs font-semibold px-2 py-0.5 rounded-full bg-violet-100 text-violet-700">
               PM
             </span>
           </div>
@@ -98,18 +97,18 @@ export function StepTeam({ formData, setFormData }: StepProps) {
 
       {/* Add Team Members */}
       <div className="space-y-3">
-        <label className="text-sm font-medium text-foreground">Team Members</label>
+        <label className="text-sm font-medium text-[#1a1c1e]">Team Members</label>
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="flex-1">
             <Select value={selectedUser} onValueChange={setSelectedUser}>
-              <SelectTrigger>
+              <SelectTrigger className="bg-[#f3f3f6] border-0">
                 <SelectValue placeholder="Select team member" />
               </SelectTrigger>
               <SelectContent>
                 {MOCK_USERS.filter(u => u.name !== formData.projectManager).map(user => (
                   <SelectItem key={user.id} value={user.name}>
                     <span className="flex items-center gap-2">
-                      <span className="h-5 w-5 rounded-full bg-muted text-muted-foreground text-xs font-bold flex items-center justify-center">
+                      <span className="h-5 w-5 rounded-full bg-[#e8e8ea] text-[#74777f] text-xs font-bold flex items-center justify-center">
                         {user.avatar}
                       </span>
                       {user.name}
@@ -121,7 +120,7 @@ export function StepTeam({ formData, setFormData }: StepProps) {
           </div>
           <div className="w-full sm:w-40">
             <Select value={selectedRole} onValueChange={setSelectedRole}>
-              <SelectTrigger>
+              <SelectTrigger className="bg-[#f3f3f6] border-0">
                 <SelectValue placeholder="Role" />
               </SelectTrigger>
               <SelectContent>
@@ -147,7 +146,7 @@ export function StepTeam({ formData, setFormData }: StepProps) {
 
       {/* Team Member Cards */}
       {formData.teamMembers.length === 0 ? (
-        <div className="text-center py-8 text-muted-foreground border-2 border-dashed border-muted-foreground/20 rounded-lg">
+        <div className="text-center py-8 text-[#74777f] border-2 border-dashed border-[#e8e8ea] rounded-lg">
           <svg className="h-8 w-8 mx-auto mb-2 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
           </svg>
@@ -158,31 +157,33 @@ export function StepTeam({ formData, setFormData }: StepProps) {
           {formData.teamMembers.map((member, index) => {
             const user = userObj(member.name)
             return (
-              <Card key={index} className="border-muted-foreground/20">
-                <CardContent className="p-3">
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 text-white flex items-center justify-center font-bold text-sm shrink-0">
-                      {user?.avatar || member.name.slice(0, 2).toUpperCase()}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium text-sm text-foreground truncate">{member.name}</div>
-                      <div className="text-xs text-muted-foreground truncate">{user?.email || ''}</div>
-                    </div>
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full shrink-0 ${ROLE_COLORS[member.role] || 'bg-muted text-muted-foreground'}`}>
-                      {member.role}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => removeTeamMember(index)}
-                      className="text-muted-foreground hover:text-red-500 transition-colors shrink-0"
-                    >
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
+              <div
+                key={index}
+                className="rounded-xl bg-white p-3"
+                style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 text-white flex items-center justify-center font-bold text-sm shrink-0">
+                    {user?.avatar || member.name.slice(0, 2).toUpperCase()}
                   </div>
-                </CardContent>
-              </Card>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-sm text-[#1a1c1e] truncate">{member.name}</div>
+                    <div className="text-xs text-[#74777f] truncate">{user?.email || ''}</div>
+                  </div>
+                  <span className={`text-xs font-medium px-2 py-0.5 rounded-full shrink-0 ${ROLE_COLORS[member.role] || 'bg-[#e8e8ea] text-[#74777f]'}`}>
+                    {member.role}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => removeTeamMember(index)}
+                    className="text-[#74777f] hover:text-red-500 transition-colors shrink-0"
+                  >
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
             )
           })}
         </div>
@@ -190,11 +191,11 @@ export function StepTeam({ formData, setFormData }: StepProps) {
 
       {/* Team Summary */}
       {formData.teamMembers.length > 0 && (
-        <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 rounded-lg p-3">
+        <div className="flex items-center gap-2 text-sm text-[#44474e] bg-[#f3f3f6] rounded-lg p-3">
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          Team size: <span className="font-semibold text-foreground">{formData.teamMembers.length + (formData.projectManager ? 1 : 0)}</span>
+          Team size: <span className="font-semibold text-[#1a1c1e]">{formData.teamMembers.length + (formData.projectManager ? 1 : 0)}</span>
           {formData.projectManager && <span>(including PM)</span>}
           <span className="mx-1">|</span>
           Roles: {[...new Set(formData.teamMembers.map(m => m.role))].join(', ')}

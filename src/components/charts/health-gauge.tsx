@@ -15,9 +15,9 @@ const sizeConfig = {
 };
 
 function getColor(score: number): string {
-  if (score >= 70) return '#22C55E'; // rag-green
-  if (score >= 40) return '#F59E0B'; // rag-amber
-  return '#EF4444'; // rag-red
+  if (score >= 70) return '#16a34a';
+  if (score >= 40) return '#d97706';
+  return '#dc2626';
 }
 
 export function HealthGauge({ score, size = 'md', label }: HealthGaugeProps) {
@@ -44,7 +44,7 @@ export function HealthGauge({ score, size = 'md', label }: HealthGaugeProps) {
           r={radius}
           fill="none"
           stroke="currentColor"
-          className="text-gray-200 dark:text-gray-700"
+          style={{ color: '#e8e8ea' }}
           strokeWidth={config.strokeWidth}
           strokeDasharray={`${arcLength} ${circumference}`}
           strokeDashoffset={0}
@@ -83,8 +83,8 @@ export function HealthGauge({ score, size = 'md', label }: HealthGaugeProps) {
       </svg>
       {label && (
         <span
-          className="text-center text-gray-600 dark:text-gray-400 font-body"
-          style={{ fontSize: config.labelSize }}
+          className="text-center font-body"
+          style={{ fontSize: config.labelSize, color: '#44474e' }}
         >
           {label}
         </span>

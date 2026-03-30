@@ -25,7 +25,7 @@ interface ProjectTabsProps {
 
 export function ProjectTabs({ activeTab, onTabChange }: ProjectTabsProps) {
   return (
-    <div className="border-b border-border overflow-x-auto">
+    <div className="overflow-x-auto" style={{ borderBottom: '1px solid #e8e8ea' }}>
       <nav className="flex gap-1 min-w-max" role="tablist">
         {TABS.map((tab) => {
           const Icon = tab.icon;
@@ -36,12 +36,25 @@ export function ProjectTabs({ activeTab, onTabChange }: ProjectTabsProps) {
               role="tab"
               aria-selected={isActive}
               onClick={() => onTabChange(tab.id)}
-              className={`
-                inline-flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors whitespace-nowrap
-                ${isActive
-                  ? 'border-primary text-foreground'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'}
-              `}
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors whitespace-nowrap"
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                borderBottomColor: isActive ? '#001736' : 'transparent',
+                color: isActive ? '#1a1c1e' : '#74777f',
+                backgroundColor: 'transparent',
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.color = '#1a1c1e';
+                  e.currentTarget.style.borderBottomColor = '#e8e8ea';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.color = '#74777f';
+                  e.currentTarget.style.borderBottomColor = 'transparent';
+                }
+              }}
             >
               <Icon className="h-4 w-4" />
               {tab.label}

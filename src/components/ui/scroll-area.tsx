@@ -23,8 +23,8 @@ const ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(
             // Custom scrollbar styling
             "[&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar]:h-2",
             "[&::-webkit-scrollbar-track]:bg-transparent",
-            "[&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border",
-            "[&::-webkit-scrollbar-thumb]:hover:bg-muted-foreground/30",
+            "[&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#e8e8ea]",
+            "[&::-webkit-scrollbar-thumb]:hover:bg-[#44474e]/30",
             "[&::-webkit-scrollbar-corner]:bg-transparent"
           )}
         >
@@ -47,8 +47,8 @@ const ScrollBar = React.forwardRef<
     data-orientation={orientation}
     className={cn(
       "flex touch-none select-none transition-colors",
-      orientation === "vertical" && "h-full w-2.5 border-l border-l-transparent p-[1px]",
-      orientation === "horizontal" && "h-2.5 flex-col border-t border-t-transparent p-[1px]",
+      orientation === "vertical" && "h-full w-1.5 p-[1px]",
+      orientation === "horizontal" && "h-1.5 flex-col p-[1px]",
       className
     )}
     {...props}

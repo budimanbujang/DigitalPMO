@@ -16,31 +16,36 @@ interface TimelineChartProps {
   height?: number;
 }
 
-const statusColors: Record<TimelineItem['status'], { bar: string; fill: string; text: string }> = {
+const statusColors: Record<TimelineItem['status'], { barBg: string; fillBg: string; textColor: string; legendBg: string }> = {
   'on-track': {
-    bar: 'bg-primary/20 dark:bg-primary/30',
-    fill: 'bg-primary',
-    text: 'text-primary',
+    barBg: 'rgba(0, 23, 54, 0.12)',
+    fillBg: '#001736',
+    textColor: '#001736',
+    legendBg: '#001736',
   },
   'at-risk': {
-    bar: 'bg-rag-amber/20 dark:bg-rag-amber/30',
-    fill: 'bg-rag-amber',
-    text: 'text-rag-amber',
+    barBg: 'rgba(217, 119, 6, 0.12)',
+    fillBg: '#d97706',
+    textColor: '#d97706',
+    legendBg: '#d97706',
   },
   delayed: {
-    bar: 'bg-rag-red/20 dark:bg-rag-red/30',
-    fill: 'bg-rag-red',
-    text: 'text-rag-red',
+    barBg: 'rgba(220, 38, 38, 0.12)',
+    fillBg: '#dc2626',
+    textColor: '#dc2626',
+    legendBg: '#dc2626',
   },
   completed: {
-    bar: 'bg-rag-green/20 dark:bg-rag-green/30',
-    fill: 'bg-rag-green',
-    text: 'text-rag-green',
+    barBg: 'rgba(22, 163, 74, 0.12)',
+    fillBg: '#16a34a',
+    textColor: '#16a34a',
+    legendBg: '#16a34a',
   },
   'not-started': {
-    bar: 'bg-gray-200 dark:bg-gray-700',
-    fill: 'bg-gray-400 dark:bg-gray-500',
-    text: 'text-gray-500 dark:text-gray-400',
+    barBg: '#e8e8ea',
+    fillBg: '#74777f',
+    textColor: '#74777f',
+    legendBg: '#74777f',
   },
 };
 
@@ -92,7 +97,7 @@ export function TimelineChart({ items }: TimelineChartProps) {
 
   if (items.length === 0) {
     return (
-      <div className="flex items-center justify-center h-32 text-sm text-gray-500 dark:text-gray-400 font-body">
+      <div className="flex items-center justify-center h-32 text-sm font-body" style={{ color: '#74777f' }}>
         No timeline items to display
       </div>
     );
@@ -104,14 +109,14 @@ export function TimelineChart({ items }: TimelineChartProps) {
         {/* Month header */}
         <div className="flex">
           <div className="w-40 shrink-0" />
-          <div className="flex-1 relative h-6 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex-1 relative h-6" style={{ borderBottom: '1px solid #e8e8ea' }}>
             {monthMarkers.map((marker, i) => (
               <div
                 key={i}
-                className="absolute top-0 text-[10px] font-medium text-gray-500 dark:text-gray-400 font-body"
-                style={{ left: `${marker.left}%` }}
+                className="absolute top-0 text-[10px] font-medium font-body"
+                style={{ left: `${marker.left}%`, color: '#74777f' }}
               >
-                <div className="border-l border-gray-300 dark:border-gray-600 pl-1 h-6 flex items-center">
+                <div className="pl-1 h-6 flex items-center" style={{ borderLeft: '1px solid #e8e8ea' }}>
                   {marker.label}
                 </div>
               </div>
@@ -120,7 +125,7 @@ export function TimelineChart({ items }: TimelineChartProps) {
         </div>
 
         {/* Rows */}
-        <div className="divide-y divide-gray-100 dark:divide-gray-800">
+        <div className="space-y-0">
           {items.map((item) => {
             const startOffset = (new Date(item.startDate).getTime() - minDate) / (1000 * 60 * 60 * 24);
             const endOffset = (new Date(item.endDate).getTime() - minDate) / (1000 * 60 * 60 * 24);
@@ -130,13 +135,13 @@ export function TimelineChart({ items }: TimelineChartProps) {
             const clamped = Math.max(0, Math.min(100, item.percentComplete));
 
             return (
-              <div key={item.id} className="flex items-center py-2 group">
+              <div key={item.id} className="flex items-center py-2 group" style={{ borderBottom: '1px solid #f3f3f6' }}>
                 {/* Label */}
                 <div className="w-40 shrink-0 pr-3">
-                  <div className="text-xs font-medium text-gray-800 dark:text-gray-200 truncate font-heading">
+                  <div className="text-xs font-medium truncate font-heading" style={{ color: '#1a1c1e' }}>
                     {item.name}
                   </div>
-                  <div className={`text-[10px] ${colors.text} font-body`}>
+                  <div className="text-[10px] font-body" style={{ color: colors.textColor }}>
                     {statusLabels[item.status]}
                   </div>
                 </div>
@@ -147,24 +152,24 @@ export function TimelineChart({ items }: TimelineChartProps) {
                   {monthMarkers.map((marker, i) => (
                     <div
                       key={i}
-                      className="absolute top-0 bottom-0 border-l border-gray-100 dark:border-gray-800"
-                      style={{ left: `${marker.left}%` }}
+                      className="absolute top-0 bottom-0"
+                      style={{ left: `${marker.left}%`, borderLeft: '1px solid #f3f3f6' }}
                     />
                   ))}
 
                   {/* Bar container */}
                   <div
-                    className={`absolute top-1 h-6 rounded ${colors.bar} overflow-hidden transition-all`}
-                    style={{ left: `${left}%`, width: `${width}%` }}
+                    className="absolute top-1 h-6 rounded overflow-hidden transition-all"
+                    style={{ left: `${left}%`, width: `${width}%`, backgroundColor: colors.barBg }}
                     title={`${item.name}: ${formatDate(item.startDate)} - ${formatDate(item.endDate)} (${clamped}%)`}
                   >
                     {/* Filled portion */}
                     <div
-                      className={`h-full ${colors.fill} rounded-l transition-all`}
-                      style={{ width: `${clamped}%` }}
+                      className="h-full rounded-l transition-all"
+                      style={{ width: `${clamped}%`, backgroundColor: colors.fillBg }}
                     />
                     {/* Percentage label */}
-                    <span className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-gray-800 dark:text-gray-100 font-mono mix-blend-difference">
+                    <span className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold font-mono" style={{ color: '#1a1c1e', mixBlendMode: 'difference' }}>
                       {clamped}%
                     </span>
                   </div>
@@ -175,11 +180,11 @@ export function TimelineChart({ items }: TimelineChartProps) {
         </div>
 
         {/* Legend */}
-        <div className="flex flex-wrap gap-3 mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex flex-wrap gap-3 mt-3 pt-3" style={{ borderTop: '1px solid #e8e8ea' }}>
           {(Object.keys(statusColors) as TimelineItem['status'][]).map((status) => (
             <div key={status} className="flex items-center gap-1.5">
-              <div className={`w-2.5 h-2.5 rounded-sm ${statusColors[status].fill}`} />
-              <span className="text-[10px] text-gray-600 dark:text-gray-400 font-body">
+              <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: statusColors[status].legendBg }} />
+              <span className="text-[10px] font-body" style={{ color: '#44474e' }}>
                 {statusLabels[status]}
               </span>
             </div>

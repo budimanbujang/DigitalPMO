@@ -177,7 +177,7 @@ const TooltipContent = React.forwardRef<HTMLDivElement, TooltipContentProps>(
         ref={ref}
         role="tooltip"
         className={cn(
-          "z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground shadow-md animate-in fade-in-0 zoom-in-95",
+          "z-50 overflow-hidden rounded-md bg-white/80 backdrop-blur-lg px-3 py-1.5 text-xs text-[#1a1c1e] shadow-[0_12px_40px_rgba(26,28,30,0.06)] animate-in fade-in-0 zoom-in-95",
           transformMap[side],
           className
         )}

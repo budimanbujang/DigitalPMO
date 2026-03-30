@@ -35,17 +35,15 @@ export function BurnDownChart({ data, height = 300 }: BurnDownChartProps) {
       <LineChart data={data} margin={{ top: 8, right: 16, left: 8, bottom: 0 }}>
         <CartesianGrid
           strokeDasharray="3 3"
-          className="stroke-gray-200 dark:stroke-gray-700"
+          stroke="#e8e8ea"
         />
         <XAxis
           dataKey="date"
-          tick={{ fontSize: 12 }}
-          className="fill-gray-600 dark:fill-gray-400"
+          tick={{ fontSize: 12, fill: '#44474e' }}
         />
         <YAxis
           tickFormatter={formatCurrency}
-          tick={{ fontSize: 12 }}
-          className="fill-gray-600 dark:fill-gray-400"
+          tick={{ fontSize: 12, fill: '#44474e' }}
         />
         <Tooltip
           formatter={(value: any, name: any) => [
@@ -53,18 +51,18 @@ export function BurnDownChart({ data, height = 300 }: BurnDownChartProps) {
             (name as string).charAt(0).toUpperCase() + (name as string).slice(1),
           ]}
           contentStyle={{
-            backgroundColor: 'var(--tooltip-bg, #fff)',
-            border: '1px solid var(--tooltip-border, #e5e7eb)',
+            backgroundColor: '#ffffff',
+            border: 'none',
             borderRadius: '8px',
             fontSize: 12,
+            boxShadow: '0 12px 40px rgba(26, 28, 30, 0.06)',
           }}
-          wrapperClassName="[--tooltip-bg:theme(colors.white)] dark:[--tooltip-bg:theme(colors.gray.800)] [--tooltip-border:theme(colors.gray.200)] dark:[--tooltip-border:theme(colors.gray.700)]"
         />
         <Legend wrapperStyle={{ fontSize: 12, paddingTop: 8 }} />
         <Line
           type="monotone"
           dataKey="planned"
-          stroke="#3B82F6"
+          stroke="#001736"
           strokeWidth={2}
           strokeDasharray="6 3"
           dot={false}
@@ -73,9 +71,9 @@ export function BurnDownChart({ data, height = 300 }: BurnDownChartProps) {
         <Line
           type="monotone"
           dataKey="actual"
-          stroke="#8B5CF6"
+          stroke="#7c3aed"
           strokeWidth={2}
-          dot={{ r: 3, fill: '#8B5CF6' }}
+          dot={{ r: 3, fill: '#7c3aed' }}
           activeDot={{ r: 5 }}
           name="Actual"
         />

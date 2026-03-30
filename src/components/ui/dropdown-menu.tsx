@@ -149,7 +149,7 @@ const DropdownMenuContent = React.forwardRef<
       role="menu"
       data-state={open ? "open" : "closed"}
       className={cn(
-        "z-50 min-w-[8rem] overflow-hidden rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-md",
+        "z-50 min-w-[8rem] overflow-hidden rounded-md bg-white/80 backdrop-blur-lg p-1 text-[#1a1c1e] shadow-[0_12px_40px_rgba(26,28,30,0.06)]",
         "animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
         align === "end" && "-translate-x-full",
         align === "center" && "-translate-x-1/2",
@@ -186,7 +186,7 @@ const DropdownMenuItem = React.forwardRef<
       aria-disabled={disabled}
       data-disabled={disabled ? "" : undefined}
       className={cn(
-        "relative flex cursor-pointer select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground [&>svg]:size-4 [&>svg]:shrink-0",
+        "relative flex cursor-pointer select-none items-center gap-2 rounded-md px-2 py-1.5 text-sm outline-none transition-colors hover:bg-[#f3f3f6] hover:text-[#1a1c1e] focus:bg-[#f3f3f6] focus:text-[#1a1c1e] [&>svg]:size-4 [&>svg]:shrink-0",
         inset && "pl-8",
         disabled && "pointer-events-none opacity-50",
         className
@@ -209,7 +209,7 @@ const DropdownMenuSeparator = React.forwardRef<
   <div
     ref={ref}
     role="separator"
-    className={cn("-mx-1 my-1 h-px bg-border", className)}
+    className={cn("-mx-1 my-1 h-px bg-[#1a1c1e]/15", className)}
     {...props}
   />
 ))

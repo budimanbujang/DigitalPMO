@@ -2,105 +2,173 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
+/* ── Executive Monolith Design Tokens ── */
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222 47% 11%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 217 91% 60%;
-    --radius: 0.5rem;
-  }
+    /* Surface hierarchy */
+    --surface: #f9f9fc;
+    --surface-dim: #d9d9dc;
+    --surface-container-low: #f3f3f6;
+    --surface-container-lowest: #ffffff;
+    --surface-container-high: #e8e8ea;
+    --surface-container-highest: #e2e2e5;
 
-  .dark {
-    --background: 222 47% 8%;
-    --foreground: 210 40% 98%;
-    --card: 217 33% 10%;
-    --card-foreground: 210 40% 98%;
-    --popover: 217 33% 10%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 217 33% 17%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 224 76% 48%;
-    --radius: 0.5rem;
+    /* Primary */
+    --primary: #001736;
+    --primary-container: #002b5b;
+    --primary-fixed: #d6e3ff;
+    --primary-fixed-dim: #aac7ff;
+
+    /* On-surface */
+    --on-surface: #1a1c1e;
+    --on-surface-variant: #44474e;
+
+    /* Outline */
+    --outline: #74777f;
+    --outline-variant: #c4c6d0;
+
+    /* Status */
+    --status-green: #16a34a;
+    --status-amber: #d97706;
+    --status-red: #dc2626;
+
+    /* AI */
+    --ai-accent: #7c3aed;
+
+    /* Shadcn compat (mapped to surface tokens) */
+    --background: 249 249 252;
+    --foreground: 26 28 30;
+    --card: 255 255 255;
+    --card-foreground: 26 28 30;
+    --popover: 255 255 255;
+    --popover-foreground: 26 28 30;
+    --muted: 243 243 246;
+    --muted-foreground: 68 71 78;
+    --accent: 232 232 234;
+    --accent-foreground: 26 28 30;
+    --destructive: 220 38 38;
+    --destructive-foreground: 255 255 255;
+    --border: 196 198 208;
+    --input: 196 198 208;
+    --ring: 0 23 54;
+    --radius: 0.75rem;
   }
 }
 
+/* ── Base Styles ── */
 @layer base {
   * {
-    @apply border-border;
+    border-color: rgba(196, 198, 208, 0.15);
   }
+
   body {
-    @apply bg-background text-foreground font-body;
+    @apply bg-surface text-on-surface font-body antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
+    letter-spacing: -0.02em;
+    color: #1a1c1e;
   }
 }
 
-/* Scrollbar styles */
+/* ── Scrollbar (thin, subtle) ── */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground/20 rounded-full;
+  background: rgba(68, 71, 78, 0.15);
+  border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-muted-foreground/40;
+  background: rgba(68, 71, 78, 0.3);
 }
 
-/* Kanban drag styles */
-.dragging {
-  @apply opacity-50;
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(68, 71, 78, 0.15) transparent;
 }
 
-/* AI content indicator */
+/* ── AI Content Indicator ── */
 .ai-content {
-  @apply border-l-2 border-ai-accent pl-3;
+  border-left: 3px solid var(--ai-accent);
+  padding-left: 0.75rem;
 }
 
-/* RAG status pills */
-.rag-red { @apply bg-rag-red/10 text-rag-red border-rag-red/20; }
-.rag-amber { @apply bg-rag-amber/10 text-rag-amber border-rag-amber/20; }
-.rag-green { @apply bg-rag-green/10 text-rag-green border-rag-green/20; }
+/* ── Status Pillar (card left-border accents) ── */
+.status-pillar-green {
+  border-left: 3px solid var(--status-green);
+}
+.status-pillar-amber {
+  border-left: 3px solid var(--status-amber);
+}
+.status-pillar-red {
+  border-left: 3px solid var(--status-red);
+}
 
-/* Wizard animations */
+/* ── Glass Morphism Utility ── */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 8px 32px rgba(26, 28, 30, 0.08);
+}
+
+/* ── RAG Status Pills ── */
+.rag-red {
+  background: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.15);
+}
+.rag-amber {
+  background: rgba(217, 119, 6, 0.08);
+  color: #d97706;
+  border: 1px solid rgba(217, 119, 6, 0.15);
+}
+.rag-green {
+  background: rgba(22, 163, 74, 0.08);
+  color: #16a34a;
+  border: 1px solid rgba(22, 163, 74, 0.15);
+}
+
+/* ── Kanban Drag Styles ── */
+.dragging {
+  opacity: 0.5;
+}
+
+/* ── Animation Keyframes ── */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes scale-in {
-  from { transform: scale(0.5); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ── Ghost Border Fallback ── */
+.ghost-border {
+  outline: 1px solid rgba(196, 198, 208, 0.15);
 }

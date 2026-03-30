@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type Theme = 'dark' | 'light';
+export type Theme = 'light';
 
 export interface CurrentUser {
   id: string;
@@ -21,7 +21,7 @@ interface AppState {
 
 export const useAppStore = create<AppState>((set) => ({
   sidebarOpen: true,
-  theme: 'dark',
+  theme: 'light',
   currentUser: {
     id: 'usr-001',
     name: 'Ahmad Razif',

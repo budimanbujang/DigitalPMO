@@ -2,8 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Sparkles, Check, ExternalLink } from 'lucide-react';
@@ -14,16 +12,12 @@ interface InsightsFeedProps {
   insights: AIInsight[];
 }
 
-function severityColor(severity: InsightSeverity) {
+function severityBadgeStyles(severity: InsightSeverity): { bg: string; text: string } {
   switch (severity) {
-    case 'CRITICAL':
-      return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400';
-    case 'HIGH':
-      return 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-400';
-    case 'MEDIUM':
-      return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400';
-    case 'LOW':
-      return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400';
+    case 'CRITICAL': return { bg: '#fef2f2', text: '#dc2626' };
+    case 'HIGH': return { bg: '#fff7ed', text: '#ea580c' };
+    case 'MEDIUM': return { bg: '#fffbeb', text: '#d97706' };
+    case 'LOW': return { bg: '#eff6ff', text: '#2563eb' };
   }
 }
 
@@ -48,60 +42,74 @@ export function InsightsFeed({ insights }: InsightsFeedProps) {
   };
 
   return (
-    <Card className="h-full flex flex-col">
-      <CardHeader className="pb-3">
+    <div
+      className="bg-white rounded-xl h-full flex flex-col"
+      style={{ boxShadow: '0 12px 40px rgba(26, 28, 30, 0.06)' }}
+    >
+      <div className="p-6 pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-base flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-violet-500" />
+          <h3
+            className="text-base font-semibold font-heading flex items-center gap-2"
+            style={{ color: '#1a1c1e', letterSpacing: '-0.02em' }}
+          >
+            <Sparkles className="h-4 w-4" style={{ color: '#7c3aed' }} />
             AI Insights
-          </CardTitle>
-          <Badge variant="ai" className="text-[10px]">
+          </h3>
+          <span
+            className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold"
+            style={{ backgroundColor: 'rgba(124, 58, 237, 0.1)', color: '#7c3aed' }}
+          >
             {insights.filter((i) => !acknowledged.has(i.id)).length} new
-          </Badge>
+          </span>
         </div>
-      </CardHeader>
-      <CardContent className="flex-1 pt-0">
+      </div>
+      <div className="flex-1 px-6 pb-6">
         <ScrollArea className="h-[400px] lg:h-[480px]">
           <div className="space-y-3 pr-2">
             {insights.map((insight) => {
               const isAck = acknowledged.has(insight.id);
+              const sevStyles = severityBadgeStyles(insight.severity);
               return (
                 <div
                   key={insight.id}
-                  className={`relative rounded-lg border p-3 transition-all ${
-                    isAck
-                      ? 'border-border/50 opacity-60'
-                      : 'border-border bg-card'
+                  className={`relative rounded-lg p-3 transition-all ${
+                    isAck ? 'opacity-60' : ''
                   }`}
+                  style={{
+                    backgroundColor: isAck ? '#f9f9fc' : '#ffffff',
+                    borderLeft: '3px solid #7c3aed',
+                  }}
                 >
-                  {/* Purple left border for AI indicator */}
-                  <div className="absolute left-0 top-2 bottom-2 w-[3px] rounded-full bg-violet-500" />
-
                   <div className="pl-3 space-y-2">
                     {/* Badges row */}
                     <div className="flex items-center gap-2 flex-wrap">
                       <span
-                        className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[10px] font-semibold ${severityColor(
-                          insight.severity
-                        )}`}
+                        className="inline-flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-semibold"
+                        style={{ backgroundColor: sevStyles.bg, color: sevStyles.text }}
                       >
                         {insight.severity}
                       </span>
-                      <span className="inline-flex items-center rounded-md bg-secondary px-1.5 py-0.5 text-[10px] font-medium text-secondary-foreground">
+                      <span
+                        className="inline-flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-medium"
+                        style={{ backgroundColor: '#f3f3f6', color: '#44474e' }}
+                      >
                         {typeLabel(insight.type)}
                       </span>
-                      <span className="ml-auto text-[10px] text-muted-foreground">
+                      <span className="ml-auto text-[10px] font-body" style={{ color: '#74777f' }}>
                         {formatRelativeDate(insight.timestamp)}
                       </span>
                     </div>
 
                     {/* Title */}
-                    <h4 className="text-sm font-semibold text-foreground leading-tight">
+                    <h4
+                      className="text-sm font-semibold leading-tight font-body"
+                      style={{ color: '#1a1c1e' }}
+                    >
                       {insight.title}
                     </h4>
 
                     {/* Summary */}
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                    <p className="text-xs leading-relaxed font-body" style={{ color: '#44474e' }}>
                       {insight.summary}
                     </p>
 
@@ -109,7 +117,8 @@ export function InsightsFeed({ insights }: InsightsFeedProps) {
                     <div className="flex items-center justify-between pt-1">
                       <Link
                         href={`/projects/${insight.projectId}`}
-                        className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline"
+                        className="inline-flex items-center gap-1 text-[11px] font-body hover:underline"
+                        style={{ color: '#001736' }}
                       >
                         {insight.projectName}
                         <ExternalLink className="h-3 w-3" />
@@ -119,6 +128,7 @@ export function InsightsFeed({ insights }: InsightsFeedProps) {
                           variant="ghost"
                           size="sm"
                           className="h-6 px-2 text-[10px]"
+                          style={{ color: '#44474e' }}
                           onClick={() => handleAcknowledge(insight.id)}
                         >
                           <Check className="h-3 w-3 mr-1" />
@@ -132,7 +142,7 @@ export function InsightsFeed({ insights }: InsightsFeedProps) {
             })}
           </div>
         </ScrollArea>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
