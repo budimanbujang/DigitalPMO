@@ -1,0 +1,234 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Models ──────────────────────────────────────────────────────────────────
+// Note: SQLite does not support enums, so enum-like fields use String type.
+// Valid values are enforced at the application level via TypeScript types.
+
+model Organization {
+  id        String    @id @default(cuid())
+  name      String
+  projects  Project[]
+  users     User[]
+  createdAt DateTime  @default(now())
+}
+
+model User {
+  id             String          @id @default(cuid())
+  email          String          @unique
+  name           String
+  role           String          @default("MEMBER") // UserRole: ADMIN, PMO_LEAD, PROJECT_MANAGER, MEMBER, STAKEHOLDER, VIEWER
+  avatarUrl      String?
+  organizationId String
+  organization   Organization    @relation(fields: [organizationId], references: [id])
+  assignments    TaskAssignment[]
+  notifications  Notification[]
+  chaseResponses ChaseResponse[]
+  createdAt      DateTime        @default(now())
+}
+
+model Project {
+  id             String         @id @default(cuid())
+  name           String
+  description    String?
+  status         String         @default("PLANNING") // ProjectStatus
+  priority       String         @default("MEDIUM") // Priority
+  organizationId String
+  organization   Organization   @relation(fields: [organizationId], references: [id])
+  managerId      String
+  startDate      DateTime
+  targetEndDate  DateTime
+  actualEndDate  DateTime?
+  budget         Budget?
+  milestones     Milestone[]
+  tasks          Task[]
+  risks          Risk[]
+  dependencies   Dependency[]   @relation("DependentProject")
+  dependedOnBy   Dependency[]   @relation("DependencyProject")
+  tags           String         @default("")
+  aiInsights     AIInsight[]
+  statusUpdates  StatusUpdate[]
+  documents      Document[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model Budget {
+  id              String           @id @default(cuid())
+  projectId       String           @unique
+  project         Project          @relation(fields: [projectId], references: [id])
+  allocatedAmount Float
+  spentAmount     Float            @default(0)
+  currency        String           @default("MYR")
+  lineItems       BudgetLineItem[]
+  forecastAmount  Float?
+  lastReviewedAt  DateTime?
+}
+
+model BudgetLineItem {
+  id          String @id @default(cuid())
+  budgetId    String
+  budget      Budget @relation(fields: [budgetId], references: [id])
+  category    String
+  description String
+  planned     Float
+  actual      Float  @default(0)
+  variance    Float?
+}
+
+model Milestone {
+  id            String        @id @default(cuid())
+  projectId     String
+  project       Project       @relation(fields: [projectId], references: [id])
+  name          String
+  description   String?
+  dueDate       DateTime
+  completedDate DateTime?
+  status        String        @default("NOT_STARTED") // MilestoneStatus
+  tasks         Task[]
+  deliverables  Deliverable[]
+}
+
+model Task {
+  id             String           @id @default(cuid())
+  projectId      String
+  project        Project          @relation(fields: [projectId], references: [id])
+  milestoneId    String?
+  milestone      Milestone?       @relation(fields: [milestoneId], references: [id])
+  title          String
+  description    String?
+  status         String           @default("TODO") // TaskStatus
+  priority       String           @default("MEDIUM") // Priority
+  dueDate        DateTime?
+  completedDate  DateTime?
+  estimatedHours Float?
+  actualHours    Float?
+  assignments    TaskAssignment[]
+  comments       Comment[]
+  lastActivityAt DateTime?
+  stagnantDays   Int              @default(0)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+}
+
+model TaskAssignment {
+  id         String   @id @default(cuid())
+  taskId     String
+  task       Task     @relation(fields: [taskId], references: [id])
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  role       String   @default("assignee")
+  assignedAt DateTime @default(now())
+}
+
+model Deliverable {
+  id          String  @id @default(cuid())
+  milestoneId String
+  milestone   Milestone @relation(fields: [milestoneId], references: [id])
+  name        String
+  description String?
+  status      String  @default("TODO") // TaskStatus
+  dueDate     DateTime?
+  fileUrl     String?
+}
+
+model Risk {
+  id           String   @id @default(cuid())
+  projectId    String
+  project      Project  @relation(fields: [projectId], references: [id])
+  title        String
+  description  String?
+  likelihood   String   @default("MEDIUM") // RiskLevel
+  impact       String   @default("MEDIUM") // RiskLevel
+  status       String   @default("OPEN") // RiskStatus
+  mitigation   String?
+  owner        String?
+  identifiedAt DateTime @default(now())
+  aiGenerated  Boolean  @default(false)
+}
+
+model Dependency {
+  id                  String  @id @default(cuid())
+  dependentProjectId  String
+  dependentProject    Project @relation("DependentProject", fields: [dependentProjectId], references: [id])
+  dependencyProjectId String
+  dependencyProject   Project @relation("DependencyProject", fields: [dependencyProjectId], references: [id])
+  description         String?
+  isCritical          Boolean @default(false)
+}
+
+model AIInsight {
+  id               String   @id @default(cuid())
+  projectId        String?
+  project          Project? @relation(fields: [projectId], references: [id])
+  type             String   // InsightType
+  severity         String   // Priority
+  title            String
+  summary          String
+  details          String
+  recommendations  String   // JSON string array
+  isPortfolioLevel Boolean  @default(false)
+  acknowledged     Boolean  @default(false)
+  createdAt        DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  type      String   // NotificationType
+  title     String
+  message   String
+  channel   String   // JSON string array
+  read      Boolean  @default(false)
+  actionUrl String?
+  createdAt DateTime @default(now())
+}
+
+model ChaseResponse {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  taskId      String?
+  prompt      String
+  response    String?
+  status      String   @default("PENDING") // ChaseStatus
+  sentAt      DateTime @default(now())
+  respondedAt DateTime?
+}
+
+model StatusUpdate {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  authorId  String
+  content   String
+  ragStatus String   // RED, AMBER, GREEN
+  createdAt DateTime @default(now())
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  taskId    String
+  task      Task     @relation(fields: [taskId], references: [id])
+  authorId  String
+  content   String
+  createdAt DateTime @default(now())
+}
+
+model Document {
+  id         String   @id @default(cuid())
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id])
+  name       String
+  fileUrl    String
+  type       String
+  uploadedBy String
+  createdAt  DateTime @default(now())
+}
