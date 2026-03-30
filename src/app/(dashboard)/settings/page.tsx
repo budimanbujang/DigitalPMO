@@ -39,12 +39,12 @@ function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean
       onClick={() => onChange(!checked)}
       className={cn(
         'relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full transition-colors',
-        checked ? 'bg-[#001736]' : 'bg-[#e8e8ea]'
+        checked ? 'bg-[var(--primary)]' : 'bg-[var(--surface-container-high)]'
       )}
     >
       <span
         className={cn(
-          'inline-block h-3.5 w-3.5 rounded-full bg-white transition-transform',
+          'inline-block h-3.5 w-3.5 rounded-full bg-[var(--surface-container-lowest)] transition-transform',
           checked ? 'translate-x-[18px]' : 'translate-x-[3px]'
         )}
       />
@@ -75,73 +75,73 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-heading font-bold tracking-tight text-[#1a1c1e]">Settings</h1>
-        <p className="mt-1 text-sm text-[#44474e]">Manage your profile, notifications, and agent configuration</p>
+        <h1 className="text-2xl font-heading font-bold tracking-tight text-[var(--on-surface)]">Settings</h1>
+        <p className="mt-1 text-sm text-[var(--on-surface-variant)]">Manage your profile, notifications, and agent configuration</p>
       </div>
 
       {/* Profile */}
-      <div className="rounded-xl bg-white p-6" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
+      <div className="rounded-xl bg-[var(--surface-container-lowest)] p-6" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
         <div className="mb-4 flex items-center gap-2">
-          <User className="h-5 w-5 text-[#001736]" />
-          <h2 className="text-lg font-semibold text-[#1a1c1e]">Profile</h2>
+          <User className="h-5 w-5 text-[var(--primary)]" />
+          <h2 className="text-lg font-semibold text-[var(--on-surface)]">Profile</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-3">
           <div>
-            <label className="mb-1 block text-xs font-medium text-[#74777f]">Full Name</label>
+            <label className="mb-1 block text-xs font-medium text-[var(--outline)]">Full Name</label>
             <input
               type="text"
               value={profile.name}
               onChange={(e) => setProfile({ ...profile, name: e.target.value })}
-              className="w-full rounded-lg bg-[#f3f3f6] border-0 px-3 py-2 text-sm text-[#1a1c1e] focus:outline-none focus:ring-1 focus:ring-[#001736]/30"
+              className="w-full rounded-lg bg-[var(--surface-container-low)] border-0 px-3 py-2 text-sm text-[var(--on-surface)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]/30"
             />
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-[#74777f]">Email</label>
+            <label className="mb-1 block text-xs font-medium text-[var(--outline)]">Email</label>
             <input
               type="email"
               value={profile.email}
               onChange={(e) => setProfile({ ...profile, email: e.target.value })}
-              className="w-full rounded-lg bg-[#f3f3f6] border-0 px-3 py-2 text-sm text-[#1a1c1e] focus:outline-none focus:ring-1 focus:ring-[#001736]/30"
+              className="w-full rounded-lg bg-[var(--surface-container-low)] border-0 px-3 py-2 text-sm text-[var(--on-surface)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]/30"
             />
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-[#74777f]">Role</label>
+            <label className="mb-1 block text-xs font-medium text-[var(--outline)]">Role</label>
             <input
               type="text"
               value={profile.role}
               disabled
-              className="w-full rounded-lg bg-[#f3f3f6] border-0 px-3 py-2 text-sm text-[#74777f]"
+              className="w-full rounded-lg bg-[var(--surface-container-low)] border-0 px-3 py-2 text-sm text-[var(--outline)]"
             />
           </div>
         </div>
         <div className="mt-4 flex items-center justify-end gap-3">
           {saved === 'profile' && <span className="text-xs text-green-600">Saved!</span>}
-          <button onClick={() => handleSave('profile')} className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#001736] to-[#002b5b] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
+          <button onClick={() => handleSave('profile')} className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[var(--primary)] to-[var(--primary-container)] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
             <Save className="h-4 w-4" /> Save Profile
           </button>
         </div>
       </div>
 
       {/* Notification Preferences */}
-      <div className="rounded-xl bg-white p-6" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
+      <div className="rounded-xl bg-[var(--surface-container-lowest)] p-6" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
         <div className="mb-4 flex items-center gap-2">
-          <Bell className="h-5 w-5 text-[#001736]" />
-          <h2 className="text-lg font-semibold text-[#1a1c1e]">Notification Preferences</h2>
+          <Bell className="h-5 w-5 text-[var(--primary)]" />
+          <h2 className="text-lg font-semibold text-[var(--on-surface)]">Notification Preferences</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr>
-                <th className="pb-3 text-left text-xs font-semibold uppercase tracking-wider text-[#74777f]">Type</th>
-                <th className="pb-3 text-center text-xs font-semibold uppercase tracking-wider text-[#74777f]">Email</th>
-                <th className="pb-3 text-center text-xs font-semibold uppercase tracking-wider text-[#74777f]">Slack</th>
-                <th className="pb-3 text-center text-xs font-semibold uppercase tracking-wider text-[#74777f]">In-App</th>
+                <th className="pb-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--outline)]">Type</th>
+                <th className="pb-3 text-center text-xs font-semibold uppercase tracking-wider text-[var(--outline)]">Email</th>
+                <th className="pb-3 text-center text-xs font-semibold uppercase tracking-wider text-[var(--outline)]">Slack</th>
+                <th className="pb-3 text-center text-xs font-semibold uppercase tracking-wider text-[var(--outline)]">In-App</th>
               </tr>
             </thead>
             <tbody>
               {notifPrefs.map((pref, i) => (
-                <tr key={pref.label} className={i % 2 === 0 ? 'bg-white' : 'bg-[#f9f9fc]'}>
-                  <td className="py-3 text-sm text-[#1a1c1e]">{pref.label}</td>
+                <tr key={pref.label} className={i % 2 === 0 ? 'bg-[var(--surface-container-lowest)]' : 'bg-[var(--surface)]'}>
+                  <td className="py-3 text-sm text-[var(--on-surface)]">{pref.label}</td>
                   <td className="py-3 text-center"><Toggle checked={pref.email} onChange={(v) => updateNotifPref(i, 'email', v)} /></td>
                   <td className="py-3 text-center"><Toggle checked={pref.slack} onChange={(v) => updateNotifPref(i, 'slack', v)} /></td>
                   <td className="py-3 text-center"><Toggle checked={pref.inApp} onChange={(v) => updateNotifPref(i, 'inApp', v)} /></td>
@@ -152,81 +152,81 @@ export default function SettingsPage() {
         </div>
         <div className="mt-4 flex items-center justify-end gap-3">
           {saved === 'notifications' && <span className="text-xs text-green-600">Saved!</span>}
-          <button onClick={() => handleSave('notifications')} className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#001736] to-[#002b5b] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
+          <button onClick={() => handleSave('notifications')} className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[var(--primary)] to-[var(--primary-container)] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
             <Save className="h-4 w-4" /> Save Notifications
           </button>
         </div>
       </div>
 
       {/* Agent Configuration */}
-      <div className="rounded-xl bg-white p-6" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
+      <div className="rounded-xl bg-[var(--surface-container-lowest)] p-6" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
         <div className="mb-4 flex items-center gap-2">
-          <Bot className="h-5 w-5 text-[#7c3aed]" />
-          <h2 className="text-lg font-semibold text-[#1a1c1e]">Agent Configuration</h2>
+          <Bot className="h-5 w-5 text-[var(--ai-accent)]" />
+          <h2 className="text-lg font-semibold text-[var(--on-surface)]">Agent Configuration</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-3">
           <div>
-            <label className="mb-1 block text-xs font-medium text-[#74777f]">Stagnant Task Threshold (days)</label>
+            <label className="mb-1 block text-xs font-medium text-[var(--outline)]">Stagnant Task Threshold (days)</label>
             <input
               type="number"
               min={1}
               max={30}
               value={agentConfig.stagnantDays}
               onChange={(e) => setAgentConfig({ ...agentConfig, stagnantDays: parseInt(e.target.value) || 0 })}
-              className="w-full rounded-lg bg-[#f3f3f6] border-0 px-3 py-2 text-sm text-[#1a1c1e] focus:outline-none focus:ring-1 focus:ring-[#001736]/30"
+              className="w-full rounded-lg bg-[var(--surface-container-low)] border-0 px-3 py-2 text-sm text-[var(--on-surface)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]/30"
             />
-            <p className="mt-1 text-[11px] text-[#74777f]">Flag tasks with no activity for this many days</p>
+            <p className="mt-1 text-[11px] text-[var(--outline)]">Flag tasks with no activity for this many days</p>
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-[#74777f]">Budget Drift Alert (%)</label>
+            <label className="mb-1 block text-xs font-medium text-[var(--outline)]">Budget Drift Alert (%)</label>
             <input
               type="number"
               min={1}
               max={50}
               value={agentConfig.budgetDriftPct}
               onChange={(e) => setAgentConfig({ ...agentConfig, budgetDriftPct: parseInt(e.target.value) || 0 })}
-              className="w-full rounded-lg bg-[#f3f3f6] border-0 px-3 py-2 text-sm text-[#1a1c1e] focus:outline-none focus:ring-1 focus:ring-[#001736]/30"
+              className="w-full rounded-lg bg-[var(--surface-container-low)] border-0 px-3 py-2 text-sm text-[var(--on-surface)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]/30"
             />
-            <p className="mt-1 text-[11px] text-[#74777f]">Alert when forecast exceeds budget by this %</p>
+            <p className="mt-1 text-[11px] text-[var(--outline)]">Alert when forecast exceeds budget by this %</p>
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-[#74777f]">Chase Timing (days after due)</label>
+            <label className="mb-1 block text-xs font-medium text-[var(--outline)]">Chase Timing (days after due)</label>
             <input
               type="number"
               min={1}
               max={14}
               value={agentConfig.chaseTimingDays}
               onChange={(e) => setAgentConfig({ ...agentConfig, chaseTimingDays: parseInt(e.target.value) || 0 })}
-              className="w-full rounded-lg bg-[#f3f3f6] border-0 px-3 py-2 text-sm text-[#1a1c1e] focus:outline-none focus:ring-1 focus:ring-[#001736]/30"
+              className="w-full rounded-lg bg-[var(--surface-container-low)] border-0 px-3 py-2 text-sm text-[var(--on-surface)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]/30"
             />
-            <p className="mt-1 text-[11px] text-[#74777f]">Send first chase message this many days after due date</p>
+            <p className="mt-1 text-[11px] text-[var(--outline)]">Send first chase message this many days after due date</p>
           </div>
         </div>
         <div className="mt-4 flex items-center justify-end gap-3">
           {saved === 'agent' && <span className="text-xs text-green-600">Saved!</span>}
-          <button onClick={() => handleSave('agent')} className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#001736] to-[#002b5b] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
+          <button onClick={() => handleSave('agent')} className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[var(--primary)] to-[var(--primary-container)] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
             <Save className="h-4 w-4" /> Save Agent Config
           </button>
         </div>
       </div>
 
       {/* Alert Rules */}
-      <div className="rounded-xl bg-white p-6" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
+      <div className="rounded-xl bg-[var(--surface-container-lowest)] p-6" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
         <div className="mb-4 flex items-center gap-2">
           <ShieldAlert className="h-5 w-5 text-amber-500" />
-          <h2 className="text-lg font-semibold text-[#1a1c1e]">Alert Rules</h2>
+          <h2 className="text-lg font-semibold text-[var(--on-surface)]">Alert Rules</h2>
         </div>
         <div className="space-y-3">
           {alertRules.map((rule) => (
-            <div key={rule.id} className="flex items-center justify-between rounded-lg bg-[#f3f3f6] px-4 py-3">
-              <span className={cn('text-sm', rule.enabled ? 'text-[#1a1c1e]' : 'text-[#74777f]')}>{rule.name}</span>
+            <div key={rule.id} className="flex items-center justify-between rounded-lg bg-[var(--surface-container-low)] px-4 py-3">
+              <span className={cn('text-sm', rule.enabled ? 'text-[var(--on-surface)]' : 'text-[var(--outline)]')}>{rule.name}</span>
               <Toggle checked={rule.enabled} onChange={() => toggleAlertRule(rule.id)} />
             </div>
           ))}
         </div>
         <div className="mt-4 flex items-center justify-end gap-3">
           {saved === 'alerts' && <span className="text-xs text-green-600">Saved!</span>}
-          <button onClick={() => handleSave('alerts')} className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#001736] to-[#002b5b] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
+          <button onClick={() => handleSave('alerts')} className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[var(--primary)] to-[var(--primary-container)] px-4 py-2 text-sm font-medium text-white hover:opacity-90">
             <Save className="h-4 w-4" /> Save Alert Rules
           </button>
         </div>

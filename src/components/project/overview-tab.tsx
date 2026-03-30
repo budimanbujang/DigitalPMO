@@ -41,7 +41,7 @@ function activityIconColor(type: string): string {
     risk: '#EF4444',
     budget: '#F59E0B',
     milestone: '#22C55E',
-    ai: '#7c3aed',
+    ai: 'var(--ai-accent)',
     document: '#06B6D4',
     status: '#6B7280',
     chase: '#F97316',
@@ -100,11 +100,11 @@ export function OverviewTab() {
           {/* Recent activity */}
           <div
             className="rounded-2xl p-6"
-            style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+            style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
           >
             <h3
               className="text-sm font-semibold mb-5"
-              style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}
+              style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
             >
               Recent Activity
             </h3>
@@ -121,11 +121,11 @@ export function OverviewTab() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{a.action}</span>
-                        <span className="text-xs" style={{ color: '#74777f' }}>{formatRelativeDate(a.timestamp)}</span>
+                        <span className="text-sm font-medium" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface)' }}>{a.action}</span>
+                        <span className="text-xs" style={{ color: 'var(--outline)' }}>{formatRelativeDate(a.timestamp)}</span>
                       </div>
-                      <p className="text-xs truncate" style={{ color: '#44474e' }}>{a.detail}</p>
-                      <span className="text-xs" style={{ color: '#74777f' }}>by {a.user}</span>
+                      <p className="text-xs truncate" style={{ color: 'var(--on-surface-variant)' }}>{a.detail}</p>
+                      <span className="text-xs" style={{ color: 'var(--outline)' }}>by {a.user}</span>
                     </div>
                   </div>
                 );
@@ -136,11 +136,11 @@ export function OverviewTab() {
           {/* Task completion trend mini chart */}
           <div
             className="rounded-2xl p-6"
-            style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+            style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
           >
             <h3
               className="text-sm font-semibold flex items-center gap-2 mb-5"
-              style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}
+              style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
             >
               <TrendingUp className="h-4 w-4" style={{ color: '#22C55E' }} />
               Task Completion Trend
@@ -150,9 +150,9 @@ export function OverviewTab() {
                 <div key={d.week} className="flex-1 flex flex-col items-center gap-1">
                   <div
                     className="w-full rounded-t transition-all"
-                    style={{ height: `${(d.completed / maxTrend) * 100}%`, backgroundColor: '#001736' }}
+                    style={{ height: `${(d.completed / maxTrend) * 100}%`, backgroundColor: 'var(--primary)' }}
                   />
-                  <span className="text-[10px]" style={{ color: '#74777f' }}>{d.week}</span>
+                  <span className="text-[10px]" style={{ color: 'var(--outline)' }}>{d.week}</span>
                 </div>
               ))}
             </div>
@@ -164,25 +164,25 @@ export function OverviewTab() {
           {/* Next milestone countdown */}
           <div
             className="rounded-2xl p-6"
-            style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+            style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
           >
             <h3
               className="text-sm font-semibold mb-4"
-              style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}
+              style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
             >
               Next Milestone
             </h3>
             <div className="space-y-3">
-              <div className="text-base font-semibold" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{project.nextMilestone.name}</div>
+              <div className="text-base font-semibold" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface)' }}>{project.nextMilestone.name}</div>
               <div className="flex items-center gap-2">
                 <div className="text-2xl font-bold" style={{ fontFamily: 'Inter, sans-serif', color: project.nextMilestone.daysRemaining < 0 ? '#EF4444' : project.nextMilestone.daysRemaining < 7 ? '#F59E0B' : '#22C55E' }}>
                   {Math.abs(project.nextMilestone.daysRemaining)}
                 </div>
-                <span className="text-sm" style={{ color: '#44474e' }}>
+                <span className="text-sm" style={{ color: 'var(--on-surface-variant)' }}>
                   {project.nextMilestone.daysRemaining < 0 ? 'days overdue' : 'days remaining'}
                 </span>
               </div>
-              <div className="text-xs" style={{ color: '#74777f' }}>
+              <div className="text-xs" style={{ color: 'var(--outline)' }}>
                 Due: {new Date(project.nextMilestone.dueDate).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' })}
               </div>
               <Progress
@@ -196,21 +196,21 @@ export function OverviewTab() {
           <div
             className="rounded-2xl p-6"
             style={{
-              backgroundColor: '#ffffff',
+              backgroundColor: 'var(--surface-container-lowest)',
               boxShadow: '0 12px 40px rgba(26,28,30,0.06)',
-              borderLeft: '3px solid #7c3aed',
+              borderLeft: '3px solid var(--ai-accent)',
             }}
           >
             <h3
               className="text-sm font-semibold flex items-center gap-2 mb-4"
-              style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}
+              style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
             >
-              <Sparkles className="h-4 w-4" style={{ color: '#7c3aed' }} />
+              <Sparkles className="h-4 w-4" style={{ color: 'var(--ai-accent)' }} />
               AI Health Summary
             </h3>
             <div className="space-y-3">
               {insights.length === 0 ? (
-                <p className="text-sm" style={{ color: '#44474e' }}>No active AI insights for this project.</p>
+                <p className="text-sm" style={{ color: 'var(--on-surface-variant)' }}>No active AI insights for this project.</p>
               ) : (
                 <>
                   <div className="flex items-center gap-2">
@@ -221,7 +221,7 @@ export function OverviewTab() {
                           insights.some((i) => i.severity === 'HIGH') ? '#F59E0B' : '#22C55E'
                       }}
                     />
-                    <span className="text-sm font-medium" style={{ color: '#1a1c1e' }}>
+                    <span className="text-sm font-medium" style={{ color: 'var(--on-surface)' }}>
                       {insights.some((i) => i.severity === 'CRITICAL') ? 'Critical issues detected' :
                        insights.some((i) => i.severity === 'HIGH') ? 'High-priority items' : 'Moderate observations'}
                     </span>
@@ -236,14 +236,14 @@ export function OverviewTab() {
                           >
                             {insight.severity}
                           </Badge>
-                          <span className="font-medium truncate" style={{ color: '#1a1c1e' }}>{insight.title}</span>
+                          <span className="font-medium truncate" style={{ color: 'var(--on-surface)' }}>{insight.title}</span>
                         </div>
-                        <p style={{ color: '#44474e' }} className="line-clamp-2">{insight.summary}</p>
+                        <p style={{ color: 'var(--on-surface-variant)' }} className="line-clamp-2">{insight.summary}</p>
                       </div>
                     ))}
                   </div>
                   {insights.length > 3 && (
-                    <p className="text-xs font-medium" style={{ color: '#7c3aed' }}>+{insights.length - 3} more insights</p>
+                    <p className="text-xs font-medium" style={{ color: 'var(--ai-accent)' }}>+{insights.length - 3} more insights</p>
                   )}
                 </>
               )}
@@ -253,11 +253,11 @@ export function OverviewTab() {
           {/* Heatmap */}
           <div
             className="rounded-2xl p-6"
-            style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+            style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
           >
             <h3
               className="text-sm font-semibold mb-4"
-              style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}
+              style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
             >
               Health Heatmap
             </h3>
@@ -270,7 +270,7 @@ export function OverviewTab() {
                       backgroundColor: val === 'RED' ? 'rgba(239,68,68,0.8)' : val === 'AMBER' ? 'rgba(245,158,11,0.8)' : 'rgba(34,197,94,0.8)'
                     }}
                   />
-                  <span className="text-[10px] capitalize" style={{ color: '#74777f' }}>{key}</span>
+                  <span className="text-[10px] capitalize" style={{ color: 'var(--outline)' }}>{key}</span>
                 </div>
               ))}
             </div>
@@ -285,14 +285,14 @@ function MetricCard({ icon, label, value, sub }: { icon: React.ReactNode; label:
   return (
     <div
       className="rounded-2xl p-4 space-y-1"
-      style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+      style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
     >
-      <div className="flex items-center gap-2 text-xs" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>
+      <div className="flex items-center gap-2 text-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>
         {icon}
         {label}
       </div>
-      <div className="text-xl font-bold" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{value}</div>
-      <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: '#74777f' }}>{sub}</div>
+      <div className="text-xl font-bold" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface)' }}>{value}</div>
+      <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--outline)' }}>{sub}</div>
     </div>
   );
 }

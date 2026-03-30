@@ -53,7 +53,7 @@ const typeIconColors: Record<NotificationType, string> = {
   MILESTONE_AT_RISK: 'text-amber-600 bg-amber-50',
   BUDGET_ALERT: 'text-orange-600 bg-orange-50',
   CHASE_REQUEST: 'text-blue-600 bg-blue-50',
-  AI_INSIGHT: 'text-[#7c3aed] bg-violet-50',
+  AI_INSIGHT: 'text-[var(--ai-accent)] bg-violet-50',
   STATUS_UPDATE_DUE: 'text-cyan-600 bg-cyan-50',
   ESCALATION: 'text-red-600 bg-red-50',
 };
@@ -140,8 +140,8 @@ export default function NotificationsPage() {
       <div
         key={n.id}
         className={cn(
-          'group relative flex items-start gap-4 rounded-xl bg-white p-4 transition-all hover:translate-y-[-1px]',
-          !n.read && 'border-l-4 border-l-[#001736]'
+          'group relative flex items-start gap-4 rounded-xl bg-[var(--surface-container-lowest)] p-4 transition-all hover:translate-y-[-1px]',
+          !n.read && 'border-l-4 border-l-[var(--primary)]'
         )}
         style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
       >
@@ -150,7 +150,7 @@ export default function NotificationsPage() {
           type="checkbox"
           checked={selected.has(n.id)}
           onChange={() => toggleSelect(n.id)}
-          className="mt-1 h-4 w-4 shrink-0 rounded accent-[#001736]"
+          className="mt-1 h-4 w-4 shrink-0 rounded accent-[var(--primary)]"
         />
 
         {/* Type icon */}
@@ -175,8 +175,8 @@ export default function NotificationsPage() {
                 className={cn(
                   'text-sm leading-snug',
                   !n.read
-                    ? 'font-semibold text-[#1a1c1e]'
-                    : 'font-medium text-[#74777f]'
+                    ? 'font-semibold text-[var(--on-surface)]'
+                    : 'font-medium text-[var(--outline)]'
                 )}
               >
                 {n.title}
@@ -190,21 +190,21 @@ export default function NotificationsPage() {
                 )}
                 title={n.severity}
               />
-              <span className="text-xs text-[#74777f] whitespace-nowrap">
+              <span className="text-xs text-[var(--outline)] whitespace-nowrap">
                 {timeAgo(n.createdAt)}
               </span>
             </div>
           </div>
-          <p className="mt-1 text-xs text-[#44474e] line-clamp-2">
+          <p className="mt-1 text-xs text-[var(--on-surface-variant)] line-clamp-2">
             {n.message}
           </p>
           <div className="mt-2 flex items-center gap-3">
             {n.projectName && (
-              <span className="inline-flex items-center rounded-full bg-[#f3f3f6] px-2 py-0.5 text-[11px] font-medium text-[#44474e]">
+              <span className="inline-flex items-center rounded-full bg-[var(--surface-container-low)] px-2 py-0.5 text-[11px] font-medium text-[var(--on-surface-variant)]">
                 {n.projectName}
               </span>
             )}
-            <span className="inline-flex items-center rounded-full bg-[#f3f3f6] px-2 py-0.5 text-[11px] font-medium text-[#44474e]">
+            <span className="inline-flex items-center rounded-full bg-[var(--surface-container-low)] px-2 py-0.5 text-[11px] font-medium text-[var(--on-surface-variant)]">
               {typeLabels[n.type]}
             </span>
           </div>
@@ -215,7 +215,7 @@ export default function NotificationsPage() {
           {!n.read && (
             <button
               onClick={() => markAsRead(n.id)}
-              className="rounded-md p-1.5 text-[#74777f] hover:bg-[#f3f3f6] hover:text-[#1a1c1e]"
+              className="rounded-md p-1.5 text-[var(--outline)] hover:bg-[var(--surface-container-low)] hover:text-[var(--on-surface)]"
               title="Mark as read"
             >
               <CheckCheck className="h-3.5 w-3.5" />
@@ -223,14 +223,14 @@ export default function NotificationsPage() {
           )}
           <button
             onClick={() => snooze(n.id)}
-            className="rounded-md p-1.5 text-[#74777f] hover:bg-[#f3f3f6] hover:text-[#1a1c1e]"
+            className="rounded-md p-1.5 text-[var(--outline)] hover:bg-[var(--surface-container-low)] hover:text-[var(--on-surface)]"
             title="Snooze"
           >
             <BellOff className="h-3.5 w-3.5" />
           </button>
           <button
             onClick={() => dismiss(n.id)}
-            className="rounded-md p-1.5 text-[#74777f] hover:bg-red-50 hover:text-red-600"
+            className="rounded-md p-1.5 text-[var(--outline)] hover:bg-red-50 hover:text-red-600"
             title="Dismiss"
           >
             <X className="h-3.5 w-3.5" />
@@ -247,7 +247,7 @@ export default function NotificationsPage() {
     if (items.length === 0) return null;
     return (
       <div key={key}>
-        <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#74777f]">
+        <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[var(--outline)]">
           {groupLabels[key]}
         </h3>
         <div className="space-y-2">{items.map(renderNotificationCard)}</div>
@@ -263,10 +263,10 @@ export default function NotificationsPage() {
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-heading font-bold tracking-tight text-[#1a1c1e]">
+          <h1 className="text-2xl font-heading font-bold tracking-tight text-[var(--on-surface)]">
             Notifications
           </h1>
-          <p className="mt-1 text-sm text-[#44474e]">
+          <p className="mt-1 text-sm text-[var(--on-surface-variant)]">
             {unreadCount} unread notification{unreadCount !== 1 ? 's' : ''}
           </p>
         </div>
@@ -276,8 +276,8 @@ export default function NotificationsPage() {
             className={cn(
               'inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
               showFilters
-                ? 'bg-[#001736]/10 text-[#001736]'
-                : 'text-[#74777f] hover:bg-[#f3f3f6] hover:text-[#1a1c1e]'
+                ? 'bg-[var(--primary)]/10 text-[var(--primary)]'
+                : 'text-[var(--outline)] hover:bg-[var(--surface-container-low)] hover:text-[var(--on-surface)]'
             )}
           >
             <Filter className="h-4 w-4" />
@@ -285,7 +285,7 @@ export default function NotificationsPage() {
           </button>
           <button
             onClick={markAllRead}
-            className="inline-flex items-center gap-2 rounded-lg bg-[#001736]/10 px-3 py-2 text-sm font-medium text-[#001736] transition-colors hover:bg-[#001736]/20"
+            className="inline-flex items-center gap-2 rounded-lg bg-[var(--primary)]/10 px-3 py-2 text-sm font-medium text-[var(--primary)] transition-colors hover:bg-[var(--primary)]/20"
           >
             <CheckCheck className="h-4 w-4" />
             Mark All Read
@@ -296,11 +296,11 @@ export default function NotificationsPage() {
       {/* Filters */}
       {showFilters && (
         <div
-          className="flex flex-wrap items-center gap-3 rounded-xl bg-white p-4"
+          className="flex flex-wrap items-center gap-3 rounded-xl bg-[var(--surface-container-lowest)] p-4"
           style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
         >
           <div>
-            <label className="mb-1 block text-xs font-medium text-[#74777f]">
+            <label className="mb-1 block text-xs font-medium text-[var(--outline)]">
               Type
             </label>
             <select
@@ -308,7 +308,7 @@ export default function NotificationsPage() {
               onChange={(e) =>
                 setFilters({ ...filters, type: e.target.value as NotificationType | 'ALL' })
               }
-              className="rounded-lg bg-[#f3f3f6] border-0 px-3 py-1.5 text-sm text-[#1a1c1e]"
+              className="rounded-lg bg-[var(--surface-container-low)] border-0 px-3 py-1.5 text-sm text-[var(--on-surface)]"
             >
               <option value="ALL">All Types</option>
               {allTypes.map((t) => (
@@ -319,7 +319,7 @@ export default function NotificationsPage() {
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-[#74777f]">
+            <label className="mb-1 block text-xs font-medium text-[var(--outline)]">
               Project
             </label>
             <select
@@ -327,7 +327,7 @@ export default function NotificationsPage() {
               onChange={(e) =>
                 setFilters({ ...filters, project: e.target.value })
               }
-              className="rounded-lg bg-[#f3f3f6] border-0 px-3 py-1.5 text-sm text-[#1a1c1e]"
+              className="rounded-lg bg-[var(--surface-container-low)] border-0 px-3 py-1.5 text-sm text-[var(--on-surface)]"
             >
               <option value="ALL">All Projects</option>
               {allProjects.map((p) => (
@@ -338,7 +338,7 @@ export default function NotificationsPage() {
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-[#74777f]">
+            <label className="mb-1 block text-xs font-medium text-[var(--outline)]">
               Severity
             </label>
             <select
@@ -346,7 +346,7 @@ export default function NotificationsPage() {
               onChange={(e) =>
                 setFilters({ ...filters, severity: e.target.value as Priority | 'ALL' })
               }
-              className="rounded-lg bg-[#f3f3f6] border-0 px-3 py-1.5 text-sm text-[#1a1c1e]"
+              className="rounded-lg bg-[var(--surface-container-low)] border-0 px-3 py-1.5 text-sm text-[var(--on-surface)]"
             >
               <option value="ALL">All Severities</option>
               {allSeverities.map((s) => (
@@ -361,20 +361,20 @@ export default function NotificationsPage() {
 
       {/* Bulk actions bar */}
       {selected.size > 0 && (
-        <div className="flex items-center gap-3 rounded-xl bg-[#001736]/5 px-4 py-3">
-          <span className="text-sm font-medium text-[#1a1c1e]">
+        <div className="flex items-center gap-3 rounded-xl bg-[var(--primary)]/5 px-4 py-3">
+          <span className="text-sm font-medium text-[var(--on-surface)]">
             {selected.size} selected
           </span>
           <div className="flex items-center gap-2">
             <button
               onClick={handleBulkMarkRead}
-              className="rounded-lg bg-[#001736]/10 px-3 py-1.5 text-xs font-medium text-[#001736] hover:bg-[#001736]/20"
+              className="rounded-lg bg-[var(--primary)]/10 px-3 py-1.5 text-xs font-medium text-[var(--primary)] hover:bg-[var(--primary)]/20"
             >
               Mark Read
             </button>
             <button
               onClick={handleBulkSnooze}
-              className="rounded-lg bg-[#f3f3f6] px-3 py-1.5 text-xs font-medium text-[#44474e] hover:text-[#1a1c1e]"
+              className="rounded-lg bg-[var(--surface-container-low)] px-3 py-1.5 text-xs font-medium text-[var(--on-surface-variant)] hover:text-[var(--on-surface)]"
             >
               Snooze
             </button>
@@ -387,13 +387,13 @@ export default function NotificationsPage() {
           </div>
           <button
             onClick={selectAll}
-            className="ml-auto text-xs text-[#001736] hover:underline"
+            className="ml-auto text-xs text-[var(--primary)] hover:underline"
           >
             Select All
           </button>
           <button
             onClick={clearSelection}
-            className="text-xs text-[#74777f] hover:text-[#1a1c1e]"
+            className="text-xs text-[var(--outline)] hover:text-[var(--on-surface)]"
           >
             Clear
           </button>
@@ -409,14 +409,14 @@ export default function NotificationsPage() {
         </div>
       ) : (
         <div
-          className="flex flex-col items-center justify-center rounded-xl bg-white py-16"
+          className="flex flex-col items-center justify-center rounded-xl bg-[var(--surface-container-lowest)] py-16"
           style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
         >
-          <Bell className="h-12 w-12 text-[#74777f]/30" />
-          <h3 className="mt-4 text-sm font-medium text-[#44474e]">
+          <Bell className="h-12 w-12 text-[var(--outline)]/30" />
+          <h3 className="mt-4 text-sm font-medium text-[var(--on-surface-variant)]">
             No notifications
           </h3>
-          <p className="mt-1 text-xs text-[#74777f]">
+          <p className="mt-1 text-xs text-[var(--outline)]">
             {filters.type !== 'ALL' || filters.project !== 'ALL' || filters.severity !== 'ALL'
               ? 'Try adjusting your filters'
               : "You're all caught up!"}

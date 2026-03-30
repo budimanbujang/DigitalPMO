@@ -34,13 +34,13 @@ function ForecastPattern() {
         height="8"
         patternTransform="rotate(45)"
       >
-        <rect width="8" height="8" fill="#74777f" fillOpacity={0.3} />
+        <rect width="8" height="8" fill="var(--outline)" fillOpacity={0.3} />
         <line
           x1="0"
           y1="0"
           x2="0"
           y2="8"
-          stroke="#74777f"
+          stroke="var(--outline)"
           strokeWidth="4"
           strokeOpacity={0.6}
         />
@@ -62,15 +62,15 @@ export function BudgetChart({ data, height = 300 }: BudgetChartProps) {
         <ForecastPattern />
         <CartesianGrid
           strokeDasharray="3 3"
-          stroke="#e8e8ea"
+          stroke="var(--surface-container-high)"
         />
         <XAxis
           dataKey="name"
-          tick={{ fontSize: 12, fill: '#44474e' }}
+          tick={{ fontSize: 12, fill: 'var(--on-surface-variant)' }}
         />
         <YAxis
           tickFormatter={formatCurrency}
-          tick={{ fontSize: 12, fill: '#44474e' }}
+          tick={{ fontSize: 12, fill: 'var(--on-surface-variant)' }}
         />
         <Tooltip
           formatter={(value: any, name: any) => [
@@ -78,7 +78,7 @@ export function BudgetChart({ data, height = 300 }: BudgetChartProps) {
             (name as string).charAt(0).toUpperCase() + (name as string).slice(1),
           ]}
           contentStyle={{
-            backgroundColor: '#ffffff',
+            backgroundColor: 'var(--surface-container-lowest)',
             border: 'none',
             borderRadius: '8px',
             fontSize: 12,
@@ -91,14 +91,14 @@ export function BudgetChart({ data, height = 300 }: BudgetChartProps) {
         <Bar
           dataKey="allocated"
           stackId="budget"
-          fill="#001736"
+          fill="var(--primary)"
           name="Allocated"
           radius={[0, 0, 0, 0]}
         />
         <Bar
           dataKey="spent"
           stackId="budget"
-          fill="#7c3aed"
+          fill="var(--ai-accent)"
           name="Spent"
           radius={[0, 0, 0, 0]}
         />
@@ -106,7 +106,7 @@ export function BudgetChart({ data, height = 300 }: BudgetChartProps) {
           dataKey="forecast"
           stackId="budget"
           fill="url(#forecast-dashed)"
-          stroke="#74777f"
+          stroke="var(--outline)"
           strokeWidth={1}
           name="Forecast"
           radius={[4, 4, 0, 0]}

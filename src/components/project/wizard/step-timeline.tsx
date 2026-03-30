@@ -38,37 +38,37 @@ export function StepTimeline({ formData, setFormData }: StepProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Start Date */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#1a1c1e]">
+          <label className="text-sm font-medium text-[var(--on-surface)]">
             Start Date <span className="text-red-500">*</span>
           </label>
           <Input
             type="date"
             value={formData.startDate}
             onChange={e => setFormData(prev => ({ ...prev, startDate: e.target.value }))}
-            className="h-11 bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+            className="h-11 bg-[var(--surface-container-low)] border-0 focus:ring-1 focus:ring-[var(--primary)]/30"
           />
         </div>
 
         {/* Target End Date */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#1a1c1e]">
+          <label className="text-sm font-medium text-[var(--on-surface)]">
             Target End Date <span className="text-red-500">*</span>
           </label>
           <Input
             type="date"
             value={formData.targetEndDate}
             onChange={e => setFormData(prev => ({ ...prev, targetEndDate: e.target.value }))}
-            className="h-11 bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+            className="h-11 bg-[var(--surface-container-low)] border-0 focus:ring-1 focus:ring-[var(--primary)]/30"
           />
         </div>
       </div>
 
       {durationDays > 0 && (
-        <div className="flex items-center gap-2 text-sm text-[#44474e] bg-[#f3f3f6] rounded-lg p-3">
+        <div className="flex items-center gap-2 text-sm text-[var(--on-surface-variant)] bg-[var(--surface-container-low)] rounded-lg p-3">
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
-          Project duration: <span className="font-semibold text-[#1a1c1e]">{durationDays} days</span>
+          Project duration: <span className="font-semibold text-[var(--on-surface)]">{durationDays} days</span>
           ({Math.ceil(durationDays / 7)} weeks, ~{Math.round(durationDays / 30)} months)
         </div>
       )}
@@ -76,7 +76,7 @@ export function StepTimeline({ formData, setFormData }: StepProps) {
       {/* Key Phases */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <label className="text-sm font-medium text-[#1a1c1e]">Key Phases</label>
+          <label className="text-sm font-medium text-[var(--on-surface)]">Key Phases</label>
           <Button type="button" variant="outline" size="sm" onClick={addPhase}>
             <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
@@ -86,7 +86,7 @@ export function StepTimeline({ formData, setFormData }: StepProps) {
         </div>
 
         {formData.phases.length === 0 && (
-          <div className="text-center py-8 text-[#74777f] border-2 border-dashed border-[#e8e8ea] rounded-lg">
+          <div className="text-center py-8 text-[var(--outline)] border-2 border-dashed border-[var(--surface-container-high)] rounded-lg">
             <svg className="h-8 w-8 mx-auto mb-2 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
             </svg>
@@ -97,8 +97,8 @@ export function StepTimeline({ formData, setFormData }: StepProps) {
         {formData.phases.map((phase, index) => (
           <div
             key={index}
-            className="rounded-xl bg-white p-4"
-            style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+            className="rounded-xl p-4"
+            style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
           >
             <div className="flex items-start gap-3">
               <div className="flex items-center justify-center h-6 w-6 rounded-full bg-violet-100 text-violet-700 text-xs font-bold mt-1 shrink-0">
@@ -109,27 +109,27 @@ export function StepTimeline({ formData, setFormData }: StepProps) {
                   placeholder="Phase name"
                   value={phase.name}
                   onChange={e => updatePhase(index, 'name', e.target.value)}
-                  className="bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+                  className="bg-[var(--surface-container-low)] border-0 focus:ring-1 focus:ring-[var(--primary)]/30"
                 />
                 <Input
                   type="date"
                   value={phase.start}
                   onChange={e => updatePhase(index, 'start', e.target.value)}
                   placeholder="Start"
-                  className="bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+                  className="bg-[var(--surface-container-low)] border-0 focus:ring-1 focus:ring-[var(--primary)]/30"
                 />
                 <Input
                   type="date"
                   value={phase.end}
                   onChange={e => updatePhase(index, 'end', e.target.value)}
                   placeholder="End"
-                  className="bg-[#f3f3f6] border-0 focus:ring-1 focus:ring-[#001736]/30"
+                  className="bg-[var(--surface-container-low)] border-0 focus:ring-1 focus:ring-[var(--primary)]/30"
                 />
               </div>
               <button
                 type="button"
                 onClick={() => removePhase(index)}
-                className="text-[#74777f] hover:text-red-500 transition-colors mt-1.5"
+                className="text-[var(--outline)] hover:text-red-500 transition-colors mt-1.5"
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -143,10 +143,10 @@ export function StepTimeline({ formData, setFormData }: StepProps) {
       {/* Visual Timeline Preview */}
       {formData.phases.length > 0 && formData.startDate && formData.targetEndDate && (
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#1a1c1e]">Timeline Preview</label>
+          <label className="text-sm font-medium text-[var(--on-surface)]">Timeline Preview</label>
           <div
-            className="rounded-xl bg-white p-4"
-            style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+            className="rounded-xl p-4"
+            style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
           >
             <TimelinePreview
               startDate={formData.startDate}
@@ -183,9 +183,9 @@ function TimelinePreview({
   return (
     <div className="space-y-3">
       {/* Full project bar */}
-      <div className="flex items-center gap-2 text-xs text-[#74777f] mb-1">
+      <div className="flex items-center gap-2 text-xs text-[var(--outline)] mb-1">
         <span>{new Date(startDate).toLocaleDateString('en-MY', { day: 'numeric', month: 'short' })}</span>
-        <div className="flex-1 h-2 bg-[#e8e8ea] rounded-full" />
+        <div className="flex-1 h-2 bg-[var(--surface-container-high)] rounded-full" />
         <span>{new Date(endDate).toLocaleDateString('en-MY', { day: 'numeric', month: 'short' })}</span>
       </div>
 

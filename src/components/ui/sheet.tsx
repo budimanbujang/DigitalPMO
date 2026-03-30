@@ -92,7 +92,7 @@ const SheetOverlay = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "fixed inset-0 z-50 bg-[#1a1c1e]/40 backdrop-blur-xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "fixed inset-0 z-50 bg-[var(--on-surface)]/40 backdrop-blur-xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
     {...props}
@@ -101,7 +101,7 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = "SheetOverlay"
 
 const sheetVariants = cva(
-  "fixed z-50 gap-4 bg-white p-6 shadow-[0_12px_40px_rgba(26,28,30,0.06)] transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out",
+  "fixed z-50 gap-4 bg-[var(--surface-container-lowest)] p-6 shadow-[0_12px_40px_rgba(26,28,30,0.06)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.2)] transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out",
   {
     variants: {
       side: {
@@ -162,7 +162,7 @@ const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
           {children}
           <button
             type="button"
-            className="absolute right-4 top-4 rounded-md opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#d6e3ff] disabled:pointer-events-none"
+            className="absolute right-4 top-4 rounded-md opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[var(--primary-fixed)] disabled:pointer-events-none"
             onClick={() => onOpenChange(false)}
           >
             <svg
@@ -218,7 +218,7 @@ const SheetTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <h2
     ref={ref}
-    className={cn("text-lg font-semibold text-[#1a1c1e] tracking-[-0.02em]", className)}
+    className={cn("text-lg font-semibold text-[var(--on-surface)] tracking-[-0.02em]", className)}
     {...props}
   />
 ))
@@ -230,7 +230,7 @@ const SheetDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-sm text-[#44474e]", className)}
+    className={cn("text-sm text-[var(--on-surface-variant)]", className)}
     {...props}
   />
 ))

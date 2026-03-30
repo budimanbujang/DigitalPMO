@@ -44,7 +44,7 @@ export function HealthGauge({ score, size = 'md', label }: HealthGaugeProps) {
           r={radius}
           fill="none"
           stroke="currentColor"
-          style={{ color: '#e8e8ea' }}
+          style={{ color: 'var(--surface-container-high)' }}
           strokeWidth={config.strokeWidth}
           strokeDasharray={`${arcLength} ${circumference}`}
           strokeDashoffset={0}
@@ -84,7 +84,7 @@ export function HealthGauge({ score, size = 'md', label }: HealthGaugeProps) {
       {label && (
         <span
           className="text-center font-body"
-          style={{ fontSize: config.labelSize, color: '#44474e' }}
+          style={{ fontSize: config.labelSize, color: 'var(--on-surface-variant)' }}
         >
           {label}
         </span>

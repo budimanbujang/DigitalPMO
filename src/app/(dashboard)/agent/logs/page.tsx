@@ -195,7 +195,7 @@ function getTypeIcon(type: LogType) {
 function getTypeBadgeClass(type: LogType) {
   switch (type) {
     case 'ANALYSIS': return 'bg-blue-50 text-blue-700';
-    case 'CHASE': return 'bg-violet-50 text-[#7c3aed]';
+    case 'CHASE': return 'bg-violet-50 text-[var(--ai-accent)]';
     case 'INSIGHT': return 'bg-emerald-50 text-emerald-700';
     case 'ALERT': return 'bg-amber-50 text-amber-700';
   }
@@ -263,14 +263,14 @@ export default function AgentLogsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-heading font-bold tracking-tight text-[#1a1c1e]">Agent Activity Logs</h1>
-          <p className="mt-1 text-sm text-[#44474e]">
+          <h1 className="text-2xl font-heading font-bold tracking-tight text-[var(--on-surface)]">Agent Activity Logs</h1>
+          <p className="mt-1 text-sm text-[var(--on-surface-variant)]">
             View all AI agent actions, analysis runs, and chase activities
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Bot className="h-5 w-5 text-[#7c3aed]" />
-          <span className="text-sm text-[#7c3aed] font-medium">
+          <Bot className="h-5 w-5 text-[var(--ai-accent)]" />
+          <span className="text-sm text-[var(--ai-accent)] font-medium">
             {MOCK_LOGS.length} total entries
           </span>
         </div>
@@ -278,14 +278,14 @@ export default function AgentLogsPage() {
 
       {/* Filters */}
       <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2 text-sm text-[#74777f]">
+        <div className="flex items-center gap-2 text-sm text-[var(--outline)]">
           <Filter className="h-4 w-4" />
           Filters:
         </div>
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="rounded-lg bg-[#f3f3f6] border-0 px-3 py-1.5 text-sm text-[#1a1c1e] focus:outline-none focus:ring-1 focus:ring-[#001736]/30"
+          className="rounded-lg bg-[var(--surface-container-low)] border-0 px-3 py-1.5 text-sm text-[var(--on-surface)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]/30"
         >
           <option value="ALL">All Types</option>
           <option value="ANALYSIS">Analysis</option>
@@ -296,27 +296,27 @@ export default function AgentLogsPage() {
         <select
           value={dateFilter}
           onChange={(e) => setDateFilter(e.target.value)}
-          className="rounded-lg bg-[#f3f3f6] border-0 px-3 py-1.5 text-sm text-[#1a1c1e] focus:outline-none focus:ring-1 focus:ring-[#001736]/30"
+          className="rounded-lg bg-[var(--surface-container-low)] border-0 px-3 py-1.5 text-sm text-[var(--on-surface)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]/30"
         >
           <option value="ALL">All Dates</option>
           <option value="TODAY">Today</option>
           <option value="YESTERDAY">Yesterday</option>
         </select>
         <div className="ml-auto relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#74777f]" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--outline)]" />
           <input
             type="text"
             placeholder="Search logs..."
-            className="rounded-lg bg-[#f3f3f6] border-0 py-1.5 pl-9 pr-3 text-sm text-[#1a1c1e] placeholder:text-[#74777f] focus:outline-none focus:ring-1 focus:ring-[#001736]/30 w-64"
+            className="rounded-lg bg-[var(--surface-container-low)] border-0 py-1.5 pl-9 pr-3 text-sm text-[var(--on-surface)] placeholder:text-[var(--outline)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]/30 w-64"
           />
         </div>
       </div>
 
       {/* Table */}
-      <div className="rounded-xl bg-white overflow-hidden" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
+      <div className="rounded-xl bg-[var(--surface-container-lowest)] overflow-hidden" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
         <table className="w-full">
           <thead>
-            <tr className="bg-[#f3f3f6] text-left text-xs font-semibold uppercase tracking-wider text-[#74777f]">
+            <tr className="bg-[var(--surface-container-low)] text-left text-xs font-semibold uppercase tracking-wider text-[var(--outline)]">
               <th className="px-4 py-3 w-8"></th>
               <th className="px-4 py-3">Timestamp</th>
               <th className="px-4 py-3">Type</th>
@@ -331,22 +331,22 @@ export default function AgentLogsPage() {
               <React.Fragment key={log.id}>
                 <tr
                   className={cn(
-                    'cursor-pointer transition-colors hover:bg-[#f3f3f6]/50',
-                    idx % 2 === 0 ? 'bg-white' : 'bg-[#f9f9fc]',
-                    expandedRow === log.id && 'bg-[#f3f3f6]/70'
+                    'cursor-pointer transition-colors hover:bg-[var(--surface-container-low)]/50',
+                    idx % 2 === 0 ? 'bg-[var(--surface-container-lowest)]' : 'bg-[var(--surface)]',
+                    expandedRow === log.id && 'bg-[var(--surface-container-low)]/70'
                   )}
                   onClick={() =>
                     setExpandedRow(expandedRow === log.id ? null : log.id)
                   }
                 >
-                  <td className="px-4 py-3 text-[#74777f]">
+                  <td className="px-4 py-3 text-[var(--outline)]">
                     {expandedRow === log.id ? (
                       <ChevronDown className="h-4 w-4" />
                     ) : (
                       <ChevronRight className="h-4 w-4" />
                     )}
                   </td>
-                  <td className="px-4 py-3 text-sm text-[#44474e] whitespace-nowrap">
+                  <td className="px-4 py-3 text-sm text-[var(--on-surface-variant)] whitespace-nowrap">
                     {formatTimestamp(log.timestamp)}
                   </td>
                   <td className="px-4 py-3">
@@ -360,25 +360,25 @@ export default function AgentLogsPage() {
                       {log.type}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm text-[#1a1c1e]">
+                  <td className="px-4 py-3 text-sm text-[var(--on-surface)]">
                     {log.scope}
                   </td>
-                  <td className="px-4 py-3 text-sm text-[#44474e] max-w-md truncate">
+                  <td className="px-4 py-3 text-sm text-[var(--on-surface-variant)] max-w-md truncate">
                     {log.summary}
                   </td>
                   <td className="px-4 py-3">{getStatusBadge(log.status)}</td>
-                  <td className="px-4 py-3 text-sm text-[#74777f]">
+                  <td className="px-4 py-3 text-sm text-[var(--outline)]">
                     {log.duration ?? '-'}
                   </td>
                 </tr>
                 {expandedRow === log.id && (
-                  <tr className="bg-[#f9f9fc]">
+                  <tr className="bg-[var(--surface)]">
                     <td colSpan={7} className="px-8 py-4">
-                      <div className="rounded-lg bg-[#f3f3f6] p-4">
-                        <h4 className="text-xs font-medium uppercase tracking-wider text-[#74777f] mb-2">
+                      <div className="rounded-lg bg-[var(--surface-container-low)] p-4">
+                        <h4 className="text-xs font-medium uppercase tracking-wider text-[var(--outline)] mb-2">
                           Details
                         </h4>
-                        <p className="text-sm text-[#44474e] leading-relaxed">
+                        <p className="text-sm text-[var(--on-surface-variant)] leading-relaxed">
                           {log.details}
                         </p>
                       </div>
@@ -390,7 +390,7 @@ export default function AgentLogsPage() {
           </tbody>
         </table>
         {filtered.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-16 text-[#74777f]">
+          <div className="flex flex-col items-center justify-center py-16 text-[var(--outline)]">
             <Bot className="h-10 w-10 mb-3 opacity-50" />
             <p className="text-sm">No log entries match your filters</p>
           </div>

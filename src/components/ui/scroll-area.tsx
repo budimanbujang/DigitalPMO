@@ -23,8 +23,8 @@ const ScrollArea = React.forwardRef<HTMLDivElement, ScrollAreaProps>(
             // Custom scrollbar styling
             "[&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar]:h-2",
             "[&::-webkit-scrollbar-track]:bg-transparent",
-            "[&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#e8e8ea]",
-            "[&::-webkit-scrollbar-thumb]:hover:bg-[#44474e]/30",
+            "[&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[var(--surface-container-high)]",
+            "[&::-webkit-scrollbar-thumb]:hover:bg-[var(--on-surface-variant)]/30",
             "[&::-webkit-scrollbar-corner]:bg-transparent"
           )}
         >

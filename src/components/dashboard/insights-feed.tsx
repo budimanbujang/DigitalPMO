@@ -43,21 +43,24 @@ export function InsightsFeed({ insights }: InsightsFeedProps) {
 
   return (
     <div
-      className="bg-white rounded-xl h-full flex flex-col"
-      style={{ boxShadow: '0 12px 40px rgba(26, 28, 30, 0.06)' }}
+      className="rounded-xl h-full flex flex-col"
+      style={{
+        backgroundColor: 'var(--surface-container-lowest)',
+        boxShadow: '0 12px 40px rgba(26, 28, 30, 0.06)',
+      }}
     >
       <div className="p-6 pb-3">
         <div className="flex items-center justify-between">
           <h3
             className="text-base font-semibold font-heading flex items-center gap-2"
-            style={{ color: '#1a1c1e', letterSpacing: '-0.02em' }}
+            style={{ color: 'var(--on-surface)', letterSpacing: '-0.02em' }}
           >
-            <Sparkles className="h-4 w-4" style={{ color: '#7c3aed' }} />
+            <Sparkles className="h-4 w-4" style={{ color: 'var(--ai-accent)' }} />
             AI Insights
           </h3>
           <span
             className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold"
-            style={{ backgroundColor: 'rgba(124, 58, 237, 0.1)', color: '#7c3aed' }}
+            style={{ backgroundColor: 'rgba(124, 58, 237, 0.1)', color: 'var(--ai-accent)' }}
           >
             {insights.filter((i) => !acknowledged.has(i.id)).length} new
           </span>
@@ -76,8 +79,8 @@ export function InsightsFeed({ insights }: InsightsFeedProps) {
                     isAck ? 'opacity-60' : ''
                   }`}
                   style={{
-                    backgroundColor: isAck ? '#f9f9fc' : '#ffffff',
-                    borderLeft: '3px solid #7c3aed',
+                    backgroundColor: isAck ? 'var(--surface)' : 'var(--surface-container-lowest)',
+                    borderLeft: '3px solid var(--ai-accent)',
                   }}
                 >
                   <div className="pl-3 space-y-2">
@@ -91,11 +94,11 @@ export function InsightsFeed({ insights }: InsightsFeedProps) {
                       </span>
                       <span
                         className="inline-flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-medium"
-                        style={{ backgroundColor: '#f3f3f6', color: '#44474e' }}
+                        style={{ backgroundColor: 'var(--surface-container-low)', color: 'var(--on-surface-variant)' }}
                       >
                         {typeLabel(insight.type)}
                       </span>
-                      <span className="ml-auto text-[10px] font-body" style={{ color: '#74777f' }}>
+                      <span className="ml-auto text-[10px] font-body" style={{ color: 'var(--outline)' }}>
                         {formatRelativeDate(insight.timestamp)}
                       </span>
                     </div>
@@ -103,13 +106,13 @@ export function InsightsFeed({ insights }: InsightsFeedProps) {
                     {/* Title */}
                     <h4
                       className="text-sm font-semibold leading-tight font-body"
-                      style={{ color: '#1a1c1e' }}
+                      style={{ color: 'var(--on-surface)' }}
                     >
                       {insight.title}
                     </h4>
 
                     {/* Summary */}
-                    <p className="text-xs leading-relaxed font-body" style={{ color: '#44474e' }}>
+                    <p className="text-xs leading-relaxed font-body" style={{ color: 'var(--on-surface-variant)' }}>
                       {insight.summary}
                     </p>
 
@@ -118,7 +121,7 @@ export function InsightsFeed({ insights }: InsightsFeedProps) {
                       <Link
                         href={`/projects/${insight.projectId}`}
                         className="inline-flex items-center gap-1 text-[11px] font-body hover:underline"
-                        style={{ color: '#001736' }}
+                        style={{ color: 'var(--primary)' }}
                       >
                         {insight.projectName}
                         <ExternalLink className="h-3 w-3" />
@@ -128,7 +131,7 @@ export function InsightsFeed({ insights }: InsightsFeedProps) {
                           variant="ghost"
                           size="sm"
                           className="h-6 px-2 text-[10px]"
-                          style={{ color: '#44474e' }}
+                          style={{ color: 'var(--on-surface-variant)' }}
                           onClick={() => handleAcknowledge(insight.id)}
                         >
                           <Check className="h-3 w-3 mr-1" />

@@ -49,7 +49,7 @@ export function RiskMatrix({ risks }: RiskMatrixProps) {
         {/* Y-axis label */}
         <div className="flex">
           <div className="w-24 shrink-0" />
-          <div className="flex-1 text-center text-xs font-semibold mb-1 font-heading" style={{ color: '#44474e' }}>
+          <div className="flex-1 text-center text-xs font-semibold mb-1 font-heading" style={{ color: 'var(--on-surface-variant)' }}>
             Impact
           </div>
         </div>
@@ -62,7 +62,7 @@ export function RiskMatrix({ risks }: RiskMatrixProps) {
               <div
                 key={label}
                 className="text-center text-[10px] font-medium font-body"
-                style={{ color: '#74777f' }}
+                style={{ color: 'var(--outline)' }}
               >
                 {label}
               </div>
@@ -78,12 +78,12 @@ export function RiskMatrix({ risks }: RiskMatrixProps) {
               <div
                 key={label}
                 className="h-16 flex items-center justify-end text-[10px] font-medium font-body text-right"
-                style={{ color: '#74777f' }}
+                style={{ color: 'var(--outline)' }}
               >
                 {label}
               </div>
             ))}
-            <div className="text-xs font-semibold text-right font-heading mt-1" style={{ color: '#44474e' }}>
+            <div className="text-xs font-semibold text-right font-heading mt-1" style={{ color: 'var(--on-surface-variant)' }}>
               Likelihood
             </div>
           </div>

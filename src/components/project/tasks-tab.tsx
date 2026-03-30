@@ -138,7 +138,7 @@ export function TasksTab() {
             </Select>
           </div>
           <div className="relative w-48">
-            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5" style={{ color: '#74777f' }} />
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5" style={{ color: 'var(--outline)' }} />
             <Input
               placeholder="Search tasks..."
               value={searchQuery}
@@ -150,14 +150,14 @@ export function TasksTab() {
         <div className="flex items-center gap-2 ml-auto">
           <div
             className="flex items-center gap-1 rounded-md p-0.5"
-            style={{ backgroundColor: '#f3f3f6' }}
+            style={{ backgroundColor: 'var(--surface-container-low)' }}
           >
             <button
               onClick={() => setViewMode('kanban')}
               className="p-1.5 rounded transition-colors"
               style={{
-                backgroundColor: viewMode === 'kanban' ? '#ffffff' : 'transparent',
-                color: viewMode === 'kanban' ? '#1a1c1e' : '#74777f',
+                backgroundColor: viewMode === 'kanban' ? 'var(--surface-container-lowest)' : 'transparent',
+                color: viewMode === 'kanban' ? 'var(--on-surface)' : 'var(--outline)',
                 boxShadow: viewMode === 'kanban' ? '0 1px 3px rgba(26,28,30,0.08)' : 'none',
               }}
             >
@@ -167,15 +167,15 @@ export function TasksTab() {
               onClick={() => setViewMode('list')}
               className="p-1.5 rounded transition-colors"
               style={{
-                backgroundColor: viewMode === 'list' ? '#ffffff' : 'transparent',
-                color: viewMode === 'list' ? '#1a1c1e' : '#74777f',
+                backgroundColor: viewMode === 'list' ? 'var(--surface-container-lowest)' : 'transparent',
+                color: viewMode === 'list' ? 'var(--on-surface)' : 'var(--outline)',
                 boxShadow: viewMode === 'list' ? '0 1px 3px rgba(26,28,30,0.08)' : 'none',
               }}
             >
               <List className="h-4 w-4" />
             </button>
           </div>
-          <Button size="sm" style={{ backgroundColor: '#001736', color: '#ffffff' }} onClick={() => setShowAddForm(true)}>
+          <Button size="sm" style={{ backgroundColor: 'var(--primary)', color: '#ffffff' }} onClick={() => setShowAddForm(true)}>
             <Plus className="h-4 w-4 mr-1" />
             Add Task
           </Button>
@@ -193,16 +193,16 @@ export function TasksTab() {
                 onDragOver={handleDragOver}
                 onDrop={(e) => handleDrop(e, col.status)}
                 className="rounded-xl min-h-[200px] flex flex-col"
-                style={{ backgroundColor: '#f3f3f6' }}
+                style={{ backgroundColor: 'var(--surface-container-low)' }}
               >
                 <div className="px-3 py-2.5 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className="h-2 w-2 rounded-full" style={{ backgroundColor: col.statusColor }} />
-                    <span className="text-sm font-semibold" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{col.label}</span>
+                    <span className="text-sm font-semibold" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface)' }}>{col.label}</span>
                   </div>
                   <span
                     className="text-[10px] font-medium rounded-full px-1.5 py-0.5"
-                    style={{ backgroundColor: '#e8e8ea', color: '#44474e' }}
+                    style={{ backgroundColor: 'var(--surface-container-high)', color: 'var(--on-surface-variant)' }}
                   >
                     {colTasks.length}
                   </span>
@@ -213,7 +213,7 @@ export function TasksTab() {
                   <div className="px-2 pb-2">
                     <div
                       className="flex flex-col gap-2 p-2 rounded-lg"
-                      style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+                      style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
                     >
                       <Input
                         placeholder="Task title..."
@@ -224,7 +224,7 @@ export function TasksTab() {
                         className="h-8 text-sm"
                       />
                       <div className="flex items-center gap-1">
-                        <Button size="sm" className="h-7 text-xs" style={{ backgroundColor: '#001736', color: '#ffffff' }} onClick={addTask}>Add</Button>
+                        <Button size="sm" className="h-7 text-xs" style={{ backgroundColor: 'var(--primary)', color: '#ffffff' }} onClick={addTask}>Add</Button>
                         <Button size="sm" variant="ghost" className="h-7 text-xs" onClick={() => { setShowAddForm(false); setNewTaskTitle(''); }}>
                           <X className="h-3.5 w-3.5" />
                         </Button>
@@ -243,7 +243,7 @@ export function TasksTab() {
                         onDragStart={(e) => handleDragStart(e, task.id)}
                         className="rounded-lg p-3 space-y-2 cursor-grab active:cursor-grabbing transition-shadow"
                         style={{
-                          backgroundColor: '#ffffff',
+                          backgroundColor: 'var(--surface-container-lowest)',
                           boxShadow: '0 1px 3px rgba(26,28,30,0.06)',
                           borderLeft: `3px solid ${pCfg.color}`,
                           opacity: draggedId === task.id ? 0.5 : 1,

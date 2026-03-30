@@ -44,22 +44,22 @@ const totalOverdue = mockProjects.reduce((sum, p) => sum + p.overdueTasks, 0);
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#f9f9fc' }}>
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--surface)' }}>
       {/* Page header */}
-      <div className="bg-white py-8 pl-16 pr-20">
+      <div className="py-8 pl-16 pr-20" style={{ backgroundColor: 'var(--surface-container-lowest)' }}>
         <h1
           className="text-3xl font-bold font-heading"
-          style={{ color: '#001736', letterSpacing: '-0.02em' }}
+          style={{ color: 'var(--primary)', letterSpacing: '-0.02em' }}
         >
           Portfolio Dashboard
         </h1>
-        <p className="mt-1.5 text-sm font-body" style={{ color: '#44474e' }}>
+        <p className="mt-1.5 text-sm font-body" style={{ color: 'var(--on-surface-variant)' }}>
           Overview of all government digital projects
         </p>
       </div>
 
       {/* Summary KPI strip */}
-      <div className="px-6 py-6" style={{ backgroundColor: '#f3f3f6' }}>
+      <div className="px-6 py-6" style={{ backgroundColor: 'var(--surface-container-low)' }}>
         <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
           {[
             {
@@ -67,7 +67,7 @@ export default function DashboardPage() {
               label: 'Active Projects',
               value: activeCount,
               iconBg: 'rgba(0, 23, 54, 0.08)',
-              iconColor: '#001736',
+              iconColor: 'var(--primary)',
             },
             {
               icon: AlertTriangle,
@@ -96,8 +96,11 @@ export default function DashboardPage() {
             return (
               <div
                 key={i}
-                className="bg-white rounded-xl p-4 flex items-center gap-3"
-                style={{ boxShadow: '0 12px 40px rgba(26, 28, 30, 0.06)' }}
+                className="rounded-xl p-4 flex items-center gap-3"
+                style={{
+                  backgroundColor: 'var(--surface-container-lowest)',
+                  boxShadow: '0 12px 40px rgba(26, 28, 30, 0.06)',
+                }}
               >
                 <div
                   className="rounded-lg p-2.5"
@@ -106,12 +109,12 @@ export default function DashboardPage() {
                   <Icon className="h-5 w-5" style={{ color: kpi.iconColor }} />
                 </div>
                 <div>
-                  <p className="text-xs font-body" style={{ color: '#74777f' }}>
+                  <p className="text-xs font-body" style={{ color: 'var(--outline)' }}>
                     {kpi.label}
                   </p>
                   <p
                     className={`${kpi.small ? 'text-lg' : 'text-2xl'} font-bold font-body`}
-                    style={{ color: '#1a1c1e' }}
+                    style={{ color: 'var(--on-surface)' }}
                   >
                     {kpi.value}
                   </p>
@@ -135,7 +138,7 @@ export default function DashboardPage() {
           <div className="space-y-3">
             <h2
               className="text-sm font-semibold font-heading"
-              style={{ color: '#1a1c1e', letterSpacing: '-0.02em' }}
+              style={{ color: 'var(--on-surface)', letterSpacing: '-0.02em' }}
             >
               Projects ({mockProjects.length})
             </h2>
@@ -149,14 +152,17 @@ export default function DashboardPage() {
       </div>
 
       {/* Heatmap */}
-      <div className="pl-16 pr-20 py-8" style={{ backgroundColor: '#f3f3f6' }}>
+      <div className="pl-16 pr-20 py-8" style={{ backgroundColor: 'var(--surface-container-low)' }}>
         <div
-          className="bg-white rounded-xl p-6"
-          style={{ boxShadow: '0 12px 40px rgba(26, 28, 30, 0.06)' }}
+          className="rounded-xl p-6"
+          style={{
+            backgroundColor: 'var(--surface-container-lowest)',
+            boxShadow: '0 12px 40px rgba(26, 28, 30, 0.06)',
+          }}
         >
           <h2
             className="text-base font-semibold font-heading mb-4"
-            style={{ color: '#1a1c1e', letterSpacing: '-0.02em' }}
+            style={{ color: 'var(--on-surface)', letterSpacing: '-0.02em' }}
           >
             Portfolio Heatmap
           </h2>
@@ -175,27 +181,30 @@ export default function DashboardPage() {
           {/* Budget Summary */}
           <div className="lg:col-span-1">
             <div
-              className="bg-white rounded-xl h-full flex flex-col"
-              style={{ boxShadow: '0 12px 40px rgba(26, 28, 30, 0.06)' }}
+              className="rounded-xl h-full flex flex-col"
+              style={{
+                backgroundColor: 'var(--surface-container-lowest)',
+                boxShadow: '0 12px 40px rgba(26, 28, 30, 0.06)',
+              }}
             >
               <div className="p-6 pb-3">
                 <h3
                   className="text-base font-semibold font-heading flex items-center gap-2"
-                  style={{ color: '#1a1c1e', letterSpacing: '-0.02em' }}
+                  style={{ color: 'var(--on-surface)', letterSpacing: '-0.02em' }}
                 >
-                  <DollarSign className="h-4 w-4" style={{ color: '#74777f' }} />
+                  <DollarSign className="h-4 w-4" style={{ color: 'var(--outline)' }} />
                   Budget Summary
                 </h3>
-                <div className="flex items-center gap-4 text-xs pt-1 font-body" style={{ color: '#74777f' }}>
+                <div className="flex items-center gap-4 text-xs pt-1 font-body" style={{ color: 'var(--outline)' }}>
                   <span>
                     Allocated:{' '}
-                    <strong style={{ color: '#1a1c1e' }}>
+                    <strong style={{ color: 'var(--on-surface)' }}>
                       {formatCurrency(portfolioBudgetSummary.totalAllocated)}
                     </strong>
                   </span>
                   <span>
                     Spent:{' '}
-                    <strong style={{ color: '#1a1c1e' }}>
+                    <strong style={{ color: 'var(--on-surface)' }}>
                       {formatCurrency(portfolioBudgetSummary.totalSpent)}
                     </strong>
                   </span>

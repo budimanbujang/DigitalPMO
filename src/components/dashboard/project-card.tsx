@@ -14,7 +14,7 @@ function ragPillarColor(status: string): string {
     case 'RED': return '#dc2626';
     case 'AMBER': return '#d97706';
     case 'GREEN': return '#16a34a';
-    default: return '#74777f';
+    default: return 'var(--outline)';
   }
 }
 
@@ -23,7 +23,7 @@ function ragBadgeStyles(status: string): { bg: string; text: string } {
     case 'RED': return { bg: '#fef2f2', text: '#dc2626' };
     case 'AMBER': return { bg: '#fffbeb', text: '#d97706' };
     case 'GREEN': return { bg: '#f0fdf4', text: '#16a34a' };
-    default: return { bg: '#f3f3f6', text: '#74777f' };
+    default: return { bg: 'var(--surface-container-low)', text: 'var(--outline)' };
   }
 }
 
@@ -52,8 +52,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link href={`/projects/${project.id}`} className="block group">
       <div
-        className="bg-white rounded-xl h-full transition-all duration-200 relative overflow-hidden group-focus-visible:ring-2 group-focus-visible:ring-[#001736]"
+        className="rounded-xl h-full transition-all duration-200 relative overflow-hidden group-focus-visible:ring-2 group-focus-visible:ring-[var(--primary)]"
         style={{
+          backgroundColor: 'var(--surface-container-lowest)',
           boxShadow: '0 12px 40px rgba(26, 28, 30, 0.06)',
           borderLeft: `3px solid ${ragPillarColor(project.ragStatus)}`,
         }}
@@ -64,11 +65,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <div className="min-w-0 flex-1">
               <h3
                 className="font-semibold text-sm font-heading truncate"
-                style={{ color: '#1a1c1e', letterSpacing: '-0.02em' }}
+                style={{ color: 'var(--on-surface)', letterSpacing: '-0.02em' }}
               >
                 {project.name}
               </h3>
-              <span className="text-xs font-body" style={{ color: '#74777f' }}>
+              <span className="text-xs font-body" style={{ color: 'var(--outline)' }}>
                 {project.code}
               </span>
             </div>
@@ -77,7 +78,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 <span
                   className="inline-block h-2.5 w-2.5 rounded-full ring-2"
                   style={{
-                    backgroundColor: '#7c3aed',
+                    backgroundColor: 'var(--ai-accent)',
                     boxShadow: '0 0 0 2px rgba(124, 58, 237, 0.2)',
                   }}
                   title="AI risk flagged"
@@ -95,12 +96,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {/* Progress */}
           <div className="space-y-1">
             <div className="flex items-center justify-between text-xs font-body">
-              <span style={{ color: '#44474e' }}>Progress</span>
-              <span className="font-medium" style={{ color: '#1a1c1e' }}>
+              <span style={{ color: 'var(--on-surface-variant)' }}>Progress</span>
+              <span className="font-medium" style={{ color: 'var(--on-surface)' }}>
                 {project.percentComplete}%
               </span>
             </div>
-            <div className="h-1.5 w-full rounded-full" style={{ backgroundColor: '#e8e8ea' }}>
+            <div className="h-1.5 w-full rounded-full" style={{ backgroundColor: 'var(--surface-container-high)' }}>
               <div
                 className="h-full rounded-full transition-all duration-500"
                 style={{
@@ -114,12 +115,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {/* Budget utilization */}
           <div className="space-y-1">
             <div className="flex items-center justify-between text-xs font-body">
-              <span style={{ color: '#44474e' }}>Budget</span>
-              <span className="font-medium" style={{ color: '#1a1c1e' }}>
+              <span style={{ color: 'var(--on-surface-variant)' }}>Budget</span>
+              <span className="font-medium" style={{ color: 'var(--on-surface)' }}>
                 {budgetPercent}%
               </span>
             </div>
-            <div className="h-1.5 w-full rounded-full" style={{ backgroundColor: '#e8e8ea' }}>
+            <div className="h-1.5 w-full rounded-full" style={{ backgroundColor: 'var(--surface-container-high)' }}>
               <div
                 className="h-full rounded-full transition-all duration-500"
                 style={{
@@ -132,7 +133,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
           {/* Footer row: milestone + overdue */}
           <div className="flex items-center justify-between gap-2 pt-1">
-            <div className="flex items-center gap-1.5 text-xs min-w-0 font-body" style={{ color: '#44474e' }}>
+            <div className="flex items-center gap-1.5 text-xs min-w-0 font-body" style={{ color: 'var(--on-surface-variant)' }}>
               {isCompleted ? (
                 <>
                   <CheckCircle2 className="h-3.5 w-3.5 shrink-0" style={{ color: '#16a34a' }} />
@@ -142,7 +143,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 <>
                   <CalendarClock className="h-3.5 w-3.5 shrink-0" />
                   <span className="truncate">{project.nextMilestone.name}</span>
-                  <span className="shrink-0 font-medium" style={{ color: '#1a1c1e' }}>
+                  <span className="shrink-0 font-medium" style={{ color: 'var(--on-surface)' }}>
                     {project.nextMilestone.daysRemaining}d
                   </span>
                 </>

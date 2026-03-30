@@ -30,7 +30,7 @@ export function ProgressRing({
           r={radius}
           fill="none"
           stroke="currentColor"
-          style={{ color: '#e8e8ea' }}
+          style={{ color: 'var(--surface-container-high)' }}
           strokeWidth={strokeWidth}
         />
         {/* Progress circle */}
@@ -58,7 +58,7 @@ export function ProgressRing({
           fontSize={size * 0.24}
           fontWeight="600"
           className="font-mono"
-          style={{ fill: '#1a1c1e' }}
+          style={{ fill: 'var(--on-surface)' }}
         >
           {Math.round(clamped)}%
         </text>

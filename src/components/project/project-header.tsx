@@ -39,9 +39,9 @@ export function ProjectHeader() {
       <Link
         href="/projects"
         className="inline-flex items-center gap-1.5 text-sm transition-colors"
-        style={{ color: '#74777f', fontFamily: 'Inter, sans-serif' }}
-        onMouseEnter={(e) => { e.currentTarget.style.color = '#1a1c1e'; }}
-        onMouseLeave={(e) => { e.currentTarget.style.color = '#74777f'; }}
+        style={{ color: 'var(--outline)', fontFamily: 'Inter, sans-serif' }}
+        onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--on-surface)'; }}
+        onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--outline)'; }}
       >
         <ArrowLeft className="h-4 w-4" />
         Back to Projects
@@ -50,7 +50,7 @@ export function ProjectHeader() {
       {/* Main header */}
       <div
         className="rounded-2xl p-6"
-        style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+        style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
       >
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
           {/* Left: Project info */}
@@ -58,7 +58,7 @@ export function ProjectHeader() {
             <div className="flex items-center gap-3 flex-wrap">
               <h1
                 className="text-2xl font-bold tracking-tight"
-                style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}
+                style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
               >
                 {project.name}
               </h1>
@@ -74,7 +74,7 @@ export function ProjectHeader() {
             </div>
             <div
               className="flex items-center gap-4 text-sm"
-              style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}
+              style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}
             >
               <span className="font-mono">{project.code}</span>
               <span className="flex items-center gap-1">
@@ -91,7 +91,7 @@ export function ProjectHeader() {
               variant="outline"
               size="sm"
               className="border-0"
-              style={{ backgroundColor: '#f3f3f6', color: '#1a1c1e', fontFamily: 'Inter, sans-serif' }}
+              style={{ backgroundColor: 'var(--surface-container-low)', color: 'var(--on-surface)', fontFamily: 'Inter, sans-serif' }}
             >
               <RefreshCw className="h-4 w-4" />
               Update Status
@@ -100,12 +100,12 @@ export function ProjectHeader() {
               variant="outline"
               size="sm"
               className="border-0"
-              style={{ backgroundColor: '#f3f3f6', color: '#1a1c1e', fontFamily: 'Inter, sans-serif' }}
+              style={{ backgroundColor: 'var(--surface-container-low)', color: 'var(--on-surface)', fontFamily: 'Inter, sans-serif' }}
             >
               <Plus className="h-4 w-4" />
               Add Task
             </Button>
-            <Button size="sm" style={{ backgroundColor: '#7c3aed', color: '#ffffff', fontFamily: 'Inter, sans-serif' }}>
+            <Button size="sm" style={{ backgroundColor: 'var(--ai-accent)', color: '#ffffff', fontFamily: 'Inter, sans-serif' }}>
               <Sparkles className="h-4 w-4" />
               Run AI Analysis
             </Button>
@@ -118,13 +118,13 @@ export function ProjectHeader() {
         {/* Progress ring */}
         <div
           className="rounded-2xl p-4 space-y-2"
-          style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+          style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
         >
-          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Completion</div>
+          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Completion</div>
           <div className="flex items-center gap-3">
             <div className="relative h-12 w-12">
               <svg className="h-12 w-12 -rotate-90" viewBox="0 0 48 48">
-                <circle cx="24" cy="24" r="20" fill="none" stroke="#e8e8ea" strokeWidth="4" />
+                <circle cx="24" cy="24" r="20" fill="none" stroke="var(--surface-container-high)" strokeWidth="4" />
                 <circle
                   cx="24" cy="24" r="20" fill="none" strokeWidth="4"
                   stroke={project.percentComplete === 100 ? '#22C55E' : '#3B82F6'}
@@ -134,12 +134,12 @@ export function ProjectHeader() {
               </svg>
               <div
                 className="absolute inset-0 flex items-center justify-center text-xs font-bold"
-                style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}
+                style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface)' }}
               >
                 {project.percentComplete}%
               </div>
             </div>
-            <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>
+            <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>
               {project.completedTasks}/{project.totalTasks} tasks
             </div>
           </div>
@@ -148,12 +148,12 @@ export function ProjectHeader() {
         {/* Budget */}
         <div
           className="rounded-2xl p-4 space-y-2"
-          style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+          style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
         >
-          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Budget</div>
-          <div className="text-lg font-bold" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{budgetPercent}%</div>
+          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Budget</div>
+          <div className="text-lg font-bold" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface)' }}>{budgetPercent}%</div>
           <Progress value={budgetPercent} color={budgetColor} />
-          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>
+          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>
             {formatCurrency(project.budgetSpent)} / {formatCurrency(project.budgetAllocated)}
           </div>
         </div>
@@ -161,13 +161,13 @@ export function ProjectHeader() {
         {/* Days remaining */}
         <div
           className="rounded-2xl p-4 space-y-2"
-          style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+          style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
         >
-          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Days Remaining</div>
-          <div className="text-lg font-bold" style={{ fontFamily: 'Inter, sans-serif', color: daysRemaining < 0 ? '#EF4444' : daysRemaining < 30 ? '#F59E0B' : '#1a1c1e' }}>
+          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Days Remaining</div>
+          <div className="text-lg font-bold" style={{ fontFamily: 'Inter, sans-serif', color: daysRemaining < 0 ? '#EF4444' : daysRemaining < 30 ? '#F59E0B' : 'var(--on-surface)' }}>
             {daysRemaining < 0 ? `${Math.abs(daysRemaining)}d overdue` : `${daysRemaining}d`}
           </div>
-          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>
+          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>
             End: {new Date(project.endDate).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' })}
           </div>
         </div>
@@ -175,10 +175,10 @@ export function ProjectHeader() {
         {/* Next milestone */}
         <div
           className="rounded-2xl p-4 space-y-2"
-          style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+          style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
         >
-          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Next Milestone</div>
-          <div className="text-sm font-semibold truncate" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{project.nextMilestone.name}</div>
+          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Next Milestone</div>
+          <div className="text-sm font-semibold truncate" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface)' }}>{project.nextMilestone.name}</div>
           <div className="text-xs font-medium" style={{ color: project.nextMilestone.daysRemaining < 0 ? '#EF4444' : project.nextMilestone.daysRemaining < 7 ? '#F59E0B' : '#22C55E' }}>
             {project.nextMilestone.daysRemaining < 0
               ? `${Math.abs(project.nextMilestone.daysRemaining)}d overdue`
@@ -189,13 +189,13 @@ export function ProjectHeader() {
         {/* Overdue tasks */}
         <div
           className="rounded-2xl p-4 space-y-2"
-          style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+          style={{ backgroundColor: 'var(--surface-container-lowest)', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
         >
-          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Overdue Tasks</div>
+          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>Overdue Tasks</div>
           <div className="text-lg font-bold" style={{ fontFamily: 'Inter, sans-serif', color: project.overdueTasks > 0 ? '#EF4444' : '#22C55E' }}>
             {project.overdueTasks}
           </div>
-          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>
+          <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface-variant)' }}>
             of {project.totalTasks} total
           </div>
         </div>

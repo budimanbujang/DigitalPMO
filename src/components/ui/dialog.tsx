@@ -75,7 +75,7 @@ const DialogOverlay = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "fixed inset-0 z-50 bg-[#1a1c1e]/40 backdrop-blur-xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "fixed inset-0 z-50 bg-[var(--on-surface)]/40 backdrop-blur-xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
     {...props}
@@ -115,7 +115,7 @@ const DialogContent = React.forwardRef<
       <div
         ref={ref}
         className={cn(
-          "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 bg-white p-6 shadow-[0_12px_40px_rgba(26,28,30,0.06)] duration-200 rounded-xl",
+          "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 bg-[var(--surface-container-lowest)] p-6 shadow-[0_12px_40px_rgba(26,28,30,0.06)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.2)] duration-200 rounded-xl",
           "animate-in fade-in-0 zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%]",
           className
         )}
@@ -124,7 +124,7 @@ const DialogContent = React.forwardRef<
         {children}
         <button
           type="button"
-          className="absolute right-4 top-4 rounded-md opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#d6e3ff] disabled:pointer-events-none"
+          className="absolute right-4 top-4 rounded-md opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[var(--primary-fixed)] disabled:pointer-events-none"
           onClick={() => onOpenChange(false)}
         >
           <svg
@@ -179,7 +179,7 @@ const DialogTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <h2
     ref={ref}
-    className={cn("text-lg font-semibold leading-none tracking-[-0.02em] text-[#1a1c1e]", className)}
+    className={cn("text-lg font-semibold leading-none tracking-[-0.02em] text-[var(--on-surface)]", className)}
     {...props}
   />
 ))
@@ -191,7 +191,7 @@ const DialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-sm text-[#44474e]", className)}
+    className={cn("text-sm text-[var(--on-surface-variant)]", className)}
     {...props}
   />
 ))

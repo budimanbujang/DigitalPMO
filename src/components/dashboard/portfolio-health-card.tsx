@@ -32,13 +32,16 @@ function getTextColor(value: number): string {
 export function PortfolioHealthCard({ score, breakdown }: PortfolioHealthCardProps) {
   return (
     <div
-      className="bg-white rounded-xl h-full"
-      style={{ boxShadow: '0 12px 40px rgba(26, 28, 30, 0.06)' }}
+      className="rounded-xl h-full"
+      style={{
+        backgroundColor: 'var(--surface-container-lowest)',
+        boxShadow: '0 12px 40px rgba(26, 28, 30, 0.06)',
+      }}
     >
       <div className="p-6 pb-2">
         <h3
           className="text-base font-semibold font-heading"
-          style={{ color: '#1a1c1e', letterSpacing: '-0.02em' }}
+          style={{ color: 'var(--on-surface)', letterSpacing: '-0.02em' }}
         >
           Portfolio Health Score
         </h3>
@@ -52,7 +55,7 @@ export function PortfolioHealthCard({ score, breakdown }: PortfolioHealthCardPro
               return (
                 <div key={key} className="space-y-1">
                   <div className="flex items-center justify-between text-xs font-body">
-                    <span style={{ color: '#44474e' }}>{label}</span>
+                    <span style={{ color: 'var(--on-surface-variant)' }}>{label}</span>
                     <span
                       className="font-semibold"
                       style={{ color: getTextColor(value) }}
@@ -62,7 +65,7 @@ export function PortfolioHealthCard({ score, breakdown }: PortfolioHealthCardPro
                   </div>
                   <div
                     className="h-1.5 w-full rounded-full"
-                    style={{ backgroundColor: '#e8e8ea' }}
+                    style={{ backgroundColor: 'var(--surface-container-high)' }}
                   >
                     <div
                       className="h-full rounded-full transition-all duration-500"

@@ -34,7 +34,7 @@ function alertTypeIcon(type: AlertType) {
     case 'APPROVAL':
       return <FileCheck className="h-4 w-4" style={{ color: '#2563eb' }} />;
     default:
-      return <Bell className="h-4 w-4" style={{ color: '#74777f' }} />;
+      return <Bell className="h-4 w-4" style={{ color: 'var(--outline)' }} />;
   }
 }
 
@@ -45,7 +45,7 @@ function alertPillarColor(type: AlertType): string {
     case 'MILESTONE': return '#ea580c';
     case 'RISK': return '#dc2626';
     case 'APPROVAL': return '#2563eb';
-    default: return '#74777f';
+    default: return 'var(--outline)';
   }
 }
 
@@ -62,16 +62,19 @@ export function AlertsPanel({ alerts }: AlertsPanelProps) {
 
   return (
     <div
-      className="bg-white rounded-xl h-full flex flex-col"
-      style={{ boxShadow: '0 12px 40px rgba(26, 28, 30, 0.06)' }}
+      className="rounded-xl h-full flex flex-col"
+      style={{
+        backgroundColor: 'var(--surface-container-lowest)',
+        boxShadow: '0 12px 40px rgba(26, 28, 30, 0.06)',
+      }}
     >
       <div className="p-6 pb-3">
         <div className="flex items-center justify-between">
           <h3
             className="text-base font-semibold font-heading flex items-center gap-2"
-            style={{ color: '#1a1c1e', letterSpacing: '-0.02em' }}
+            style={{ color: 'var(--on-surface)', letterSpacing: '-0.02em' }}
           >
-            <Bell className="h-4 w-4" style={{ color: '#74777f' }} />
+            <Bell className="h-4 w-4" style={{ color: 'var(--outline)' }} />
             Active Alerts
           </h3>
           {activeAlerts.length > 0 && (
@@ -88,8 +91,8 @@ export function AlertsPanel({ alerts }: AlertsPanelProps) {
         <ScrollArea className="h-[300px] lg:h-[360px]">
           {activeAlerts.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-32">
-              <Bell className="h-8 w-8 mb-2 opacity-20" style={{ color: '#74777f' }} />
-              <p className="text-sm font-body" style={{ color: '#74777f' }}>
+              <Bell className="h-8 w-8 mb-2 opacity-20" style={{ color: 'var(--outline)' }} />
+              <p className="text-sm font-body" style={{ color: 'var(--outline)' }}>
                 No active alerts
               </p>
             </div>
@@ -100,7 +103,7 @@ export function AlertsPanel({ alerts }: AlertsPanelProps) {
                   key={alert.id}
                   className="relative rounded-lg p-3 transition-all"
                   style={{
-                    backgroundColor: '#f9f9fc',
+                    backgroundColor: 'var(--surface)',
                     borderLeft: `3px solid ${alertPillarColor(alert.type)}`,
                   }}
                 >
@@ -113,12 +116,12 @@ export function AlertsPanel({ alerts }: AlertsPanelProps) {
                       <div className="flex-1 min-w-0">
                         <h4
                           className="text-sm font-semibold leading-tight font-body"
-                          style={{ color: '#1a1c1e' }}
+                          style={{ color: 'var(--on-surface)' }}
                         >
                           {alert.title}
                         </h4>
                         {alert.projectName && (
-                          <span className="text-[10px] font-body" style={{ color: '#74777f' }}>
+                          <span className="text-[10px] font-body" style={{ color: 'var(--outline)' }}>
                             {alert.projectName}
                           </span>
                         )}
@@ -126,7 +129,7 @@ export function AlertsPanel({ alerts }: AlertsPanelProps) {
                       <button
                         onClick={() => handleDismiss(alert.id)}
                         className="shrink-0 rounded p-0.5 transition-colors"
-                        style={{ color: '#74777f' }}
+                        style={{ color: 'var(--outline)' }}
                         title="Dismiss"
                       >
                         <X className="h-3.5 w-3.5" />
@@ -134,13 +137,13 @@ export function AlertsPanel({ alerts }: AlertsPanelProps) {
                     </div>
 
                     {/* Message */}
-                    <p className="text-xs leading-relaxed pl-6 font-body" style={{ color: '#44474e' }}>
+                    <p className="text-xs leading-relaxed pl-6 font-body" style={{ color: 'var(--on-surface-variant)' }}>
                       {alert.message}
                     </p>
 
                     {/* Footer */}
                     <div className="flex items-center justify-between pl-6">
-                      <span className="text-[10px] font-body" style={{ color: '#74777f' }}>
+                      <span className="text-[10px] font-body" style={{ color: 'var(--outline)' }}>
                         {formatRelativeDate(alert.timestamp)}
                       </span>
                       {alert.actionHref && alert.actionLabel && (
@@ -149,7 +152,7 @@ export function AlertsPanel({ alerts }: AlertsPanelProps) {
                             variant="ghost"
                             size="sm"
                             className="h-6 px-2 text-[10px]"
-                            style={{ color: '#001736' }}
+                            style={{ color: 'var(--primary)' }}
                           >
                             {alert.actionLabel}
                             <ArrowRight className="h-3 w-3 ml-1" />

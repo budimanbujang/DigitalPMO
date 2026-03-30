@@ -136,9 +136,9 @@ export function WizardShell({ children, onSubmit, validateStep }: WizardShellPro
           </div>
           <div className="absolute -inset-2 rounded-full border-2 border-green-400/50 animate-ping" />
         </div>
-        <h2 className="text-2xl font-bold text-[#1a1c1e] mb-2">Project Registered Successfully!</h2>
-        <p className="text-[#44474e] mb-1">{formData.name} has been created and is ready to go.</p>
-        <p className="text-sm text-[#74777f] mb-8">Your project dashboard is being prepared.</p>
+        <h2 className="text-2xl font-bold text-[var(--on-surface)] mb-2">Project Registered Successfully!</h2>
+        <p className="text-[var(--on-surface-variant)] mb-1">{formData.name} has been created and is ready to go.</p>
+        <p className="text-sm text-[var(--outline)] mb-8">Your project dashboard is being prepared.</p>
         <div className="flex gap-3">
           <Button variant="outline" onClick={() => { setSubmitted(false); setCurrentStep(1); setFormData(defaultFormData) }}>
             Register Another
@@ -152,7 +152,7 @@ export function WizardShell({ children, onSubmit, validateStep }: WizardShellPro
   return (
     <div className="w-full max-w-4xl mx-auto">
       {/* Progress bar */}
-      <Progress value={progress} className="mb-8 h-1.5 bg-[#e8e8ea]" indicatorClassName="bg-gradient-to-r from-[#001736] to-[#002b5b]" />
+      <Progress value={progress} className="mb-8 h-1.5 bg-[var(--surface-container-high)]" indicatorClassName="bg-gradient-to-r from-[var(--primary)] to-[var(--primary-container)]" />
 
       {/* Step indicator */}
       <div className="flex items-center justify-between mb-8 px-2">
@@ -168,9 +168,9 @@ export function WizardShell({ children, onSubmit, validateStep }: WizardShellPro
                   disabled={!isCompleted}
                   className={cn(
                     'h-9 w-9 rounded-full flex items-center justify-center text-sm font-semibold transition-all',
-                    isCurrent && 'bg-[#001736] text-white',
+                    isCurrent && 'bg-[var(--primary)] text-white',
                     isCompleted && 'bg-green-500 text-white cursor-pointer hover:bg-green-600',
-                    !isCurrent && !isCompleted && 'bg-[#e8e8ea] text-[#74777f]'
+                    !isCurrent && !isCompleted && 'bg-[var(--surface-container-high)] text-[var(--outline)]'
                   )}
                   style={isCurrent ? { boxShadow: '0 4px 12px rgba(0,23,54,0.2)' } : undefined}
                 >
@@ -184,7 +184,7 @@ export function WizardShell({ children, onSubmit, validateStep }: WizardShellPro
                 </button>
                 <span className={cn(
                   'text-xs font-medium hidden sm:block text-center max-w-[80px]',
-                  isCurrent ? 'text-[#1a1c1e]' : 'text-[#74777f]'
+                  isCurrent ? 'text-[var(--on-surface)]' : 'text-[var(--outline)]'
                 )}>
                   {s.title}
                 </span>
@@ -192,7 +192,7 @@ export function WizardShell({ children, onSubmit, validateStep }: WizardShellPro
               {i < STEPS.length - 1 && (
                 <div className={cn(
                   'flex-1 h-0.5 mx-1 rounded-full transition-colors',
-                  s.number < currentStep ? 'bg-green-500' : 'bg-[#e8e8ea]'
+                  s.number < currentStep ? 'bg-green-500' : 'bg-[var(--surface-container-high)]'
                 )} />
               )}
             </React.Fragment>
@@ -202,10 +202,10 @@ export function WizardShell({ children, onSubmit, validateStep }: WizardShellPro
 
       {/* Step title */}
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-[#1a1c1e]">
+        <h2 className="text-xl font-semibold text-[var(--on-surface)]">
           Step {step.number}: {step.title}
         </h2>
-        <p className="text-sm text-[#44474e] mt-1">{step.description}</p>
+        <p className="text-sm text-[var(--on-surface-variant)] mt-1">{step.description}</p>
       </div>
 
       {/* Error message */}
@@ -221,7 +221,7 @@ export function WizardShell({ children, onSubmit, validateStep }: WizardShellPro
       </div>
 
       {/* Navigation buttons */}
-      <div className="flex justify-between pt-6" style={{ borderTop: '1px solid #e8e8ea' }}>
+      <div className="flex justify-between pt-6" style={{ borderTop: '1px solid var(--surface-container-high)' }}>
         <Button
           variant="outline"
           onClick={handleBack}
@@ -235,7 +235,7 @@ export function WizardShell({ children, onSubmit, validateStep }: WizardShellPro
 
         <div className="flex gap-3">
           {currentStep === STEPS.length ? (
-            <Button onClick={handleSubmit} className="bg-gradient-to-r from-[#001736] to-[#002b5b] hover:opacity-90 text-white px-8">
+            <Button onClick={handleSubmit} className="bg-gradient-to-r from-[var(--primary)] to-[var(--primary-container)] hover:opacity-90 text-white px-8">
               <svg className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>

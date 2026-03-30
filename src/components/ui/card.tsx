@@ -4,16 +4,16 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const cardVariants = cva(
-  "rounded-xl text-[#1a1c1e]",
+  "rounded-xl text-[var(--on-surface)]",
   {
     variants: {
       variant: {
         elevated:
-          "bg-white shadow-[0_12px_40px_rgba(26,28,30,0.06)]",
+          "bg-[var(--surface-container-lowest)] shadow-[0_12px_40px_rgba(26,28,30,0.06)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.2)]",
         filled:
-          "bg-[#f3f3f6]",
+          "bg-[var(--surface-container-low)]",
         outline:
-          "bg-white border border-[#1a1c1e]/15",
+          "bg-[var(--surface-container-lowest)] border border-[var(--outline-variant)]",
       },
     },
     defaultVariants: {
@@ -55,7 +55,7 @@ const CardTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("font-semibold leading-none tracking-[-0.02em] text-[#1a1c1e]", className)}
+    className={cn("font-semibold leading-none tracking-[-0.02em] text-[var(--on-surface)]", className)}
     {...props}
   />
 ))
@@ -67,7 +67,7 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("text-sm text-[#44474e]", className)}
+    className={cn("text-sm text-[var(--on-surface-variant)]", className)}
     {...props}
   />
 ))

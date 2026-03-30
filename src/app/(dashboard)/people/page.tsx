@@ -207,10 +207,10 @@ export default function PeoplePage() {
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-heading font-bold tracking-tight text-[#1a1c1e]">
+          <h1 className="text-2xl font-heading font-bold tracking-tight text-[var(--on-surface)]">
             People &amp; Workload
           </h1>
-          <p className="mt-1 text-sm text-[#44474e]">
+          <p className="mt-1 text-sm text-[var(--on-surface-variant)]">
             {MOCK_TEAM.length} team members across {allProjects.length} projects
           </p>
         </div>
@@ -220,8 +220,8 @@ export default function PeoplePage() {
             className={cn(
               'inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
               view === 'directory'
-                ? 'bg-[#001736]/10 text-[#001736]'
-                : 'text-[#74777f] hover:bg-[#f3f3f6] hover:text-[#1a1c1e]'
+                ? 'bg-[var(--primary)]/10 text-[var(--primary)]'
+                : 'text-[var(--outline)] hover:bg-[var(--surface-container-low)] hover:text-[var(--on-surface)]'
             )}
           >
             <LayoutGrid className="h-4 w-4" />
@@ -232,8 +232,8 @@ export default function PeoplePage() {
             className={cn(
               'inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
               view === 'workload'
-                ? 'bg-[#001736]/10 text-[#001736]'
-                : 'text-[#74777f] hover:bg-[#f3f3f6] hover:text-[#1a1c1e]'
+                ? 'bg-[var(--primary)]/10 text-[var(--primary)]'
+                : 'text-[var(--outline)] hover:bg-[var(--surface-container-low)] hover:text-[var(--on-surface)]'
             )}
           >
             <Table className="h-4 w-4" />
@@ -245,19 +245,19 @@ export default function PeoplePage() {
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative flex-1 max-w-xs">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#74777f]" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--outline)]" />
           <input
             type="text"
             placeholder="Search people..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-lg bg-[#f3f3f6] border-0 pl-9 pr-3 py-2 text-sm text-[#1a1c1e] placeholder:text-[#74777f] focus:outline-none focus:ring-1 focus:ring-[#001736]/30"
+            className="w-full rounded-lg bg-[var(--surface-container-low)] border-0 pl-9 pr-3 py-2 text-sm text-[var(--on-surface)] placeholder:text-[var(--outline)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)]/30"
           />
         </div>
         <select
           value={roleFilter}
           onChange={(e) => setRoleFilter(e.target.value)}
-          className="rounded-lg bg-[#f3f3f6] border-0 px-3 py-2 text-sm text-[#1a1c1e]"
+          className="rounded-lg bg-[var(--surface-container-low)] border-0 px-3 py-2 text-sm text-[var(--on-surface)]"
         >
           <option value="ALL">All Roles</option>
           {allRoles.map((r) => (
@@ -269,7 +269,7 @@ export default function PeoplePage() {
         <select
           value={projectFilter}
           onChange={(e) => setProjectFilter(e.target.value)}
-          className="rounded-lg bg-[#f3f3f6] border-0 px-3 py-2 text-sm text-[#1a1c1e]"
+          className="rounded-lg bg-[var(--surface-container-low)] border-0 px-3 py-2 text-sm text-[var(--on-surface)]"
         >
           <option value="ALL">All Projects</option>
           {allProjects.map((p) => (
@@ -289,7 +289,7 @@ export default function PeoplePage() {
             return (
               <div
                 key={member.id}
-                className="rounded-xl bg-white p-5 transition-all hover:translate-y-[-2px]"
+                className="rounded-xl bg-[var(--surface-container-lowest)] p-5 transition-all hover:translate-y-[-2px]"
                 style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
               >
                 <div className="flex items-start gap-3">
@@ -302,34 +302,34 @@ export default function PeoplePage() {
                     {member.avatar}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h3 className="text-sm font-semibold text-[#1a1c1e] truncate">
+                    <h3 className="text-sm font-semibold text-[var(--on-surface)] truncate">
                       {member.name}
                     </h3>
-                    <p className="text-xs text-[#74777f]">{member.role}</p>
+                    <p className="text-xs text-[var(--outline)]">{member.role}</p>
                   </div>
                 </div>
 
-                <div className="mt-3 flex items-center gap-1.5 text-xs text-[#74777f]">
+                <div className="mt-3 flex items-center gap-1.5 text-xs text-[var(--outline)]">
                   <Mail className="h-3 w-3" />
                   <span className="truncate">{member.email}</span>
                 </div>
 
                 <div className="mt-4 grid grid-cols-2 gap-3">
-                  <div className="rounded-lg bg-[#f3f3f6] p-2 text-center">
-                    <div className="flex items-center justify-center gap-1 text-xs text-[#74777f]">
+                  <div className="rounded-lg bg-[var(--surface-container-low)] p-2 text-center">
+                    <div className="flex items-center justify-center gap-1 text-xs text-[var(--outline)]">
                       <FolderKanban className="h-3 w-3" />
                       Projects
                     </div>
-                    <p className="mt-0.5 text-lg font-bold text-[#1a1c1e]">
+                    <p className="mt-0.5 text-lg font-bold text-[var(--on-surface)]">
                       {member.projectCount}
                     </p>
                   </div>
-                  <div className="rounded-lg bg-[#f3f3f6] p-2 text-center">
-                    <div className="flex items-center justify-center gap-1 text-xs text-[#74777f]">
+                  <div className="rounded-lg bg-[var(--surface-container-low)] p-2 text-center">
+                    <div className="flex items-center justify-center gap-1 text-xs text-[var(--outline)]">
                       <CheckCircle2 className="h-3 w-3" />
                       Tasks
                     </div>
-                    <p className="mt-0.5 text-lg font-bold text-[#1a1c1e]">
+                    <p className="mt-0.5 text-lg font-bold text-[var(--on-surface)]">
                       {member.activeTasks}
                     </p>
                   </div>
@@ -338,12 +338,12 @@ export default function PeoplePage() {
                 {/* Workload bar */}
                 <div className="mt-3">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-[#74777f]">Workload</span>
+                    <span className="text-[var(--outline)]">Workload</span>
                     <span className={cn('font-semibold', wl.text)}>
                       {member.workloadPct}%
                     </span>
                   </div>
-                  <div className="mt-1 h-1.5 w-full rounded-full bg-[#e8e8ea]">
+                  <div className="mt-1 h-1.5 w-full rounded-full bg-[var(--surface-container-high)]">
                     <div
                       className={cn('h-full rounded-full transition-all', wl.bar)}
                       style={{ width: `${Math.min(member.workloadPct, 100)}%` }}
@@ -365,29 +365,29 @@ export default function PeoplePage() {
 
       {/* Workload Table View */}
       {view === 'workload' && (
-        <div className="overflow-x-auto rounded-xl bg-white" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
+        <div className="overflow-x-auto rounded-xl bg-[var(--surface-container-lowest)]" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
           <table className="w-full">
             <thead>
-              <tr className="bg-[#f3f3f6]">
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#74777f]">
+              <tr className="bg-[var(--surface-container-low)]">
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--outline)]">
                   Name
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#74777f]">
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--outline)]">
                   Role
                 </th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-[#74777f]">
+                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-[var(--outline)]">
                   Projects
                 </th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-[#74777f]">
+                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-[var(--outline)]">
                   Active Tasks
                 </th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-[#74777f]">
+                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-[var(--outline)]">
                   Overdue
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#74777f] min-w-[180px]">
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--outline)] min-w-[180px]">
                   Workload
                 </th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-[#74777f]">
+                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-[var(--outline)]">
                   Chase Response
                 </th>
               </tr>
@@ -400,8 +400,8 @@ export default function PeoplePage() {
                   <tr
                     key={member.id}
                     className={cn(
-                      'transition-colors hover:bg-[#f3f3f6]/50',
-                      idx % 2 === 0 ? 'bg-white' : 'bg-[#f9f9fc]'
+                      'transition-colors hover:bg-[var(--surface-container-low)]/50',
+                      idx % 2 === 0 ? 'bg-[var(--surface-container-lowest)]' : 'bg-[var(--surface)]'
                     )}
                   >
                     <td className="px-4 py-3">
@@ -415,22 +415,22 @@ export default function PeoplePage() {
                           {member.avatar}
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-[#1a1c1e]">
+                          <p className="text-sm font-medium text-[var(--on-surface)]">
                             {member.name}
                           </p>
-                          <p className="text-xs text-[#74777f]">
+                          <p className="text-xs text-[var(--outline)]">
                             {member.email}
                           </p>
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-sm text-[#44474e]">
+                    <td className="px-4 py-3 text-sm text-[var(--on-surface-variant)]">
                       {member.role}
                     </td>
-                    <td className="px-4 py-3 text-center text-sm font-medium text-[#1a1c1e]">
+                    <td className="px-4 py-3 text-center text-sm font-medium text-[var(--on-surface)]">
                       {member.projectCount}
                     </td>
-                    <td className="px-4 py-3 text-center text-sm font-medium text-[#1a1c1e]">
+                    <td className="px-4 py-3 text-center text-sm font-medium text-[var(--on-surface)]">
                       {member.activeTasks}
                     </td>
                     <td className="px-4 py-3 text-center">
@@ -439,13 +439,13 @@ export default function PeoplePage() {
                           {member.overdueTasks}
                         </span>
                       ) : (
-                        <span className="text-xs text-[#74777f]/50">0</span>
+                        <span className="text-xs text-[var(--outline)]/50">0</span>
                       )}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <div className="flex-1">
-                          <div className="h-2 w-full rounded-full bg-[#e8e8ea]">
+                          <div className="h-2 w-full rounded-full bg-[var(--surface-container-high)]">
                             <div
                               className={cn('h-full rounded-full transition-all', wl.bar)}
                               style={{
@@ -485,8 +485,8 @@ export default function PeoplePage() {
           </table>
           {filtered.length === 0 && (
             <div className="flex flex-col items-center justify-center py-12">
-              <Users className="h-10 w-10 text-[#74777f]/30" />
-              <p className="mt-3 text-sm text-[#74777f]">
+              <Users className="h-10 w-10 text-[var(--outline)]/30" />
+              <p className="mt-3 text-sm text-[var(--outline)]">
                 No team members match your filters
               </p>
             </div>
