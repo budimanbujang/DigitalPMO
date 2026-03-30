@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { TrendingUp, TrendingDown, DollarSign, PieChart } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { cn, formatCurrency } from '@/lib/utils';
+import { formatCurrency } from '@/lib/utils';
 
 interface BudgetCategory {
   name: string;
@@ -36,209 +35,222 @@ export function BudgetTab() {
           label="Allocated"
           value={formatCurrency(totalPlanned)}
           icon={<DollarSign className="h-4 w-4" />}
-          color="text-blue-500"
-          bgColor="bg-blue-500/10"
+          iconColor="#3B82F6"
+          iconBg="rgba(59,130,246,0.1)"
         />
         <SummaryCard
           label="Spent"
           value={formatCurrency(totalActual)}
           icon={<TrendingDown className="h-4 w-4" />}
-          color="text-violet-500"
-          bgColor="bg-violet-500/10"
+          iconColor="#7c3aed"
+          iconBg="rgba(124,58,237,0.1)"
         />
         <SummaryCard
           label="Remaining"
           value={formatCurrency(totalRemaining)}
           icon={totalRemaining >= 0 ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
-          color={totalRemaining >= 0 ? 'text-green-500' : 'text-red-500'}
-          bgColor={totalRemaining >= 0 ? 'bg-green-500/10' : 'bg-red-500/10'}
+          iconColor={totalRemaining >= 0 ? '#22C55E' : '#EF4444'}
+          iconBg={totalRemaining >= 0 ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)'}
         />
         <SummaryCard
           label="Forecast"
           value={formatCurrency(forecastTotal)}
           icon={<PieChart className="h-4 w-4" />}
-          color="text-gray-500"
-          bgColor="bg-gray-500/10"
+          iconColor="#6B7280"
+          iconBg="rgba(107,114,128,0.1)"
         />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Category breakdown table */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-sm font-semibold">Category Breakdown</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="rounded-lg border border-border overflow-hidden">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-border bg-muted/40">
-                    <th className="text-left px-3 py-2 font-medium text-muted-foreground">Category</th>
-                    <th className="text-right px-3 py-2 font-medium text-muted-foreground">Planned</th>
-                    <th className="text-right px-3 py-2 font-medium text-muted-foreground">Actual</th>
-                    <th className="text-right px-3 py-2 font-medium text-muted-foreground">Variance</th>
-                    <th className="text-right px-3 py-2 font-medium text-muted-foreground">% Used</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {mockCategories.map((cat) => {
-                    const variance = cat.planned - cat.actual;
-                    const pctUsed = Math.round((cat.actual / cat.planned) * 100);
-                    return (
-                      <tr key={cat.name} className="border-b border-border last:border-0 hover:bg-muted/30">
-                        <td className="px-3 py-2.5 font-medium text-foreground">{cat.name}</td>
-                        <td className="px-3 py-2.5 text-right text-muted-foreground">{formatCurrency(cat.planned)}</td>
-                        <td className="px-3 py-2.5 text-right text-foreground">{formatCurrency(cat.actual)}</td>
-                        <td className={cn(
-                          'px-3 py-2.5 text-right font-medium',
-                          variance >= 0 ? 'text-green-500' : 'text-red-500'
-                        )}>
-                          {variance >= 0 ? '+' : ''}{formatCurrency(variance)}
-                        </td>
-                        <td className="px-3 py-2.5 text-right">
-                          <span className={cn(
-                            'inline-block px-2 py-0.5 rounded text-xs font-medium',
-                            pctUsed > 100 ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
-                            pctUsed > 80 ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
-                            'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                          )}>
-                            {pctUsed}%
-                          </span>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-                <tfoot>
-                  <tr className="bg-muted/40 font-semibold">
-                    <td className="px-3 py-2.5 text-foreground">Total</td>
-                    <td className="px-3 py-2.5 text-right text-muted-foreground">{formatCurrency(totalPlanned)}</td>
-                    <td className="px-3 py-2.5 text-right text-foreground">{formatCurrency(totalActual)}</td>
-                    <td className={cn('px-3 py-2.5 text-right', totalRemaining >= 0 ? 'text-green-500' : 'text-red-500')}>
-                      {totalRemaining >= 0 ? '+' : ''}{formatCurrency(totalRemaining)}
-                    </td>
-                    <td className="px-3 py-2.5 text-right text-foreground">
-                      {Math.round((totalActual / totalPlanned) * 100)}%
-                    </td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </CardContent>
-        </Card>
+        <div
+          className="rounded-2xl p-6"
+          style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+        >
+          <h3 className="text-sm font-semibold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}>
+            Category Breakdown
+          </h3>
+          <div className="rounded-xl overflow-hidden">
+            <table className="w-full text-sm">
+              <thead>
+                <tr style={{ backgroundColor: '#f3f3f6' }}>
+                  <th className="text-left px-3 py-2 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Category</th>
+                  <th className="text-right px-3 py-2 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Planned</th>
+                  <th className="text-right px-3 py-2 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Actual</th>
+                  <th className="text-right px-3 py-2 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Variance</th>
+                  <th className="text-right px-3 py-2 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>% Used</th>
+                </tr>
+              </thead>
+              <tbody>
+                {mockCategories.map((cat, idx) => {
+                  const variance = cat.planned - cat.actual;
+                  const pctUsed = Math.round((cat.actual / cat.planned) * 100);
+                  return (
+                    <tr
+                      key={cat.name}
+                      style={{ backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f9f9fc' }}
+                      className="transition-colors"
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f3f3f6'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = idx % 2 === 0 ? '#ffffff' : '#f9f9fc'; }}
+                    >
+                      <td className="px-3 py-2.5 font-medium" style={{ color: '#1a1c1e', fontFamily: 'Inter, sans-serif' }}>{cat.name}</td>
+                      <td className="px-3 py-2.5 text-right" style={{ color: '#74777f' }}>{formatCurrency(cat.planned)}</td>
+                      <td className="px-3 py-2.5 text-right" style={{ color: '#1a1c1e' }}>{formatCurrency(cat.actual)}</td>
+                      <td className="px-3 py-2.5 text-right font-medium" style={{ color: variance >= 0 ? '#22C55E' : '#EF4444' }}>
+                        {variance >= 0 ? '+' : ''}{formatCurrency(variance)}
+                      </td>
+                      <td className="px-3 py-2.5 text-right">
+                        <span
+                          className="inline-block px-2 py-0.5 rounded-full text-xs font-medium"
+                          style={{
+                            backgroundColor: pctUsed > 100 ? '#fee2e2' : pctUsed > 80 ? '#fef3c7' : '#dcfce7',
+                            color: pctUsed > 100 ? '#b91c1c' : pctUsed > 80 ? '#b45309' : '#15803d',
+                          }}
+                        >
+                          {pctUsed}%
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+              <tfoot>
+                <tr style={{ backgroundColor: '#f3f3f6' }}>
+                  <td className="px-3 py-2.5 font-semibold" style={{ color: '#1a1c1e' }}>Total</td>
+                  <td className="px-3 py-2.5 text-right font-semibold" style={{ color: '#74777f' }}>{formatCurrency(totalPlanned)}</td>
+                  <td className="px-3 py-2.5 text-right font-semibold" style={{ color: '#1a1c1e' }}>{formatCurrency(totalActual)}</td>
+                  <td className="px-3 py-2.5 text-right font-semibold" style={{ color: totalRemaining >= 0 ? '#22C55E' : '#EF4444' }}>
+                    {totalRemaining >= 0 ? '+' : ''}{formatCurrency(totalRemaining)}
+                  </td>
+                  <td className="px-3 py-2.5 text-right font-semibold" style={{ color: '#1a1c1e' }}>
+                    {Math.round((totalActual / totalPlanned) * 100)}%
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
 
         {/* Bar chart: planned vs actual */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-sm font-semibold">Planned vs Actual</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {mockCategories.map((cat) => {
-                const plannedPct = (cat.planned / maxBarValue) * 100;
-                const actualPct = (cat.actual / maxBarValue) * 100;
-                return (
-                  <div key={cat.name} className="space-y-1">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="font-medium text-foreground">{cat.name}</span>
-                      <span className="text-muted-foreground">
-                        {formatCurrency(cat.actual)} / {formatCurrency(cat.planned)}
-                      </span>
+        <div
+          className="rounded-2xl p-6"
+          style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+        >
+          <h3 className="text-sm font-semibold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}>
+            Planned vs Actual
+          </h3>
+          <div className="space-y-4">
+            {mockCategories.map((cat) => {
+              const plannedPct = (cat.planned / maxBarValue) * 100;
+              const actualPct = (cat.actual / maxBarValue) * 100;
+              return (
+                <div key={cat.name} className="space-y-1">
+                  <div className="flex items-center justify-between text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    <span className="font-medium" style={{ color: '#1a1c1e' }}>{cat.name}</span>
+                    <span style={{ color: '#74777f' }}>
+                      {formatCurrency(cat.actual)} / {formatCurrency(cat.planned)}
+                    </span>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="h-3 w-full rounded-full overflow-hidden" style={{ backgroundColor: '#e8e8ea' }}>
+                      <div
+                        className="h-full rounded-full"
+                        style={{ width: `${plannedPct}%`, backgroundColor: 'rgba(59,130,246,0.6)' }}
+                      />
                     </div>
-                    <div className="space-y-1">
-                      <div className="h-3 w-full bg-muted/40 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-blue-500/60 rounded-full"
-                          style={{ width: `${plannedPct}%` }}
-                        />
-                      </div>
-                      <div className="h-3 w-full bg-muted/40 rounded-full overflow-hidden">
-                        <div
-                          className={cn(
-                            'h-full rounded-full',
-                            cat.actual > cat.planned ? 'bg-red-500/70' : 'bg-violet-500/70'
-                          )}
-                          style={{ width: `${actualPct}%` }}
-                        />
-                      </div>
+                    <div className="h-3 w-full rounded-full overflow-hidden" style={{ backgroundColor: '#e8e8ea' }}>
+                      <div
+                        className="h-full rounded-full"
+                        style={{
+                          width: `${actualPct}%`,
+                          backgroundColor: cat.actual > cat.planned ? 'rgba(239,68,68,0.7)' : 'rgba(124,58,237,0.7)',
+                        }}
+                      />
                     </div>
                   </div>
-                );
-              })}
-              <div className="flex items-center gap-4 pt-2 text-xs text-muted-foreground">
-                <div className="flex items-center gap-1.5">
-                  <div className="h-2.5 w-2.5 rounded bg-blue-500/60" />
-                  Planned
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="h-2.5 w-2.5 rounded bg-violet-500/70" />
-                  Actual
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="h-2.5 w-2.5 rounded bg-red-500/70" />
-                  Over budget
-                </div>
+              );
+            })}
+            <div className="flex items-center gap-4 pt-2 text-xs" style={{ color: '#74777f' }}>
+              <div className="flex items-center gap-1.5">
+                <div className="h-2.5 w-2.5 rounded" style={{ backgroundColor: 'rgba(59,130,246,0.6)' }} />
+                Planned
               </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Forecast comparison */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-sm font-semibold">Forecast vs Plan</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center gap-4">
-            <div className="flex-1">
-              <div className="flex items-center justify-between text-xs mb-1">
-                <span className="text-muted-foreground">Plan</span>
-                <span className="font-medium text-foreground">{formatCurrency(totalPlanned)}</span>
+              <div className="flex items-center gap-1.5">
+                <div className="h-2.5 w-2.5 rounded" style={{ backgroundColor: 'rgba(124,58,237,0.7)' }} />
+                Actual
               </div>
-              <div className="h-6 w-full bg-muted/40 rounded-full overflow-hidden">
-                <div className="h-full bg-blue-500/60 rounded-full" style={{ width: '100%' }} />
-              </div>
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center justify-between text-xs mb-1">
-                <span className="text-muted-foreground">Forecast</span>
-                <span className={cn('font-medium', forecastTotal > totalPlanned ? 'text-red-500' : 'text-green-500')}>
-                  {formatCurrency(forecastTotal)}
-                </span>
-              </div>
-              <div className="h-6 w-full bg-muted/40 rounded-full overflow-hidden">
-                <div
-                  className={cn(
-                    'h-full rounded-full',
-                    forecastTotal > totalPlanned ? 'bg-red-500/60' : 'bg-green-500/60'
-                  )}
-                  style={{ width: `${Math.min((forecastTotal / totalPlanned) * 100, 100)}%` }}
-                />
+              <div className="flex items-center gap-1.5">
+                <div className="h-2.5 w-2.5 rounded" style={{ backgroundColor: 'rgba(239,68,68,0.7)' }} />
+                Over budget
               </div>
             </div>
           </div>
-          {forecastTotal > totalPlanned && (
-            <p className="text-xs text-red-500 mt-2">
-              Forecast exceeds plan by {formatCurrency(forecastTotal - totalPlanned)} ({Math.round(((forecastTotal - totalPlanned) / totalPlanned) * 100)}% over)
-            </p>
-          )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
+
+      {/* Forecast comparison */}
+      <div
+        className="rounded-2xl p-6"
+        style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+      >
+        <h3 className="text-sm font-semibold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}>
+          Forecast vs Plan
+        </h3>
+        <div className="flex items-center gap-4">
+          <div className="flex-1">
+            <div className="flex items-center justify-between text-xs mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>
+              <span style={{ color: '#74777f' }}>Plan</span>
+              <span className="font-medium" style={{ color: '#1a1c1e' }}>{formatCurrency(totalPlanned)}</span>
+            </div>
+            <div className="h-6 w-full rounded-full overflow-hidden" style={{ backgroundColor: '#e8e8ea' }}>
+              <div className="h-full rounded-full" style={{ width: '100%', backgroundColor: 'rgba(59,130,246,0.6)' }} />
+            </div>
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center justify-between text-xs mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>
+              <span style={{ color: '#74777f' }}>Forecast</span>
+              <span className="font-medium" style={{ color: forecastTotal > totalPlanned ? '#EF4444' : '#22C55E' }}>
+                {formatCurrency(forecastTotal)}
+              </span>
+            </div>
+            <div className="h-6 w-full rounded-full overflow-hidden" style={{ backgroundColor: '#e8e8ea' }}>
+              <div
+                className="h-full rounded-full"
+                style={{
+                  width: `${Math.min((forecastTotal / totalPlanned) * 100, 100)}%`,
+                  backgroundColor: forecastTotal > totalPlanned ? 'rgba(239,68,68,0.6)' : 'rgba(34,197,94,0.6)',
+                }}
+              />
+            </div>
+          </div>
+        </div>
+        {forecastTotal > totalPlanned && (
+          <p className="text-xs mt-2" style={{ color: '#EF4444' }}>
+            Forecast exceeds plan by {formatCurrency(forecastTotal - totalPlanned)} ({Math.round(((forecastTotal - totalPlanned) / totalPlanned) * 100)}% over)
+          </p>
+        )}
+      </div>
     </div>
   );
 }
 
-function SummaryCard({ label, value, icon, color, bgColor }: {
-  label: string; value: string; icon: React.ReactNode; color: string; bgColor: string;
+function SummaryCard({ label, value, icon, iconColor, iconBg }: {
+  label: string; value: string; icon: React.ReactNode; iconColor: string; iconBg: string;
 }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-4 space-y-2">
-      <div className={cn('inline-flex items-center justify-center h-8 w-8 rounded-lg', bgColor, color)}>
+    <div
+      className="rounded-2xl p-4 space-y-2"
+      style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+    >
+      <div
+        className="inline-flex items-center justify-center h-8 w-8 rounded-lg"
+        style={{ backgroundColor: iconBg, color: iconColor }}
+      >
         {icon}
       </div>
-      <div className="text-xs text-muted-foreground">{label}</div>
-      <div className="text-lg font-bold text-foreground">{value}</div>
+      <div className="text-xs" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>{label}</div>
+      <div className="text-lg font-bold" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{value}</div>
     </div>
   );
 }

@@ -5,8 +5,6 @@ import { Plus, Sparkles, X, ArrowUpDown } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
 
 type RiskLikelihood = 1 | 2 | 3 | 4;
 type RiskImpact = 1 | 2 | 3 | 4;
@@ -65,11 +63,11 @@ const MOCK_RISKS: Risk[] = [
 
 function riskScore(l: number, i: number) { return l * i; }
 
-function scoreColor(score: number) {
-  if (score >= 12) return 'bg-red-500 text-white';
-  if (score >= 8) return 'bg-orange-500 text-white';
-  if (score >= 4) return 'bg-yellow-400 text-black dark:text-black';
-  return 'bg-green-500 text-white';
+function scoreColor(score: number): { bg: string; text: string } {
+  if (score >= 12) return { bg: '#EF4444', text: '#ffffff' };
+  if (score >= 8) return { bg: '#F97316', text: '#ffffff' };
+  if (score >= 4) return { bg: '#EAB308', text: '#1a1c1e' };
+  return { bg: '#22C55E', text: '#ffffff' };
 }
 
 const statusVariant = (s: RiskStatus) => {
@@ -130,12 +128,13 @@ export function RisksTab() {
 
   const SortHeader = ({ label, field }: { label: string; field: SortKey }) => (
     <th
-      className="px-3 py-2.5 font-medium text-muted-foreground cursor-pointer hover:text-foreground select-none"
+      className="px-3 py-2.5 font-medium cursor-pointer select-none transition-colors"
+      style={{ color: sortKey === field ? '#1a1c1e' : '#44474e', fontFamily: 'Inter, sans-serif' }}
       onClick={() => handleSort(field)}
     >
       <div className="flex items-center gap-1">
         {label}
-        <ArrowUpDown className={cn('h-3 w-3', sortKey === field ? 'text-foreground' : 'text-muted-foreground/50')} />
+        <ArrowUpDown className="h-3 w-3" style={{ color: sortKey === field ? '#1a1c1e' : '#c4c6cc' }} />
       </div>
     </th>
   );
@@ -143,15 +142,20 @@ export function RisksTab() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-foreground">Risk Register ({risks.length})</h3>
-        <Button size="sm" onClick={() => setShowAdd(true)}>
+        <h3 className="text-sm font-semibold" style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}>
+          Risk Register ({risks.length})
+        </h3>
+        <Button size="sm" style={{ backgroundColor: '#001736', color: '#ffffff' }} onClick={() => setShowAdd(true)}>
           <Plus className="h-4 w-4 mr-1" />
           Add Risk
         </Button>
       </div>
 
       {showAdd && (
-        <div className="flex items-center gap-2 p-3 rounded-lg border border-primary/30 bg-primary/5">
+        <div
+          className="flex items-center gap-2 p-3 rounded-lg"
+          style={{ backgroundColor: '#f3f3f6' }}
+        >
           <Input
             placeholder="Risk title..."
             value={newTitle}
@@ -160,7 +164,7 @@ export function RisksTab() {
             autoFocus
             className="flex-1"
           />
-          <Button size="sm" onClick={addRisk}>Add</Button>
+          <Button size="sm" style={{ backgroundColor: '#001736', color: '#ffffff' }} onClick={addRisk}>Add</Button>
           <Button size="sm" variant="ghost" onClick={() => { setShowAdd(false); setNewTitle(''); }}>
             <X className="h-4 w-4" />
           </Button>
@@ -170,52 +174,62 @@ export function RisksTab() {
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Risk table */}
         <div className="lg:col-span-2">
-          <div className="rounded-xl border border-border overflow-hidden">
+          <div className="rounded-xl overflow-hidden" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-border bg-muted/40">
+                <tr style={{ backgroundColor: '#f3f3f6' }}>
                   <SortHeader label="Risk" field="title" />
                   <SortHeader label="Likelihood" field="likelihood" />
                   <SortHeader label="Impact" field="impact" />
                   <SortHeader label="Score" field="score" />
                   <SortHeader label="Status" field="status" />
                   <SortHeader label="Owner" field="owner" />
-                  <th className="text-left px-3 py-2.5 font-medium text-muted-foreground">AI</th>
+                  <th className="text-left px-3 py-2.5 font-medium" style={{ color: '#44474e', fontFamily: 'Inter, sans-serif' }}>AI</th>
                 </tr>
               </thead>
               <tbody>
-                {sortedRisks.map((risk) => {
+                {sortedRisks.map((risk, idx) => {
                   const score = riskScore(risk.likelihood, risk.impact);
+                  const sc = scoreColor(score);
                   return (
-                    <tr key={risk.id} className={cn(
-                      'border-b border-border hover:bg-muted/30',
-                      risk.aiGenerated && 'border-l-2 border-l-violet-500'
-                    )}>
+                    <tr
+                      key={risk.id}
+                      style={{
+                        backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f9f9fc',
+                        borderLeft: risk.aiGenerated ? '3px solid #7c3aed' : '3px solid transparent',
+                      }}
+                      className="transition-colors"
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f3f3f6'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = idx % 2 === 0 ? '#ffffff' : '#f9f9fc'; }}
+                    >
                       <td className="px-3 py-2.5">
-                        <div className="font-medium text-foreground">{risk.title}</div>
-                        <div className="text-xs text-muted-foreground line-clamp-1">{risk.description}</div>
+                        <div className="font-medium" style={{ color: '#1a1c1e', fontFamily: 'Inter, sans-serif' }}>{risk.title}</div>
+                        <div className="text-xs line-clamp-1" style={{ color: '#74777f' }}>{risk.description}</div>
                       </td>
                       <td className="px-3 py-2.5 text-center">
-                        <Badge variant={risk.likelihood >= 3 ? 'rag-amber' : 'secondary'} className="text-[10px]">
+                        <Badge variant={risk.likelihood >= 3 ? 'rag-amber' : 'secondary'} className="text-[10px] rounded-full">
                           {likelihoodLabel[risk.likelihood]}
                         </Badge>
                       </td>
                       <td className="px-3 py-2.5 text-center">
-                        <Badge variant={risk.impact >= 3 ? 'rag-red' : risk.impact >= 2 ? 'rag-amber' : 'rag-green'} className="text-[10px]">
+                        <Badge variant={risk.impact >= 3 ? 'rag-red' : risk.impact >= 2 ? 'rag-amber' : 'rag-green'} className="text-[10px] rounded-full">
                           {impactLabel[risk.impact]}
                         </Badge>
                       </td>
                       <td className="px-3 py-2.5 text-center">
-                        <span className={cn('inline-flex h-7 w-7 items-center justify-center rounded-md text-xs font-bold', scoreColor(score))}>
+                        <span
+                          className="inline-flex h-7 w-7 items-center justify-center rounded-md text-xs font-bold"
+                          style={{ backgroundColor: sc.bg, color: sc.text }}
+                        >
                           {score}
                         </span>
                       </td>
                       <td className="px-3 py-2.5">
-                        <Badge variant={statusVariant(risk.status)}>{risk.status}</Badge>
+                        <Badge variant={statusVariant(risk.status)} className="rounded-full">{risk.status}</Badge>
                       </td>
-                      <td className="px-3 py-2.5 text-xs text-muted-foreground">{risk.owner}</td>
+                      <td className="px-3 py-2.5 text-xs" style={{ color: '#74777f' }}>{risk.owner}</td>
                       <td className="px-3 py-2.5 text-center">
-                        {risk.aiGenerated && <Sparkles className="h-4 w-4 text-violet-500 inline" />}
+                        {risk.aiGenerated && <Sparkles className="h-4 w-4 inline" style={{ color: '#7c3aed' }} />}
                       </td>
                     </tr>
                   );
@@ -226,65 +240,63 @@ export function RisksTab() {
         </div>
 
         {/* 4x4 Risk matrix */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-sm font-semibold">Risk Matrix</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-1">
-              <div className="flex items-center gap-1">
-                <div className="w-16 text-[10px] text-muted-foreground text-right pr-1">Likelihood</div>
-                <div className="flex-1 grid grid-cols-4 gap-1">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="text-[10px] text-center text-muted-foreground">{impactLabel[i]}</div>
-                  ))}
-                </div>
-              </div>
-              {[4, 3, 2, 1].map((l) => (
-                <div key={l} className="flex items-center gap-1">
-                  <div className="w-16 text-[10px] text-muted-foreground text-right pr-1">{likelihoodLabel[l]}</div>
-                  <div className="flex-1 grid grid-cols-4 gap-1">
-                    {[1, 2, 3, 4].map((i) => {
-                      const cellRisks = matrix[`${l}-${i}`] || [];
-                      const score = l * i;
-                      return (
-                        <div
-                          key={i}
-                          className={cn(
-                            'h-12 rounded-md flex items-center justify-center text-[10px] font-medium',
-                            score >= 12 ? 'bg-red-500/20 text-red-500' :
-                            score >= 8 ? 'bg-orange-500/20 text-orange-500' :
-                            score >= 4 ? 'bg-yellow-500/20 text-yellow-600 dark:text-yellow-400' :
-                            'bg-green-500/20 text-green-500'
-                          )}
-                          title={`L:${likelihoodLabel[l]} I:${impactLabel[i]} - ${cellRisks.length} risks`}
-                        >
-                          {cellRisks.length > 0 && (
-                            <div className="flex gap-0.5">
-                              {cellRisks.map((r) => (
-                                <div key={r.id} className={cn(
-                                  'h-2.5 w-2.5 rounded-full',
-                                  score >= 12 ? 'bg-red-500' :
-                                  score >= 8 ? 'bg-orange-500' :
-                                  score >= 4 ? 'bg-yellow-500' :
-                                  'bg-green-500'
-                                )} />
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-              <div className="flex items-center gap-1 mt-1">
-                <div className="w-16" />
-                <div className="flex-1 text-center text-[10px] text-muted-foreground">Impact</div>
+        <div
+          className="rounded-2xl p-6"
+          style={{ backgroundColor: '#ffffff', boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+        >
+          <h3 className="text-sm font-semibold mb-4" style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}>
+            Risk Matrix
+          </h3>
+          <div className="space-y-1">
+            <div className="flex items-center gap-1">
+              <div className="w-16 text-[10px] text-right pr-1" style={{ color: '#74777f' }}>Likelihood</div>
+              <div className="flex-1 grid grid-cols-4 gap-1">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="text-[10px] text-center" style={{ color: '#74777f' }}>{impactLabel[i]}</div>
+                ))}
               </div>
             </div>
-          </CardContent>
-        </Card>
+            {[4, 3, 2, 1].map((l) => (
+              <div key={l} className="flex items-center gap-1">
+                <div className="w-16 text-[10px] text-right pr-1" style={{ color: '#74777f' }}>{likelihoodLabel[l]}</div>
+                <div className="flex-1 grid grid-cols-4 gap-1">
+                  {[1, 2, 3, 4].map((i) => {
+                    const cellRisks = matrix[`${l}-${i}`] || [];
+                    const score = l * i;
+                    const cellBg = score >= 12 ? 'rgba(239,68,68,0.15)' :
+                      score >= 8 ? 'rgba(249,115,22,0.15)' :
+                      score >= 4 ? 'rgba(234,179,8,0.15)' :
+                      'rgba(34,197,94,0.15)';
+                    const dotBg = score >= 12 ? '#EF4444' :
+                      score >= 8 ? '#F97316' :
+                      score >= 4 ? '#EAB308' :
+                      '#22C55E';
+                    return (
+                      <div
+                        key={i}
+                        className="h-12 rounded-md flex items-center justify-center text-[10px] font-medium"
+                        style={{ backgroundColor: cellBg }}
+                        title={`L:${likelihoodLabel[l]} I:${impactLabel[i]} - ${cellRisks.length} risks`}
+                      >
+                        {cellRisks.length > 0 && (
+                          <div className="flex gap-0.5">
+                            {cellRisks.map((r) => (
+                              <div key={r.id} className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: dotBg }} />
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+            <div className="flex items-center gap-1 mt-1">
+              <div className="w-16" />
+              <div className="flex-1 text-center text-[10px]" style={{ color: '#74777f' }}>Impact</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

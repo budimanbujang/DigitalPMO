@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { cn } from '@/lib/utils';
 
 type ItemStatus = 'COMPLETED' | 'IN_PROGRESS' | 'BLOCKED' | 'TODO';
 
@@ -16,17 +15,17 @@ interface TimelineItem {
 }
 
 const statusColor: Record<ItemStatus, string> = {
-  COMPLETED: 'bg-green-500',
-  IN_PROGRESS: 'bg-blue-500',
-  BLOCKED: 'bg-red-500',
-  TODO: 'bg-slate-400 dark:bg-slate-600',
+  COMPLETED: '#22C55E',
+  IN_PROGRESS: '#3B82F6',
+  BLOCKED: '#EF4444',
+  TODO: '#94a3b8',
 };
 
 const statusFillColor: Record<ItemStatus, string> = {
-  COMPLETED: 'bg-green-600',
-  IN_PROGRESS: 'bg-blue-600',
-  BLOCKED: 'bg-red-600',
-  TODO: 'bg-slate-500',
+  COMPLETED: '#16A34A',
+  IN_PROGRESS: '#2563EB',
+  BLOCKED: '#DC2626',
+  TODO: '#64748b',
 };
 
 const MOCK_ITEMS: TimelineItem[] = [
@@ -73,19 +72,25 @@ export function TimelineTab() {
   return (
     <div className="space-y-4">
       {/* Legend */}
-      <div className="flex items-center gap-4 text-xs text-muted-foreground flex-wrap">
-        <div className="flex items-center gap-1.5"><div className="h-2.5 w-6 rounded bg-green-500" /> Completed</div>
-        <div className="flex items-center gap-1.5"><div className="h-2.5 w-6 rounded bg-blue-500" /> In Progress</div>
-        <div className="flex items-center gap-1.5"><div className="h-2.5 w-6 rounded bg-red-500" /> Blocked</div>
-        <div className="flex items-center gap-1.5"><div className="h-2.5 w-6 rounded bg-slate-400 dark:bg-slate-600" /> Todo</div>
-        <div className="flex items-center gap-1.5"><div className="h-4 w-0 border-l-2 border-dashed border-red-500" /> Today</div>
+      <div className="flex items-center gap-4 text-xs flex-wrap" style={{ color: '#74777f' }}>
+        <div className="flex items-center gap-1.5"><div className="h-2.5 w-6 rounded" style={{ backgroundColor: '#22C55E' }} /> Completed</div>
+        <div className="flex items-center gap-1.5"><div className="h-2.5 w-6 rounded" style={{ backgroundColor: '#3B82F6' }} /> In Progress</div>
+        <div className="flex items-center gap-1.5"><div className="h-2.5 w-6 rounded" style={{ backgroundColor: '#EF4444' }} /> Blocked</div>
+        <div className="flex items-center gap-1.5"><div className="h-2.5 w-6 rounded" style={{ backgroundColor: '#94a3b8' }} /> Todo</div>
+        <div className="flex items-center gap-1.5"><div className="h-4 w-0" style={{ borderLeft: '2px dashed #EF4444' }} /> Today</div>
       </div>
 
-      <div className="rounded-xl border border-border overflow-x-auto">
+      <div
+        className="rounded-xl overflow-x-auto"
+        style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+      >
         <div className="min-w-[800px]">
           {/* Month headers */}
-          <div className="flex border-b border-border bg-muted/40">
-            <div className="w-52 shrink-0 px-4 py-2 text-xs font-medium text-muted-foreground border-r border-border">
+          <div className="flex" style={{ backgroundColor: '#f3f3f6' }}>
+            <div
+              className="w-52 shrink-0 px-4 py-2 text-xs font-medium"
+              style={{ color: '#44474e', fontFamily: 'Inter, sans-serif', borderRight: '1px solid #e8e8ea' }}
+            >
               Item
             </div>
             <div className="flex-1 relative flex">
@@ -98,8 +103,13 @@ export function TimelineTab() {
                 return (
                   <div
                     key={m.label}
-                    className="text-xs font-medium text-muted-foreground py-2 text-center border-r border-border last:border-r-0"
-                    style={{ width: `${widthPct}%` }}
+                    className="text-xs font-medium py-2 text-center"
+                    style={{
+                      width: `${widthPct}%`,
+                      color: '#44474e',
+                      fontFamily: 'Inter, sans-serif',
+                      borderRight: idx < MONTHS.length - 1 ? '1px solid #e8e8ea' : 'none',
+                    }}
                   >
                     {m.label}
                   </div>
@@ -112,43 +122,55 @@ export function TimelineTab() {
           <div className="relative">
             {/* Today marker */}
             <div
-              className="absolute top-0 bottom-0 border-l-2 border-dashed border-red-500 z-10 pointer-events-none"
-              style={{ left: `calc(13rem + (100% - 13rem) * ${today / 100})` }}
+              className="absolute top-0 bottom-0 z-10 pointer-events-none"
+              style={{
+                left: `calc(13rem + (100% - 13rem) * ${today / 100})`,
+                borderLeft: '2px dashed #EF4444',
+              }}
             />
 
-            {MOCK_ITEMS.map((item) => {
+            {MOCK_ITEMS.map((item, idx) => {
               const leftPct = dateToPct(item.startDate);
               const rightPct = dateToPct(item.endDate);
               const widthPct = Math.max(rightPct - leftPct, 1);
 
               return (
-                <div key={item.id} className="flex items-center border-b border-border last:border-b-0 hover:bg-muted/20">
-                  <div className="w-52 shrink-0 px-4 py-3 border-r border-border">
-                    <div className="text-sm font-medium text-foreground truncate">{item.name}</div>
-                    <div className="text-[10px] text-muted-foreground">
+                <div
+                  key={item.id}
+                  className="flex items-center transition-colors"
+                  style={{
+                    backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f9f9fc',
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f3f3f6'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = idx % 2 === 0 ? '#ffffff' : '#f9f9fc'; }}
+                >
+                  <div
+                    className="w-52 shrink-0 px-4 py-3"
+                    style={{ borderRight: '1px solid #e8e8ea' }}
+                  >
+                    <div className="text-sm font-medium truncate" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{item.name}</div>
+                    <div className="text-[10px]" style={{ color: '#74777f' }}>
                       {item.startDate} &mdash; {item.endDate}
                     </div>
                   </div>
                   <div className="flex-1 relative h-10 px-1">
                     <div
-                      className={cn(
-                        'absolute top-1/2 -translate-y-1/2 h-6 rounded-md overflow-hidden flex items-center',
-                        statusColor[item.status],
-                        item.type === 'milestone' && 'border-2 border-foreground/20'
-                      )}
+                      className="absolute top-1/2 -translate-y-1/2 h-6 rounded-md overflow-hidden flex items-center"
                       style={{
                         left: `${leftPct}%`,
                         width: `${widthPct}%`,
+                        backgroundColor: statusColor[item.status],
+                        border: item.type === 'milestone' ? '2px solid rgba(26,28,30,0.15)' : 'none',
                       }}
                     >
                       {/* Progress fill inside bar */}
                       {item.percentComplete > 0 && item.percentComplete < 100 && (
                         <div
-                          className={cn('absolute inset-y-0 left-0', statusFillColor[item.status])}
-                          style={{ width: `${item.percentComplete}%` }}
+                          className="absolute inset-y-0 left-0"
+                          style={{ width: `${item.percentComplete}%`, backgroundColor: statusFillColor[item.status] }}
                         />
                       )}
-                      <span className="relative z-10 text-[10px] text-white font-medium px-1.5 truncate">
+                      <span className="relative z-10 text-[10px] font-medium px-1.5 truncate" style={{ color: '#ffffff' }}>
                         {item.percentComplete}%
                       </span>
                     </div>

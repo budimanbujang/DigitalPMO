@@ -8,7 +8,6 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
-import { cn } from '@/lib/utils';
 
 type DocType = 'PDF' | 'DOC' | 'XLS' | 'PPT' | 'IMG';
 
@@ -22,12 +21,12 @@ interface Document {
   milestone: string;
 }
 
-const typeIcon: Record<DocType, { icon: React.ElementType; color: string }> = {
-  PDF: { icon: FileText, color: 'text-red-500 bg-red-500/10' },
-  DOC: { icon: FileText, color: 'text-blue-500 bg-blue-500/10' },
-  XLS: { icon: FileSpreadsheet, color: 'text-green-500 bg-green-500/10' },
-  PPT: { icon: Presentation, color: 'text-orange-500 bg-orange-500/10' },
-  IMG: { icon: FileImage, color: 'text-violet-500 bg-violet-500/10' },
+const typeIcon: Record<DocType, { icon: React.ElementType; color: string; bg: string }> = {
+  PDF: { icon: FileText, color: '#EF4444', bg: 'rgba(239,68,68,0.1)' },
+  DOC: { icon: FileText, color: '#3B82F6', bg: 'rgba(59,130,246,0.1)' },
+  XLS: { icon: FileSpreadsheet, color: '#22C55E', bg: 'rgba(34,197,94,0.1)' },
+  PPT: { icon: Presentation, color: '#F97316', bg: 'rgba(249,115,22,0.1)' },
+  IMG: { icon: FileImage, color: '#7c3aed', bg: 'rgba(124,58,237,0.1)' },
 };
 
 const MILESTONES = [
@@ -94,59 +93,74 @@ export function DocumentsTab() {
             </SelectContent>
           </Select>
         </div>
-        <Button size="sm">
+        <Button size="sm" style={{ backgroundColor: '#001736', color: '#ffffff' }}>
           <Plus className="h-4 w-4 mr-1" />
           Upload Document
         </Button>
       </div>
 
-      <div className="rounded-xl border border-border overflow-hidden">
+      <div className="rounded-xl overflow-hidden" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-border bg-muted/40">
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Name</th>
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Type</th>
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Size</th>
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Uploaded By</th>
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Date</th>
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Milestone</th>
-              <th className="text-right px-4 py-3 font-medium text-muted-foreground">Actions</th>
+            <tr style={{ backgroundColor: '#f3f3f6' }}>
+              <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Name</th>
+              <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Type</th>
+              <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Size</th>
+              <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Uploaded By</th>
+              <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Date</th>
+              <th className="text-left px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Milestone</th>
+              <th className="text-right px-4 py-3 font-medium" style={{ fontFamily: 'Inter, sans-serif', color: '#44474e' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {filteredDocs.map((doc) => {
+            {filteredDocs.map((doc, idx) => {
               const tIcon = typeIcon[doc.type];
               const IconComp = tIcon.icon;
               return (
-                <tr key={doc.id} className="border-b border-border last:border-b-0 hover:bg-muted/30">
+                <tr
+                  key={doc.id}
+                  style={{ backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f9f9fc' }}
+                  className="transition-colors"
+                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f3f3f6'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = idx % 2 === 0 ? '#ffffff' : '#f9f9fc'; }}
+                >
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <div className={cn('h-8 w-8 rounded-lg flex items-center justify-center shrink-0', tIcon.color)}>
+                      <div
+                        className="h-8 w-8 rounded-lg flex items-center justify-center shrink-0"
+                        style={{ backgroundColor: tIcon.bg, color: tIcon.color }}
+                      >
                         <IconComp className="h-4 w-4" />
                       </div>
-                      <span className="font-medium text-foreground truncate">{doc.name}</span>
+                      <span className="font-medium truncate" style={{ color: '#1a1c1e', fontFamily: 'Inter, sans-serif' }}>{doc.name}</span>
                     </div>
                   </td>
                   <td className="px-4 py-3">
-                    <Badge variant="secondary" className="text-[10px]">{doc.type}</Badge>
+                    <Badge variant="secondary" className="text-[10px] rounded-full">{doc.type}</Badge>
                   </td>
-                  <td className="px-4 py-3 text-xs text-muted-foreground">{doc.size}</td>
-                  <td className="px-4 py-3 text-xs text-muted-foreground">{doc.uploadedBy}</td>
-                  <td className="px-4 py-3 text-xs text-muted-foreground">{doc.uploadDate}</td>
+                  <td className="px-4 py-3 text-xs" style={{ color: '#74777f' }}>{doc.size}</td>
+                  <td className="px-4 py-3 text-xs" style={{ color: '#74777f' }}>{doc.uploadedBy}</td>
+                  <td className="px-4 py-3 text-xs" style={{ color: '#74777f' }}>{doc.uploadDate}</td>
                   <td className="px-4 py-3">
-                    <span className="text-xs text-muted-foreground truncate block max-w-[160px]">{doc.milestone}</span>
+                    <span className="text-xs truncate block max-w-[160px]" style={{ color: '#74777f' }}>{doc.milestone}</span>
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-1">
                       <button
-                        className="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                        className="p-1.5 rounded-md transition-colors"
                         title="Preview"
+                        style={{ color: '#74777f' }}
+                        onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f3f3f6'; e.currentTarget.style.color = '#1a1c1e'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#74777f'; }}
                       >
                         <Eye className="h-4 w-4" />
                       </button>
                       <button
-                        className="p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                        className="p-1.5 rounded-md transition-colors"
                         title="Download"
+                        style={{ color: '#74777f' }}
+                        onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f3f3f6'; e.currentTarget.style.color = '#1a1c1e'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#74777f'; }}
                       >
                         <Download className="h-4 w-4" />
                       </button>
@@ -158,7 +172,7 @@ export function DocumentsTab() {
           </tbody>
         </table>
         {filteredDocs.length === 0 && (
-          <div className="flex items-center justify-center py-12 text-sm text-muted-foreground">
+          <div className="flex items-center justify-center py-12 text-sm" style={{ color: '#74777f' }}>
             <File className="h-5 w-5 mr-2" />
             No documents found for this milestone.
           </div>

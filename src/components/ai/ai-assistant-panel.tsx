@@ -138,7 +138,8 @@ export function AIAssistantPanel() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-purple-600 px-4 py-3 text-white shadow-lg shadow-purple-600/25 transition-all hover:bg-purple-500 hover:shadow-purple-500/30 hover:scale-105"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-gradient-to-r from-[#7c3aed] to-indigo-500 px-4 py-3 text-white transition-all hover:opacity-90 hover:scale-105"
+          style={{ boxShadow: '0 12px 40px rgba(124,58,237,0.25)' }}
           title="AI Assistant"
         >
           <Bot className="h-5 w-5" />
@@ -149,7 +150,7 @@ export function AIAssistantPanel() {
       {/* Backdrop */}
       {open && (
         <div
-          className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
+          className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm"
           onClick={() => setOpen(false)}
         />
       )}
@@ -157,24 +158,25 @@ export function AIAssistantPanel() {
       {/* Panel */}
       <div
         className={cn(
-          'fixed right-0 top-0 z-50 h-full w-[400px] transform border-l border-slate-700/50 bg-slate-900 shadow-2xl transition-transform duration-300 ease-in-out flex flex-col',
+          'fixed right-0 top-0 z-50 h-full w-[400px] transform bg-white/95 backdrop-blur-lg transition-transform duration-300 ease-in-out flex flex-col',
           open ? 'translate-x-0' : 'translate-x-full'
         )}
+        style={{ boxShadow: '-12px 0 40px rgba(26,28,30,0.08)' }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-700/50 px-4 py-3">
+        <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: '1px solid #e8e8ea' }}>
           <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-600/20">
-              <Bot className="h-5 w-5 text-purple-400" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#7c3aed]/10">
+              <Bot className="h-5 w-5 text-[#7c3aed]" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-white">PMO AI Assistant</h3>
-              <p className="text-xs text-slate-400">Powered by Claude</p>
+              <h3 className="text-sm font-semibold text-[#1a1c1e]">PMO AI Assistant</h3>
+              <p className="text-xs text-[#74777f]">Powered by Claude</p>
             </div>
           </div>
           <button
             onClick={() => setOpen(false)}
-            className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-slate-800 hover:text-white"
+            className="rounded-lg p-1.5 text-[#74777f] transition-colors hover:bg-[#f3f3f6] hover:text-[#1a1c1e]"
           >
             <X className="h-5 w-5" />
           </button>
@@ -194,15 +196,15 @@ export function AIAssistantPanel() {
                 className={cn(
                   'max-w-[85%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed',
                   msg.role === 'user'
-                    ? 'bg-blue-600 text-white rounded-br-sm'
-                    : 'bg-slate-800 text-slate-200 border-l-2 border-purple-500 rounded-bl-sm'
+                    ? 'bg-gradient-to-r from-[#001736] to-[#002b5b] text-white rounded-br-sm'
+                    : 'bg-[#f3f3f6] text-[#1a1c1e] border-l-2 border-[#7c3aed] rounded-bl-sm'
                 )}
               >
                 <div className="whitespace-pre-wrap">{msg.content}</div>
                 <div
                   className={cn(
                     'mt-1 text-[10px]',
-                    msg.role === 'user' ? 'text-blue-200' : 'text-slate-500'
+                    msg.role === 'user' ? 'text-white/60' : 'text-[#74777f]'
                   )}
                 >
                   {msg.timestamp.toLocaleTimeString('en-MY', {
@@ -216,11 +218,11 @@ export function AIAssistantPanel() {
 
           {isTyping && (
             <div className="flex justify-start">
-              <div className="rounded-xl bg-slate-800 border-l-2 border-purple-500 px-4 py-3 rounded-bl-sm">
+              <div className="rounded-xl bg-[#f3f3f6] border-l-2 border-[#7c3aed] px-4 py-3 rounded-bl-sm">
                 <div className="flex items-center gap-1">
-                  <span className="h-2 w-2 rounded-full bg-purple-400 animate-bounce [animation-delay:0ms]" />
-                  <span className="h-2 w-2 rounded-full bg-purple-400 animate-bounce [animation-delay:150ms]" />
-                  <span className="h-2 w-2 rounded-full bg-purple-400 animate-bounce [animation-delay:300ms]" />
+                  <span className="h-2 w-2 rounded-full bg-[#7c3aed] animate-bounce [animation-delay:0ms]" />
+                  <span className="h-2 w-2 rounded-full bg-[#7c3aed] animate-bounce [animation-delay:150ms]" />
+                  <span className="h-2 w-2 rounded-full bg-[#7c3aed] animate-bounce [animation-delay:300ms]" />
                 </div>
               </div>
             </div>
@@ -230,15 +232,15 @@ export function AIAssistantPanel() {
         </div>
 
         {/* Quick Actions */}
-        <div className="border-t border-slate-700/50 px-4 py-2">
+        <div className="px-4 py-2" style={{ borderTop: '1px solid #e8e8ea' }}>
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
-            <Sparkles className="h-3.5 w-3.5 text-purple-400 shrink-0" />
+            <Sparkles className="h-3.5 w-3.5 text-[#7c3aed] shrink-0" />
             {QUICK_ACTIONS.map((action) => (
               <button
                 key={action.label}
                 onClick={() => sendMessage(action.prompt)}
                 disabled={isTyping}
-                className="shrink-0 rounded-full border border-slate-700 bg-slate-800 px-3 py-1 text-xs text-slate-300 transition-colors hover:border-purple-500/50 hover:text-purple-300 disabled:opacity-50"
+                className="shrink-0 rounded-full bg-[#f3f3f6] px-3 py-1 text-xs text-[#44474e] transition-colors hover:bg-[#7c3aed]/10 hover:text-[#7c3aed] disabled:opacity-50"
               >
                 {action.label}
               </button>
@@ -247,7 +249,7 @@ export function AIAssistantPanel() {
         </div>
 
         {/* Input */}
-        <div className="border-t border-slate-700/50 px-4 py-3">
+        <div className="px-4 py-3" style={{ borderTop: '1px solid #e8e8ea' }}>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -262,12 +264,12 @@ export function AIAssistantPanel() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask anything about your portfolio..."
               disabled={isTyping}
-              className="flex-1 rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:border-purple-500 focus:outline-none disabled:opacity-50"
+              className="flex-1 rounded-lg bg-[#f3f3f6] border-0 px-3 py-2 text-sm text-[#1a1c1e] placeholder:text-[#74777f] focus:outline-none focus:ring-1 focus:ring-[#7c3aed]/30 disabled:opacity-50"
             />
             <button
               type="submit"
               disabled={!input.trim() || isTyping}
-              className="flex h-9 w-9 items-center justify-center rounded-lg bg-purple-600 text-white transition-colors hover:bg-purple-500 disabled:opacity-50 disabled:hover:bg-purple-600"
+              className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-r from-[#7c3aed] to-indigo-500 text-white transition-colors hover:opacity-90 disabled:opacity-50"
             >
               <Send className="h-4 w-4" />
             </button>

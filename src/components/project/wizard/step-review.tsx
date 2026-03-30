@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { formatCurrency } from '@/lib/utils'
 import type { StepProps } from './wizard-shell'
@@ -16,43 +15,44 @@ interface SectionProps {
 
 function ReviewSection({ title, step, goToStep, children }: SectionProps) {
   return (
-    <Card className="border-muted-foreground/20">
-      <CardContent className="p-5">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-foreground">{title}</h3>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={() => goToStep?.(step)}
-            className="h-7 text-xs text-violet-600 dark:text-violet-400 hover:text-violet-700"
-          >
-            <svg className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-            </svg>
-            Edit
-          </Button>
-        </div>
-        {children}
-      </CardContent>
-    </Card>
+    <div
+      className="rounded-xl bg-white p-5"
+      style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+    >
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-semibold text-[#1a1c1e]">{title}</h3>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={() => goToStep?.(step)}
+          className="h-7 text-xs text-[#7c3aed] hover:text-[#7c3aed]/80"
+        >
+          <svg className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+          </svg>
+          Edit
+        </Button>
+      </div>
+      {children}
+    </div>
   )
 }
 
 function DataRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex items-start py-1.5">
-      <span className="text-sm text-muted-foreground w-40 shrink-0">{label}</span>
-      <span className="text-sm text-foreground font-medium">{value || <span className="text-muted-foreground/50 font-normal">Not provided</span>}</span>
+      <span className="text-sm text-[#74777f] w-40 shrink-0">{label}</span>
+      <span className="text-sm text-[#1a1c1e] font-medium">{value || <span className="text-[#74777f]/50 font-normal">Not provided</span>}</span>
     </div>
   )
 }
 
 const PRIORITY_COLORS: Record<string, string> = {
-  Critical: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
-  High: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
-  Medium: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
-  Low: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
+  Critical: 'bg-red-100 text-red-700',
+  High: 'bg-orange-100 text-orange-700',
+  Medium: 'bg-yellow-100 text-yellow-700',
+  Low: 'bg-green-100 text-green-700',
 }
 
 export function StepReview({ formData, goToStep }: StepProps) {
@@ -61,8 +61,8 @@ export function StepReview({ formData, goToStep }: StepProps) {
 
   return (
     <div className="space-y-4">
-      <div className="p-4 rounded-lg bg-muted/50 border border-border mb-2">
-        <p className="text-sm text-muted-foreground">
+      <div className="p-4 rounded-lg bg-[#f3f3f6] mb-2">
+        <p className="text-sm text-[#44474e]">
           Review all project details below before registering. Click <strong>Edit</strong> on any section to make changes.
         </p>
       </div>
@@ -78,7 +78,7 @@ export function StepReview({ formData, goToStep }: StepProps) {
             formData.tags.length > 0 ? (
               <div className="flex flex-wrap gap-1">
                 {formData.tags.map(tag => (
-                  <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
+                  <Badge key={tag} variant="secondary" className="text-xs rounded-full bg-[#e8e8ea] text-[#1a1c1e]">{tag}</Badge>
                 ))}
               </div>
             ) : null
@@ -103,10 +103,10 @@ export function StepReview({ formData, goToStep }: StepProps) {
             formData.phases.length > 0 ? (
               <div className="space-y-1">
                 {formData.phases.map((p, i) => (
-                  <div key={i} className="text-xs bg-muted/50 px-2 py-1 rounded">
+                  <div key={i} className="text-xs bg-[#f3f3f6] px-2 py-1 rounded">
                     <span className="font-semibold">{p.name}</span>
                     {p.start && p.end && (
-                      <span className="text-muted-foreground ml-2">
+                      <span className="text-[#74777f] ml-2">
                         {new Date(p.start).toLocaleDateString('en-MY', { day: 'numeric', month: 'short' })} - {new Date(p.end).toLocaleDateString('en-MY', { day: 'numeric', month: 'short' })}
                       </span>
                     )}
@@ -127,15 +127,15 @@ export function StepReview({ formData, goToStep }: StepProps) {
             formData.budgetLineItems.length > 0 ? (
               <div className="space-y-1">
                 {formData.budgetLineItems.map((item, i) => (
-                  <div key={i} className="flex items-center justify-between text-xs bg-muted/50 px-2 py-1 rounded">
+                  <div key={i} className="flex items-center justify-between text-xs bg-[#f3f3f6] px-2 py-1 rounded">
                     <span>
                       <span className="font-semibold">{item.category}</span>
-                      {item.description && <span className="text-muted-foreground ml-1">- {item.description}</span>}
+                      {item.description && <span className="text-[#74777f] ml-1">- {item.description}</span>}
                     </span>
                     <span className="font-medium">{formatCurrency(item.amount, formData.currency)}</span>
                   </div>
                 ))}
-                <div className="flex items-center justify-between text-xs font-semibold pt-1 border-t border-border">
+                <div className="flex items-center justify-between text-xs font-semibold pt-1" style={{ borderTop: '1px solid #e8e8ea' }}>
                   <span>Total Allocated</span>
                   <span>{formatCurrency(lineItemsTotal, formData.currency)}</span>
                 </div>
@@ -153,9 +153,9 @@ export function StepReview({ formData, goToStep }: StepProps) {
             formData.teamMembers.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {formData.teamMembers.map((m, i) => (
-                  <span key={i} className="inline-flex items-center gap-1 text-xs bg-muted/50 px-2 py-1 rounded">
+                  <span key={i} className="inline-flex items-center gap-1 text-xs bg-[#f3f3f6] px-2 py-1 rounded">
                     <span className="font-medium">{m.name}</span>
-                    <span className="text-muted-foreground">({m.role})</span>
+                    <span className="text-[#74777f]">({m.role})</span>
                   </span>
                 ))}
               </div>
@@ -173,19 +173,19 @@ export function StepReview({ formData, goToStep }: StepProps) {
           {formData.milestones.length > 0 && (
             <div className="mt-2 space-y-2">
               {formData.milestones.map((m, i) => (
-                <div key={i} className="text-xs bg-muted/50 px-3 py-2 rounded">
+                <div key={i} className="text-xs bg-[#f3f3f6] px-3 py-2 rounded">
                   <div className="flex items-center justify-between">
                     <span className="font-semibold">{m.name || `Milestone ${i + 1}`}</span>
                     {m.dueDate && (
-                      <span className="text-muted-foreground">
+                      <span className="text-[#74777f]">
                         {new Date(m.dueDate).toLocaleDateString('en-MY', { day: 'numeric', month: 'short', year: 'numeric' })}
                       </span>
                     )}
                   </div>
                   {m.deliverables.length > 0 && (
-                    <div className="mt-1 pl-3 border-l border-muted-foreground/20 space-y-0.5">
+                    <div className="mt-1 pl-3 border-l border-[#e8e8ea] space-y-0.5">
                       {m.deliverables.map((d, di) => (
-                        <div key={di} className="text-muted-foreground">{d.name}</div>
+                        <div key={di} className="text-[#74777f]">{d.name}</div>
                       ))}
                     </div>
                   )}

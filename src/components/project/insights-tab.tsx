@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Sparkles, ChevronDown, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 
 type Severity = 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
 type InsightType = 'SCHEDULE_RISK' | 'BUDGET_ALERT' | 'RESOURCE_WARNING' | 'QUALITY_ISSUE' | 'OPPORTUNITY';
@@ -21,11 +20,11 @@ interface Insight {
   acknowledged: boolean;
 }
 
-const severityConfig: Record<Severity, { badgeVariant: 'rag-red' | 'rag-amber' | 'rag-green' | 'secondary'; color: string }> = {
-  CRITICAL: { badgeVariant: 'rag-red', color: 'border-l-red-500' },
-  HIGH: { badgeVariant: 'rag-amber', color: 'border-l-orange-500' },
-  MEDIUM: { badgeVariant: 'secondary', color: 'border-l-yellow-500' },
-  LOW: { badgeVariant: 'rag-green', color: 'border-l-blue-500' },
+const severityConfig: Record<Severity, { badgeVariant: 'rag-red' | 'rag-amber' | 'rag-green' | 'secondary'; pillarColor: string }> = {
+  CRITICAL: { badgeVariant: 'rag-red', pillarColor: '#EF4444' },
+  HIGH: { badgeVariant: 'rag-amber', pillarColor: '#F97316' },
+  MEDIUM: { badgeVariant: 'secondary', pillarColor: '#EAB308' },
+  LOW: { badgeVariant: 'rag-green', pillarColor: '#3B82F6' },
 };
 
 const typeLabels: Record<InsightType, string> = {
@@ -156,8 +155,8 @@ export function InsightsTab() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-violet-500" />
+        <h3 className="text-sm font-semibold flex items-center gap-2" style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}>
+          <Sparkles className="h-4 w-4" style={{ color: '#7c3aed' }} />
           AI Project Insights ({insights.length})
         </h3>
         <Button
@@ -165,9 +164,10 @@ export function InsightsTab() {
           variant="outline"
           onClick={runAnalysis}
           disabled={analyzing}
-          className="border-violet-500/30 text-violet-600 dark:text-violet-400 hover:bg-violet-500/10"
+          className="border-0"
+          style={{ backgroundColor: 'rgba(124,58,237,0.08)', color: '#7c3aed' }}
         >
-          <Sparkles className={cn('h-4 w-4 mr-1', analyzing && 'animate-spin')} />
+          <Sparkles className={`h-4 w-4 mr-1 ${analyzing ? 'animate-spin' : ''}`} />
           {analyzing ? 'Analyzing...' : 'Run AI Analysis'}
         </Button>
       </div>
@@ -180,11 +180,13 @@ export function InsightsTab() {
           return (
             <div
               key={ins.id}
-              className={cn(
-                'rounded-lg border border-border bg-card border-l-4 transition-colors',
-                cfg.color,
-                ins.acknowledged && 'opacity-60'
-              )}
+              className="rounded-xl transition-shadow"
+              style={{
+                backgroundColor: '#ffffff',
+                boxShadow: '0 12px 40px rgba(26,28,30,0.06)',
+                borderLeft: `3px solid #7c3aed`,
+                opacity: ins.acknowledged ? 0.6 : 1,
+              }}
             >
               <button
                 onClick={() => toggleExpand(ins.id)}
@@ -193,25 +195,25 @@ export function InsightsTab() {
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-2 min-w-0">
                     {expanded ? (
-                      <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
+                      <ChevronDown className="h-4 w-4 shrink-0 mt-0.5" style={{ color: '#74777f' }} />
                     ) : (
-                      <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
+                      <ChevronRight className="h-4 w-4 shrink-0 mt-0.5" style={{ color: '#74777f' }} />
                     )}
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap mb-1">
-                        <Badge variant={cfg.badgeVariant} className="text-[10px]">{ins.severity}</Badge>
-                        <Badge variant="secondary" className="text-[10px]">{typeLabels[ins.type]}</Badge>
+                        <Badge variant={cfg.badgeVariant} className="text-[10px] rounded-full">{ins.severity}</Badge>
+                        <Badge variant="secondary" className="text-[10px] rounded-full">{typeLabels[ins.type]}</Badge>
                         {ins.acknowledged && (
-                          <Badge variant="rag-green" className="text-[10px]">Acknowledged</Badge>
+                          <Badge variant="rag-green" className="text-[10px] rounded-full">Acknowledged</Badge>
                         )}
                       </div>
-                      <div className="text-sm font-semibold text-foreground">{ins.title}</div>
-                      <p className="text-xs text-muted-foreground mt-1">{ins.summary}</p>
+                      <div className="text-sm font-semibold" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{ins.title}</div>
+                      <p className="text-xs mt-1" style={{ color: '#44474e' }}>{ins.summary}</p>
                     </div>
                   </div>
                   <div className="text-right shrink-0">
-                    <div className="text-[10px] text-muted-foreground">{relativeTime(ins.timestamp)}</div>
-                    <div className="text-[10px] text-muted-foreground mt-0.5">
+                    <div className="text-[10px]" style={{ color: '#74777f' }}>{relativeTime(ins.timestamp)}</div>
+                    <div className="text-[10px] mt-0.5" style={{ color: '#74777f' }}>
                       {new Date(ins.timestamp).toLocaleTimeString('en-MY', { hour: '2-digit', minute: '2-digit' })}
                     </div>
                   </div>
@@ -220,14 +222,14 @@ export function InsightsTab() {
 
               {expanded && (
                 <div className="px-4 pb-4 pt-0 space-y-3 ml-6">
-                  <div className="text-sm text-foreground/80 leading-relaxed">{ins.details}</div>
+                  <div className="text-sm leading-relaxed" style={{ color: '#44474e' }}>{ins.details}</div>
 
                   <div className="space-y-1.5">
-                    <div className="text-xs font-semibold text-foreground">Recommendations</div>
+                    <div className="text-xs font-semibold" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>Recommendations</div>
                     <ul className="space-y-1">
                       {ins.recommendations.map((rec, i) => (
-                        <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
-                          <span className="text-violet-500 shrink-0 mt-0.5">&#x2022;</span>
+                        <li key={i} className="flex items-start gap-2 text-xs" style={{ color: '#44474e' }}>
+                          <span className="shrink-0 mt-0.5" style={{ color: '#7c3aed' }}>&#x2022;</span>
                           {rec}
                         </li>
                       ))}
@@ -236,11 +238,12 @@ export function InsightsTab() {
 
                   <Button
                     size="sm"
-                    variant={ins.acknowledged ? 'secondary' : 'outline'}
+                    variant="outline"
                     onClick={(e) => { e.stopPropagation(); toggleAcknowledge(ins.id); }}
-                    className="h-7 text-xs"
+                    className="h-7 text-xs border-0"
+                    style={{ backgroundColor: ins.acknowledged ? '#dcfce7' : '#f3f3f6', color: ins.acknowledged ? '#15803d' : '#1a1c1e' }}
                   >
-                    <CheckCircle2 className={cn('h-3.5 w-3.5 mr-1', ins.acknowledged ? 'text-green-500' : 'text-muted-foreground')} />
+                    <CheckCircle2 className="h-3.5 w-3.5 mr-1" style={{ color: ins.acknowledged ? '#22C55E' : '#74777f' }} />
                     {ins.acknowledged ? 'Acknowledged' : 'Acknowledge'}
                   </Button>
                 </div>

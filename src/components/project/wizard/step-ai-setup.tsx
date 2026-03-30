@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import type { StepProps } from './wizard-shell'
@@ -26,7 +25,6 @@ function generateMockSuggestions(formData: {
 }): AISuggestion[] {
   const suggestions: AISuggestion[] = []
 
-  // Check for missing UAT milestone
   const hasUAT = formData.milestones.some(m =>
     m.name.toLowerCase().includes('uat') || m.name.toLowerCase().includes('user acceptance')
   )
@@ -40,7 +38,6 @@ function generateMockSuggestions(formData: {
     })
   }
 
-  // Check for data migration
   const hasDataMigration = formData.milestones.some(m =>
     m.name.toLowerCase().includes('migration') || m.name.toLowerCase().includes('data')
   )
@@ -54,7 +51,6 @@ function generateMockSuggestions(formData: {
     })
   }
 
-  // Timeline risk
   if (formData.startDate && formData.targetEndDate) {
     const days = Math.ceil(
       (new Date(formData.targetEndDate).getTime() - new Date(formData.startDate).getTime()) / (1000 * 60 * 60 * 24)
@@ -70,7 +66,6 @@ function generateMockSuggestions(formData: {
     }
   }
 
-  // Budget risk
   if (formData.totalBudget > 0 && formData.teamMembers.length > 3) {
     suggestions.push({
       id: 'risk-budget',
@@ -81,7 +76,6 @@ function generateMockSuggestions(formData: {
     })
   }
 
-  // No testers
   const hasTesters = formData.teamMembers.some(m => m.role === 'Tester')
   if (!hasTesters && formData.teamMembers.length > 0) {
     suggestions.push({
@@ -93,7 +87,6 @@ function generateMockSuggestions(formData: {
     })
   }
 
-  // Contingency budget
   const hasContingency = formData.budgetLineItems.some(i =>
     i.category.toLowerCase().includes('contingency')
   )
@@ -107,7 +100,6 @@ function generateMockSuggestions(formData: {
     })
   }
 
-  // Cadence
   suggestions.push({
     id: 'cadence-weekly',
     type: 'cadence',
@@ -116,7 +108,6 @@ function generateMockSuggestions(formData: {
     actionLabel: 'Accept',
   })
 
-  // Metrics
   suggestions.push({
     id: 'metric-schedule',
     type: 'metric',
@@ -151,9 +142,8 @@ const TYPE_CONFIG = {
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-    color: 'text-blue-600 dark:text-blue-400',
-    bg: 'bg-blue-50 dark:bg-blue-900/20',
-    border: 'border-blue-200 dark:border-blue-800/30',
+    color: 'text-blue-600',
+    bg: 'bg-blue-50',
     label: 'Suggested Milestone',
   },
   risk: {
@@ -162,9 +152,8 @@ const TYPE_CONFIG = {
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z" />
       </svg>
     ),
-    color: 'text-amber-600 dark:text-amber-400',
-    bg: 'bg-amber-50 dark:bg-amber-900/20',
-    border: 'border-amber-200 dark:border-amber-800/30',
+    color: 'text-amber-600',
+    bg: 'bg-amber-50',
     label: 'Identified Risk',
   },
   cadence: {
@@ -173,9 +162,8 @@ const TYPE_CONFIG = {
         <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
       </svg>
     ),
-    color: 'text-emerald-600 dark:text-emerald-400',
-    bg: 'bg-emerald-50 dark:bg-emerald-900/20',
-    border: 'border-emerald-200 dark:border-emerald-800/30',
+    color: 'text-emerald-600',
+    bg: 'bg-emerald-50',
     label: 'Reporting Cadence',
   },
   metric: {
@@ -184,9 +172,8 @@ const TYPE_CONFIG = {
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
       </svg>
     ),
-    color: 'text-violet-600 dark:text-violet-400',
-    bg: 'bg-violet-50 dark:bg-violet-900/20',
-    border: 'border-violet-200 dark:border-violet-800/30',
+    color: 'text-[#7c3aed]',
+    bg: 'bg-violet-50',
     label: 'Key Metric',
   },
 }
@@ -253,17 +240,17 @@ export function StepAISetup({ formData, setFormData }: StepProps) {
       <div className="flex flex-col items-center justify-center py-16">
         {/* AI Animated Indicator */}
         <div className="relative mb-8">
-          <div className="h-20 w-20 rounded-full bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center">
+          <div className="h-20 w-20 rounded-full bg-gradient-to-br from-[#7c3aed] to-indigo-500 flex items-center justify-center">
             <svg className="h-10 w-10 text-white animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
             </svg>
           </div>
-          <div className="absolute -inset-3 rounded-full border-2 border-violet-400/30 animate-ping" />
-          <div className="absolute -inset-6 rounded-full border border-violet-300/20 animate-[ping_2s_ease-in-out_infinite]" />
+          <div className="absolute -inset-3 rounded-full border-2 border-[#7c3aed]/30 animate-ping" />
+          <div className="absolute -inset-6 rounded-full border border-[#7c3aed]/20 animate-[ping_2s_ease-in-out_infinite]" />
         </div>
 
-        <h3 className="text-lg font-semibold text-foreground mb-2">Analyzing your project...</h3>
-        <p className="text-sm text-muted-foreground text-center max-w-md mb-6">
+        <h3 className="text-lg font-semibold text-[#1a1c1e] mb-2">Analyzing your project...</h3>
+        <p className="text-sm text-[#44474e] text-center max-w-md mb-6">
           AI is reviewing your project details to identify potential gaps, risks, and recommendations.
         </p>
 
@@ -277,10 +264,10 @@ export function StepAISetup({ formData, setFormData }: StepProps) {
           ].map((item, i) => (
             <div
               key={i}
-              className="flex items-center gap-3 text-sm text-muted-foreground animate-[fadeIn_0.5s_ease-in-out_forwards] opacity-0"
+              className="flex items-center gap-3 text-sm text-[#44474e] animate-[fadeIn_0.5s_ease-in-out_forwards] opacity-0"
               style={{ animationDelay: item.delay }}
             >
-              <div className="h-4 w-4 rounded-full border-2 border-violet-400 border-t-transparent animate-spin" />
+              <div className="h-4 w-4 rounded-full border-2 border-[#7c3aed] border-t-transparent animate-spin" />
               {item.label}
             </div>
           ))}
@@ -292,21 +279,21 @@ export function StepAISetup({ formData, setFormData }: StepProps) {
   return (
     <div className="space-y-6">
       {/* AI Header */}
-      <div className="flex items-center gap-3 p-4 rounded-lg bg-gradient-to-r from-violet-500/10 to-indigo-500/10 border border-violet-200 dark:border-violet-800/30">
-        <div className="h-10 w-10 rounded-full bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center shrink-0">
+      <div className="flex items-center gap-3 p-4 rounded-lg bg-gradient-to-r from-[#7c3aed]/10 to-indigo-500/10">
+        <div className="h-10 w-10 rounded-full bg-gradient-to-br from-[#7c3aed] to-indigo-500 flex items-center justify-center shrink-0">
           <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
           </svg>
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <h3 className="font-semibold text-foreground">AI Analysis Complete</h3>
+            <h3 className="font-semibold text-[#1a1c1e]">AI Analysis Complete</h3>
             <Badge variant="ai">AI</Badge>
           </div>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-[#44474e]">
             Found {visibleSuggestions.length} suggestions based on your project configuration.
             {accepted.size > 0 && (
-              <span className="text-green-600 dark:text-green-400 ml-1">{accepted.size} accepted.</span>
+              <span className="text-green-600 ml-1">{accepted.size} accepted.</span>
             )}
           </p>
         </div>
@@ -318,70 +305,69 @@ export function StepAISetup({ formData, setFormData }: StepProps) {
         const config = TYPE_CONFIG[type as keyof typeof TYPE_CONFIG]
         return (
           <div key={type} className="space-y-3">
-            <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+            <h4 className="text-sm font-semibold text-[#1a1c1e] flex items-center gap-2">
               <span className={config.color}>{config.icon}</span>
               {type === 'milestone' && 'Missing Milestones & Deliverables'}
               {type === 'risk' && 'Identified Risks'}
               {type === 'cadence' && 'Recommended Reporting Cadence'}
               {type === 'metric' && 'Key Metrics to Track'}
-              <span className="text-xs font-normal text-muted-foreground">({items.length})</span>
+              <span className="text-xs font-normal text-[#74777f]">({items.length})</span>
             </h4>
 
             {items.map(suggestion => {
               const isAccepted = accepted.has(suggestion.id)
               return (
-                <Card
+                <div
                   key={suggestion.id}
                   className={cn(
-                    'transition-all',
+                    'rounded-xl p-4 transition-all',
                     isAccepted
-                      ? 'border-green-300 dark:border-green-700/50 bg-green-50/50 dark:bg-green-900/10'
-                      : `${config.border}`
+                      ? 'bg-green-50'
+                      : 'bg-white'
                   )}
+                  style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
                 >
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-3">
-                      <div className={cn('h-8 w-8 rounded-lg flex items-center justify-center shrink-0', config.bg, config.color)}>
-                        {config.icon}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h5 className="font-medium text-sm text-foreground">{suggestion.title}</h5>
-                          <Badge variant="outline" className="text-[10px] h-4 px-1.5">{config.label}</Badge>
-                        </div>
-                        <p className="text-sm text-muted-foreground">{suggestion.description}</p>
-                      </div>
-                      <div className="flex items-center gap-2 shrink-0">
-                        {isAccepted ? (
-                          <span className="flex items-center gap-1 text-xs font-medium text-green-600 dark:text-green-400">
-                            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                            </svg>
-                            Accepted
-                          </span>
-                        ) : (
-                          <>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => handleDismiss(suggestion.id)}
-                              className="h-7 text-xs"
-                            >
-                              Dismiss
-                            </Button>
-                            <Button
-                              size="sm"
-                              onClick={() => handleAccept(suggestion)}
-                              className="h-7 text-xs bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white"
-                            >
-                              {suggestion.actionLabel}
-                            </Button>
-                          </>
-                        )}
-                      </div>
+                  <div className="flex items-start gap-3">
+                    <div className={cn('h-8 w-8 rounded-lg flex items-center justify-center shrink-0', config.bg, config.color)}>
+                      {config.icon}
                     </div>
-                  </CardContent>
-                </Card>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h5 className="font-medium text-sm text-[#1a1c1e]">{suggestion.title}</h5>
+                        <Badge variant="outline" className="text-[10px] h-4 px-1.5">{config.label}</Badge>
+                      </div>
+                      <p className="text-sm text-[#44474e]">{suggestion.description}</p>
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
+                      {isAccepted ? (
+                        <span className="flex items-center gap-1 text-xs font-medium text-green-600">
+                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                          Accepted
+                        </span>
+                      ) : (
+                        <>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleDismiss(suggestion.id)}
+                            className="h-7 text-xs"
+                          >
+                            Dismiss
+                          </Button>
+                          <Button
+                            size="sm"
+                            onClick={() => handleAccept(suggestion)}
+                            className="h-7 text-xs bg-gradient-to-r from-[#7c3aed] to-indigo-600 hover:from-[#7c3aed]/90 hover:to-indigo-600/90 text-white"
+                          >
+                            {suggestion.actionLabel}
+                          </Button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
               )
             })}
           </div>
@@ -389,7 +375,7 @@ export function StepAISetup({ formData, setFormData }: StepProps) {
       })}
 
       {visibleSuggestions.length === 0 && (
-        <div className="text-center py-8 text-muted-foreground">
+        <div className="text-center py-8 text-[#74777f]">
           <p className="text-sm">All suggestions have been reviewed.</p>
         </div>
       )}

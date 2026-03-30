@@ -12,7 +12,6 @@ import {
   AlertTriangle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Card, CardContent } from '@/components/ui/card';
 
 interface TeamMember {
   id: string;
@@ -165,23 +164,23 @@ const allRoles = [...new Set(MOCK_TEAM.map((m) => m.role))];
 const allProjects = [...new Set(MOCK_TEAM.flatMap((m) => m.projects))];
 
 function getWorkloadColor(pct: number) {
-  if (pct > 90) return { bar: 'bg-red-500', text: 'text-red-400', bg: 'bg-red-500/10' };
-  if (pct >= 70) return { bar: 'bg-amber-500', text: 'text-amber-400', bg: 'bg-amber-500/10' };
-  return { bar: 'bg-green-500', text: 'text-green-400', bg: 'bg-green-500/10' };
+  if (pct > 90) return { bar: 'bg-red-500', text: 'text-red-600', bg: 'bg-red-50' };
+  if (pct >= 70) return { bar: 'bg-amber-500', text: 'text-amber-600', bg: 'bg-amber-50' };
+  return { bar: 'bg-green-500', text: 'text-green-600', bg: 'bg-green-50' };
 }
 
 function getAvatarColor(name: string) {
   const colors = [
-    'bg-blue-500/20 text-blue-400',
-    'bg-purple-500/20 text-purple-400',
-    'bg-emerald-500/20 text-emerald-400',
-    'bg-amber-500/20 text-amber-400',
-    'bg-pink-500/20 text-pink-400',
-    'bg-cyan-500/20 text-cyan-400',
-    'bg-orange-500/20 text-orange-400',
-    'bg-indigo-500/20 text-indigo-400',
-    'bg-rose-500/20 text-rose-400',
-    'bg-teal-500/20 text-teal-400',
+    'bg-blue-100 text-blue-700',
+    'bg-purple-100 text-purple-700',
+    'bg-emerald-100 text-emerald-700',
+    'bg-amber-100 text-amber-700',
+    'bg-pink-100 text-pink-700',
+    'bg-cyan-100 text-cyan-700',
+    'bg-orange-100 text-orange-700',
+    'bg-indigo-100 text-indigo-700',
+    'bg-rose-100 text-rose-700',
+    'bg-teal-100 text-teal-700',
   ];
   let hash = 0;
   for (const ch of name) hash = ch.charCodeAt(0) + ((hash << 5) - hash);
@@ -208,10 +207,10 @@ export default function PeoplePage() {
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-heading font-bold text-foreground">
+          <h1 className="text-2xl font-heading font-bold tracking-tight text-[#1a1c1e]">
             People &amp; Workload
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="mt-1 text-sm text-[#44474e]">
             {MOCK_TEAM.length} team members across {allProjects.length} projects
           </p>
         </div>
@@ -221,8 +220,8 @@ export default function PeoplePage() {
             className={cn(
               'inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
               view === 'directory'
-                ? 'bg-primary/10 text-primary'
-                : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
+                ? 'bg-[#001736]/10 text-[#001736]'
+                : 'text-[#74777f] hover:bg-[#f3f3f6] hover:text-[#1a1c1e]'
             )}
           >
             <LayoutGrid className="h-4 w-4" />
@@ -233,8 +232,8 @@ export default function PeoplePage() {
             className={cn(
               'inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
               view === 'workload'
-                ? 'bg-primary/10 text-primary'
-                : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
+                ? 'bg-[#001736]/10 text-[#001736]'
+                : 'text-[#74777f] hover:bg-[#f3f3f6] hover:text-[#1a1c1e]'
             )}
           >
             <Table className="h-4 w-4" />
@@ -246,19 +245,19 @@ export default function PeoplePage() {
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative flex-1 max-w-xs">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#74777f]" />
           <input
             type="text"
             placeholder="Search people..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-lg border border-border bg-secondary/50 pl-9 pr-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/30 focus:outline-none focus:ring-1 focus:ring-primary/30"
+            className="w-full rounded-lg bg-[#f3f3f6] border-0 pl-9 pr-3 py-2 text-sm text-[#1a1c1e] placeholder:text-[#74777f] focus:outline-none focus:ring-1 focus:ring-[#001736]/30"
           />
         </div>
         <select
           value={roleFilter}
           onChange={(e) => setRoleFilter(e.target.value)}
-          className="rounded-lg border border-border bg-secondary/50 px-3 py-2 text-sm text-foreground"
+          className="rounded-lg bg-[#f3f3f6] border-0 px-3 py-2 text-sm text-[#1a1c1e]"
         >
           <option value="ALL">All Roles</option>
           {allRoles.map((r) => (
@@ -270,7 +269,7 @@ export default function PeoplePage() {
         <select
           value={projectFilter}
           onChange={(e) => setProjectFilter(e.target.value)}
-          className="rounded-lg border border-border bg-secondary/50 px-3 py-2 text-sm text-foreground"
+          className="rounded-lg bg-[#f3f3f6] border-0 px-3 py-2 text-sm text-[#1a1c1e]"
         >
           <option value="ALL">All Projects</option>
           {allProjects.map((p) => (
@@ -288,75 +287,77 @@ export default function PeoplePage() {
             const wl = getWorkloadColor(member.workloadPct);
             const avatarColor = getAvatarColor(member.name);
             return (
-              <Card key={member.id} className="transition-all hover:border-primary/20">
-                <CardContent className="p-5">
-                  <div className="flex items-start gap-3">
+              <div
+                key={member.id}
+                className="rounded-xl bg-white p-5 transition-all hover:translate-y-[-2px]"
+                style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}
+              >
+                <div className="flex items-start gap-3">
+                  <div
+                    className={cn(
+                      'flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-bold',
+                      avatarColor
+                    )}
+                  >
+                    {member.avatar}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-sm font-semibold text-[#1a1c1e] truncate">
+                      {member.name}
+                    </h3>
+                    <p className="text-xs text-[#74777f]">{member.role}</p>
+                  </div>
+                </div>
+
+                <div className="mt-3 flex items-center gap-1.5 text-xs text-[#74777f]">
+                  <Mail className="h-3 w-3" />
+                  <span className="truncate">{member.email}</span>
+                </div>
+
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                  <div className="rounded-lg bg-[#f3f3f6] p-2 text-center">
+                    <div className="flex items-center justify-center gap-1 text-xs text-[#74777f]">
+                      <FolderKanban className="h-3 w-3" />
+                      Projects
+                    </div>
+                    <p className="mt-0.5 text-lg font-bold text-[#1a1c1e]">
+                      {member.projectCount}
+                    </p>
+                  </div>
+                  <div className="rounded-lg bg-[#f3f3f6] p-2 text-center">
+                    <div className="flex items-center justify-center gap-1 text-xs text-[#74777f]">
+                      <CheckCircle2 className="h-3 w-3" />
+                      Tasks
+                    </div>
+                    <p className="mt-0.5 text-lg font-bold text-[#1a1c1e]">
+                      {member.activeTasks}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Workload bar */}
+                <div className="mt-3">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-[#74777f]">Workload</span>
+                    <span className={cn('font-semibold', wl.text)}>
+                      {member.workloadPct}%
+                    </span>
+                  </div>
+                  <div className="mt-1 h-1.5 w-full rounded-full bg-[#e8e8ea]">
                     <div
-                      className={cn(
-                        'flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-bold',
-                        avatarColor
-                      )}
-                    >
-                      {member.avatar}
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <h3 className="text-sm font-semibold text-foreground truncate">
-                        {member.name}
-                      </h3>
-                      <p className="text-xs text-muted-foreground">{member.role}</p>
-                    </div>
+                      className={cn('h-full rounded-full transition-all', wl.bar)}
+                      style={{ width: `${Math.min(member.workloadPct, 100)}%` }}
+                    />
                   </div>
+                </div>
 
-                  <div className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
-                    <Mail className="h-3 w-3" />
-                    <span className="truncate">{member.email}</span>
+                {member.overdueTasks > 0 && (
+                  <div className="mt-3 flex items-center gap-1.5 rounded-md bg-red-50 px-2 py-1 text-xs text-red-600">
+                    <AlertTriangle className="h-3 w-3" />
+                    {member.overdueTasks} overdue task{member.overdueTasks > 1 ? 's' : ''}
                   </div>
-
-                  <div className="mt-4 grid grid-cols-2 gap-3">
-                    <div className="rounded-lg bg-secondary/50 p-2 text-center">
-                      <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
-                        <FolderKanban className="h-3 w-3" />
-                        Projects
-                      </div>
-                      <p className="mt-0.5 text-lg font-bold text-foreground">
-                        {member.projectCount}
-                      </p>
-                    </div>
-                    <div className="rounded-lg bg-secondary/50 p-2 text-center">
-                      <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
-                        <CheckCircle2 className="h-3 w-3" />
-                        Tasks
-                      </div>
-                      <p className="mt-0.5 text-lg font-bold text-foreground">
-                        {member.activeTasks}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Workload bar */}
-                  <div className="mt-3">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-muted-foreground">Workload</span>
-                      <span className={cn('font-semibold', wl.text)}>
-                        {member.workloadPct}%
-                      </span>
-                    </div>
-                    <div className="mt-1 h-1.5 w-full rounded-full bg-secondary/50">
-                      <div
-                        className={cn('h-full rounded-full transition-all', wl.bar)}
-                        style={{ width: `${Math.min(member.workloadPct, 100)}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {member.overdueTasks > 0 && (
-                    <div className="mt-3 flex items-center gap-1.5 rounded-md bg-red-500/10 px-2 py-1 text-xs text-red-400">
-                      <AlertTriangle className="h-3 w-3" />
-                      {member.overdueTasks} overdue task{member.overdueTasks > 1 ? 's' : ''}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
+                )}
+              </div>
             );
           })}
         </div>
@@ -364,41 +365,44 @@ export default function PeoplePage() {
 
       {/* Workload Table View */}
       {view === 'workload' && (
-        <div className="overflow-x-auto rounded-lg border border-border">
+        <div className="overflow-x-auto rounded-xl bg-white" style={{ boxShadow: '0 12px 40px rgba(26,28,30,0.06)' }}>
           <table className="w-full">
             <thead>
-              <tr className="border-b border-border bg-secondary/30">
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <tr className="bg-[#f3f3f6]">
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#74777f]">
                   Name
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#74777f]">
                   Role
                 </th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-[#74777f]">
                   Projects
                 </th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-[#74777f]">
                   Active Tasks
                 </th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-[#74777f]">
                   Overdue
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground min-w-[180px]">
+                <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[#74777f] min-w-[180px]">
                   Workload
                 </th>
-                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-[#74777f]">
                   Chase Response
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
-              {filtered.map((member) => {
+            <tbody>
+              {filtered.map((member, idx) => {
                 const wl = getWorkloadColor(member.workloadPct);
                 const avatarColor = getAvatarColor(member.name);
                 return (
                   <tr
                     key={member.id}
-                    className="transition-colors hover:bg-secondary/20"
+                    className={cn(
+                      'transition-colors hover:bg-[#f3f3f6]/50',
+                      idx % 2 === 0 ? 'bg-white' : 'bg-[#f9f9fc]'
+                    )}
                   >
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
@@ -411,37 +415,37 @@ export default function PeoplePage() {
                           {member.avatar}
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-foreground">
+                          <p className="text-sm font-medium text-[#1a1c1e]">
                             {member.name}
                           </p>
-                          <p className="text-xs text-muted-foreground">
+                          <p className="text-xs text-[#74777f]">
                             {member.email}
                           </p>
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-sm text-muted-foreground">
+                    <td className="px-4 py-3 text-sm text-[#44474e]">
                       {member.role}
                     </td>
-                    <td className="px-4 py-3 text-center text-sm font-medium text-foreground">
+                    <td className="px-4 py-3 text-center text-sm font-medium text-[#1a1c1e]">
                       {member.projectCount}
                     </td>
-                    <td className="px-4 py-3 text-center text-sm font-medium text-foreground">
+                    <td className="px-4 py-3 text-center text-sm font-medium text-[#1a1c1e]">
                       {member.activeTasks}
                     </td>
                     <td className="px-4 py-3 text-center">
                       {member.overdueTasks > 0 ? (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-red-500/10 px-2 py-0.5 text-xs font-medium text-red-400">
+                        <span className="inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-0.5 text-xs font-medium text-red-600">
                           {member.overdueTasks}
                         </span>
                       ) : (
-                        <span className="text-xs text-muted-foreground/50">0</span>
+                        <span className="text-xs text-[#74777f]/50">0</span>
                       )}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <div className="flex-1">
-                          <div className="h-2 w-full rounded-full bg-secondary/50">
+                          <div className="h-2 w-full rounded-full bg-[#e8e8ea]">
                             <div
                               className={cn('h-full rounded-full transition-all', wl.bar)}
                               style={{
@@ -465,10 +469,10 @@ export default function PeoplePage() {
                         className={cn(
                           'text-sm font-medium',
                           member.chaseResponseRate >= 90
-                            ? 'text-green-400'
+                            ? 'text-green-600'
                             : member.chaseResponseRate >= 75
-                            ? 'text-amber-400'
-                            : 'text-red-400'
+                            ? 'text-amber-600'
+                            : 'text-red-600'
                         )}
                       >
                         {member.chaseResponseRate}%
@@ -481,8 +485,8 @@ export default function PeoplePage() {
           </table>
           {filtered.length === 0 && (
             <div className="flex flex-col items-center justify-center py-12">
-              <Users className="h-10 w-10 text-muted-foreground/30" />
-              <p className="mt-3 text-sm text-muted-foreground">
+              <Users className="h-10 w-10 text-[#74777f]/30" />
+              <p className="mt-3 text-sm text-[#74777f]">
                 No team members match your filters
               </p>
             </div>
