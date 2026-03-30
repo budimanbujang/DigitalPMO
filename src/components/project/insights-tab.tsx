@@ -155,8 +155,8 @@ export function InsightsTab() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold flex items-center gap-2" style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}>
-          <Sparkles className="h-4 w-4" style={{ color: '#7c3aed' }} />
+        <h3 className="text-sm font-semibold flex items-center gap-2" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
+          <Sparkles className="h-4 w-4" style={{ color: 'var(--ai-accent)' }} />
           AI Project Insights ({insights.length})
         </h3>
         <Button
@@ -165,7 +165,7 @@ export function InsightsTab() {
           onClick={runAnalysis}
           disabled={analyzing}
           className="border-0"
-          style={{ backgroundColor: 'rgba(124,58,237,0.08)', color: '#7c3aed' }}
+          style={{ backgroundColor: 'rgba(124,58,237,0.08)', color: 'var(--ai-accent)' }}
         >
           <Sparkles className={`h-4 w-4 mr-1 ${analyzing ? 'animate-spin' : ''}`} />
           {analyzing ? 'Analyzing...' : 'Run AI Analysis'}
@@ -182,9 +182,9 @@ export function InsightsTab() {
               key={ins.id}
               className="rounded-xl transition-shadow"
               style={{
-                backgroundColor: '#ffffff',
+                backgroundColor: 'var(--surface-container-lowest)',
                 boxShadow: '0 12px 40px rgba(26,28,30,0.06)',
-                borderLeft: `3px solid #7c3aed`,
+                borderLeft: `3px solid var(--ai-accent)`,
                 opacity: ins.acknowledged ? 0.6 : 1,
               }}
             >
@@ -195,9 +195,9 @@ export function InsightsTab() {
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-2 min-w-0">
                     {expanded ? (
-                      <ChevronDown className="h-4 w-4 shrink-0 mt-0.5" style={{ color: '#74777f' }} />
+                      <ChevronDown className="h-4 w-4 shrink-0 mt-0.5" style={{ color: 'var(--outline)' }} />
                     ) : (
-                      <ChevronRight className="h-4 w-4 shrink-0 mt-0.5" style={{ color: '#74777f' }} />
+                      <ChevronRight className="h-4 w-4 shrink-0 mt-0.5" style={{ color: 'var(--outline)' }} />
                     )}
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap mb-1">
@@ -207,13 +207,13 @@ export function InsightsTab() {
                           <Badge variant="rag-green" className="text-[10px] rounded-full">Acknowledged</Badge>
                         )}
                       </div>
-                      <div className="text-sm font-semibold" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{ins.title}</div>
-                      <p className="text-xs mt-1" style={{ color: '#44474e' }}>{ins.summary}</p>
+                      <div className="text-sm font-semibold" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface)' }}>{ins.title}</div>
+                      <p className="text-xs mt-1" style={{ color: 'var(--on-surface-variant)' }}>{ins.summary}</p>
                     </div>
                   </div>
                   <div className="text-right shrink-0">
-                    <div className="text-[10px]" style={{ color: '#74777f' }}>{relativeTime(ins.timestamp)}</div>
-                    <div className="text-[10px] mt-0.5" style={{ color: '#74777f' }}>
+                    <div className="text-[10px]" style={{ color: 'var(--outline)' }}>{relativeTime(ins.timestamp)}</div>
+                    <div className="text-[10px] mt-0.5" style={{ color: 'var(--outline)' }}>
                       {new Date(ins.timestamp).toLocaleTimeString('en-MY', { hour: '2-digit', minute: '2-digit' })}
                     </div>
                   </div>
@@ -222,14 +222,14 @@ export function InsightsTab() {
 
               {expanded && (
                 <div className="px-4 pb-4 pt-0 space-y-3 ml-6">
-                  <div className="text-sm leading-relaxed" style={{ color: '#44474e' }}>{ins.details}</div>
+                  <div className="text-sm leading-relaxed" style={{ color: 'var(--on-surface-variant)' }}>{ins.details}</div>
 
                   <div className="space-y-1.5">
-                    <div className="text-xs font-semibold" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>Recommendations</div>
+                    <div className="text-xs font-semibold" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface)' }}>Recommendations</div>
                     <ul className="space-y-1">
                       {ins.recommendations.map((rec, i) => (
-                        <li key={i} className="flex items-start gap-2 text-xs" style={{ color: '#44474e' }}>
-                          <span className="shrink-0 mt-0.5" style={{ color: '#7c3aed' }}>&#x2022;</span>
+                        <li key={i} className="flex items-start gap-2 text-xs" style={{ color: 'var(--on-surface-variant)' }}>
+                          <span className="shrink-0 mt-0.5" style={{ color: 'var(--ai-accent)' }}>&#x2022;</span>
                           {rec}
                         </li>
                       ))}
@@ -241,7 +241,7 @@ export function InsightsTab() {
                     variant="outline"
                     onClick={(e) => { e.stopPropagation(); toggleAcknowledge(ins.id); }}
                     className="h-7 text-xs border-0"
-                    style={{ backgroundColor: ins.acknowledged ? '#dcfce7' : '#f3f3f6', color: ins.acknowledged ? '#15803d' : '#1a1c1e' }}
+                    style={{ backgroundColor: ins.acknowledged ? '#dcfce7' : 'var(--surface-container-low)', color: ins.acknowledged ? '#15803d' : 'var(--on-surface)' }}
                   >
                     <CheckCircle2 className="h-3.5 w-3.5 mr-1" style={{ color: ins.acknowledged ? '#22C55E' : '#74777f' }} />
                     {ins.acknowledged ? 'Acknowledged' : 'Acknowledge'}

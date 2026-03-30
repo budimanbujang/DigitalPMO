@@ -94,10 +94,10 @@ export function TeamTab() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold" style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}>
+        <h3 className="text-sm font-semibold" style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}>
           Team Members ({members.length})
         </h3>
-        <Button size="sm" style={{ backgroundColor: '#001736', color: '#ffffff' }} onClick={() => setShowAdd(true)}>
+        <Button size="sm" style={{ backgroundColor: 'var(--primary)', color: '#ffffff' }} onClick={() => setShowAdd(true)}>
           <Plus className="h-4 w-4 mr-1" />
           Add Member
         </Button>
@@ -106,12 +106,12 @@ export function TeamTab() {
       {showAdd && (
         <div
           className="flex items-center gap-2 p-3 rounded-lg flex-wrap"
-          style={{ backgroundColor: '#f3f3f6' }}
+          style={{ backgroundColor: 'var(--surface-container-low)' }}
         >
           <Input placeholder="Name" value={newName} onChange={(e) => setNewName(e.target.value)} className="w-40" autoFocus />
           <Input placeholder="Role" value={newRole} onChange={(e) => setNewRole(e.target.value)} className="w-40" />
           <Input placeholder="Email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} className="w-48" onKeyDown={(e) => e.key === 'Enter' && addMember()} />
-          <Button size="sm" style={{ backgroundColor: '#001736', color: '#ffffff' }} onClick={addMember}>Add</Button>
+          <Button size="sm" style={{ backgroundColor: 'var(--primary)', color: '#ffffff' }} onClick={addMember}>Add</Button>
           <Button size="sm" variant="ghost" onClick={() => { setShowAdd(false); setNewName(''); setNewRole(''); setNewEmail(''); }}>
             <X className="h-4 w-4" />
           </Button>
@@ -126,7 +126,7 @@ export function TeamTab() {
               key={m.id}
               className="rounded-xl p-4 space-y-4 transition-shadow"
               style={{
-                backgroundColor: '#ffffff',
+                backgroundColor: 'var(--surface-container-lowest)',
                 boxShadow: '0 12px 40px rgba(26,28,30,0.06)',
               }}
               onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 12px 40px rgba(26,28,30,0.10)'; }}
@@ -141,9 +141,9 @@ export function TeamTab() {
                   {m.initials}
                 </div>
                 <div className="min-w-0">
-                  <div className="text-sm font-semibold truncate" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{m.name}</div>
-                  <div className="text-xs" style={{ color: '#44474e' }}>{m.role}</div>
-                  <div className="flex items-center gap-1 text-xs mt-0.5" style={{ color: '#74777f' }}>
+                  <div className="text-sm font-semibold truncate" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface)' }}>{m.name}</div>
+                  <div className="text-xs" style={{ color: 'var(--on-surface-variant)' }}>{m.role}</div>
+                  <div className="flex items-center gap-1 text-xs mt-0.5" style={{ color: 'var(--outline)' }}>
                     <Mail className="h-3 w-3" />
                     <span className="truncate">{m.email}</span>
                   </div>
@@ -153,12 +153,12 @@ export function TeamTab() {
               {/* Workload bar */}
               <div className="space-y-1">
                 <div className="flex items-center justify-between text-xs" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  <span style={{ color: '#44474e' }}>Workload</span>
+                  <span style={{ color: 'var(--on-surface-variant)' }}>Workload</span>
                   <span className="font-medium" style={{ color: wlColor }}>
                     {m.workloadPercent}% - {workloadLabel(m.workloadPercent)}
                   </span>
                 </div>
-                <div className="h-2 w-full rounded-full overflow-hidden" style={{ backgroundColor: '#e8e8ea' }}>
+                <div className="h-2 w-full rounded-full overflow-hidden" style={{ backgroundColor: 'var(--surface-container-high)' }}>
                   <div
                     className="h-full rounded-full transition-all"
                     style={{ width: `${Math.min(m.workloadPercent, 100)}%`, backgroundColor: wlColor }}
@@ -184,8 +184,8 @@ export function TeamTab() {
 function StatBox({ label, value, color }: { label: string; value: number | string; color?: string }) {
   return (
     <div className="text-center">
-      <div className="text-base font-bold" style={{ fontFamily: 'Inter, sans-serif', color: color || '#1a1c1e' }}>{value}</div>
-      <div className="text-[10px]" style={{ color: '#74777f' }}>{label}</div>
+      <div className="text-base font-bold" style={{ fontFamily: 'Inter, sans-serif', color: color || 'var(--on-surface)' }}>{value}</div>
+      <div className="text-[10px]" style={{ color: 'var(--outline)' }}>{label}</div>
     </div>
   );
 }

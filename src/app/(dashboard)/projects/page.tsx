@@ -39,15 +39,15 @@ export default function ProjectsPage() {
         <div>
           <h1
             className="text-2xl font-bold tracking-tight"
-            style={{ fontFamily: 'Manrope, sans-serif', color: '#1a1c1e' }}
+            style={{ fontFamily: 'Manrope, sans-serif', color: 'var(--on-surface)' }}
           >
             Projects
           </h1>
-          <p className="mt-1 text-sm" style={{ color: '#44474e' }}>
+          <p className="mt-1 text-sm" style={{ color: 'var(--on-surface-variant)' }}>
             {mockProjects.length} projects across the portfolio
           </p>
         </div>
-        <Button style={{ backgroundColor: '#001736', color: '#ffffff' }}>
+        <Button style={{ backgroundColor: 'var(--primary)', color: '#ffffff' }}>
           <Plus className="h-4 w-4" />
           Register New Project
         </Button>
@@ -56,7 +56,7 @@ export default function ProjectsPage() {
       {/* Filter bar */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: '#74777f' }} />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: 'var(--outline)' }} />
           <Input
             placeholder="Search projects..."
             value={search}
@@ -93,14 +93,14 @@ export default function ProjectsPage() {
         </div>
         <div
           className="flex items-center gap-1 rounded-md p-0.5"
-          style={{ backgroundColor: '#f3f3f6' }}
+          style={{ backgroundColor: 'var(--surface-container-low)' }}
         >
           <button
             onClick={() => setViewMode('grid')}
             className="p-1.5 rounded transition-colors"
             style={{
-              backgroundColor: viewMode === 'grid' ? '#ffffff' : 'transparent',
-              color: viewMode === 'grid' ? '#1a1c1e' : '#74777f',
+              backgroundColor: viewMode === 'grid' ? 'var(--surface-container-lowest)' : 'transparent',
+              color: viewMode === 'grid' ? 'var(--on-surface)' : 'var(--outline)',
               boxShadow: viewMode === 'grid' ? '0 1px 3px rgba(26,28,30,0.08)' : 'none',
             }}
           >
@@ -110,8 +110,8 @@ export default function ProjectsPage() {
             onClick={() => setViewMode('table')}
             className="p-1.5 rounded transition-colors"
             style={{
-              backgroundColor: viewMode === 'table' ? '#ffffff' : 'transparent',
-              color: viewMode === 'table' ? '#1a1c1e' : '#74777f',
+              backgroundColor: viewMode === 'table' ? 'var(--surface-container-lowest)' : 'transparent',
+              color: viewMode === 'table' ? 'var(--on-surface)' : 'var(--outline)',
               boxShadow: viewMode === 'table' ? '0 1px 3px rgba(26,28,30,0.08)' : 'none',
             }}
           >

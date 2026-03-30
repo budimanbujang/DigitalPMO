@@ -106,9 +106,9 @@ export function TimelineTab() {
                     className="text-xs font-medium py-2 text-center"
                     style={{
                       width: `${widthPct}%`,
-                      color: '#44474e',
+                      color: 'var(--on-surface-variant)',
                       fontFamily: 'Inter, sans-serif',
-                      borderRight: idx < MONTHS.length - 1 ? '1px solid #e8e8ea' : 'none',
+                      borderRight: idx < MONTHS.length - 1 ? '1px solid var(--surface-container-high)' : 'none',
                     }}
                   >
                     {m.label}
@@ -139,17 +139,17 @@ export function TimelineTab() {
                   key={item.id}
                   className="flex items-center transition-colors"
                   style={{
-                    backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f9f9fc',
+                    backgroundColor: idx % 2 === 0 ? 'var(--surface-container-lowest)' : 'var(--surface)',
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#f3f3f6'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = idx % 2 === 0 ? '#ffffff' : '#f9f9fc'; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--surface-container-low)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = idx % 2 === 0 ? 'var(--surface-container-lowest)' : 'var(--surface)'; }}
                 >
                   <div
                     className="w-52 shrink-0 px-4 py-3"
-                    style={{ borderRight: '1px solid #e8e8ea' }}
+                    style={{ borderRight: '1px solid var(--surface-container-high)' }}
                   >
-                    <div className="text-sm font-medium truncate" style={{ fontFamily: 'Inter, sans-serif', color: '#1a1c1e' }}>{item.name}</div>
-                    <div className="text-[10px]" style={{ color: '#74777f' }}>
+                    <div className="text-sm font-medium truncate" style={{ fontFamily: 'Inter, sans-serif', color: 'var(--on-surface)' }}>{item.name}</div>
+                    <div className="text-[10px]" style={{ color: 'var(--outline)' }}>
                       {item.startDate} &mdash; {item.endDate}
                     </div>
                   </div>
